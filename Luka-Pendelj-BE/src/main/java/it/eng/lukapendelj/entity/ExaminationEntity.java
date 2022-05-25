@@ -3,6 +3,7 @@ package it.eng.lukapendelj.entity;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -40,12 +42,13 @@ public class ExaminationEntity {
 	private Date endDate;
 	private String diagnosis;
 	
-	
+	//	@JoinTable(name = "STUDENT_COURSE", joinColumns = { @JoinColumn(name = "STUDENT_ID") }, inverseJoinColumns = { @JoinColumn(name = "COURSE_ID") })
+
 	
 	@ManyToMany
-	@JoinColumn(name = "medicId")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private List<MedicEntity> medicList;
+	@JoinTable(name = "EXAMINATION_MEDIC", joinColumns = { @JoinColumn(name = "examination_id") }, inverseJoinColumns = { @JoinColumn(name = "medic_id") },
+	uniqueConstraints = { @UniqueConstraint(columnNames = { "examination_id", "medic_id" }) }) 
+	private Set<MedicEntity> medicList;
 	
 	
 	@ManyToOne
@@ -102,7 +105,7 @@ public class ExaminationEntity {
 	public void setDiagnosis(String diagnosis) {
 		this.diagnosis = diagnosis;
 	}
-	public List<MedicEntity> getMedic() {
+	public Set<MedicEntity> getMedic() {
 		return this.medicList;
 	}
 //	public void setMedic(MedicEntity medic) {
