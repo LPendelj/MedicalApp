@@ -1,21 +1,30 @@
 package it.eng.lukapendelj.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="OrganizationType")
 public class OrganizationTypeEntity {
 	
-	
-	private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long organizationTypeId;
 	private String name;
 	
 	public OrganizationTypeEntity(Long id, String name) {
 		super();
-		this.id = id;
+		this.organizationTypeId = id;
 		this.name = name;
 	}
 	public Long getId() {
-		return id;
+		return organizationTypeId;
 	}
 	public void setId(Long id) {
-		this.id = id;
+		this.organizationTypeId = id;
 	}
 	public String getName() {
 		return name;

@@ -1,11 +1,21 @@
 package it.eng.lukapendelj.entity;
 
-public class ServiceType {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="ServiceType")
+public class ServiceTypeEntity {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long serviceId;
 	private String serviceName;
 	
-	public ServiceType(Long serviceId, String serviceName) {
+	public ServiceTypeEntity(Long serviceId, String serviceName) {
 		super();
 		this.serviceId = serviceId;
 		this.serviceName = serviceName;

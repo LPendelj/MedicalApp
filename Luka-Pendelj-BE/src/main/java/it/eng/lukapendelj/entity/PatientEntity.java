@@ -4,14 +4,35 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name="Patient")
 public class PatientEntity {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long patientId;
 	private final String patientCode = "PAT-"+UUID.randomUUID().toString().substring(0, 13); 
+	
+	@NotNull
 	private Boolean active; //req
+	@NotNull
 	private String firstname; //req
+	@NotNull
 	private String lastname; //req
+	@ManyToOne
+	@JoinColumn(name="genderCode")
 	private Gender gender;
+	@NotNull
 	private Date birthDate; //req
 	private String address;
 	private String phone;
@@ -19,7 +40,12 @@ public class PatientEntity {
 	private Boolean deceased;
 	private String maritialStatus;
 	
+	@JoinColumn(name="medicId")
+	@ManyToOne
 	private MedicEntity mainMedic;
+	
+	@JoinColumn(name="organizationId")
+	@ManyToOne
 	private OrganizationEntity organization;
 	
 	

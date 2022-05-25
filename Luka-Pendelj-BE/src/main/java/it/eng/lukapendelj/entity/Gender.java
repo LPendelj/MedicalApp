@@ -1,7 +1,14 @@
 package it.eng.lukapendelj.entity;
 
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+//import javax.persistence.UniqueConstraint;
+
+@Entity
 public class Gender {
 	
+	@Id
 	private char genderCode;
 	private String genderName;
 	

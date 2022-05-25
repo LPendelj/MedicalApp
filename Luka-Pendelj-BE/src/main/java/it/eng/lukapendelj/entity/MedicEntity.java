@@ -4,19 +4,47 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+//import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name="Medic")
 public class MedicEntity {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long MedicId;
 	private final String MedicCode = "MED-"+UUID.randomUUID().toString().substring(0, 8);
+	@NotNull
 	private Boolean active; //req
+	@NotNull
 	private String firstname; //req
+	@NotNull
 	private String lastname; //req
+	
+	@JoinColumn(name="genderCode")
+	@OneToOne
 	private Gender gender; 
+	@NotNull
 	private Date birthDate; //req
 	private String address;
 	private String phone;
 	private String email;
+	@NotNull
 	private String qualification; //req
+	
+	@JoinColumn(name="organizationId")
+	@ManyToOne
+	private OrganizationEntity organization;
 	
 	
 	public Long getMedicId() {
