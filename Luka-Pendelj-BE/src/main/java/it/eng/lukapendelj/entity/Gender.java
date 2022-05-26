@@ -18,6 +18,10 @@ public class Gender {
 		this.genderCode = genderCode;
 		this.genderName = genderName;
 	}
+	
+	public Gender() {
+		super();
+	}
 
 
 	public char getGenderCode() {

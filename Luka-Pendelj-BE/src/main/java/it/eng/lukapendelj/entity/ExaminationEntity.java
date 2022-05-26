@@ -14,14 +14,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+//import javax.persistence.OneToMany;
 //import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Where;
+
 @Entity
 @Table(name="Examination")
+@Where(clause = "active=true")
 public class ExaminationEntity {
 	
 	@Id
@@ -47,7 +50,7 @@ public class ExaminationEntity {
 	
 	@ManyToMany
 	@JoinTable(name = "EXAMINATION_MEDIC", joinColumns = { @JoinColumn(name = "examination_id") }, inverseJoinColumns = { @JoinColumn(name = "medic_id") },
-	uniqueConstraints = { @UniqueConstraint(columnNames = { "examination_id", "medic_id" }) }) 
+	uniqueConstraints =  @UniqueConstraint(columnNames = { "examination_id", "medic_id" })) 
 	private Set<MedicEntity> medicList;
 	
 	
@@ -58,6 +61,11 @@ public class ExaminationEntity {
 	@JoinColumn(name = "patientId")
 	private PatientEntity patient;
 	
+	
+	
+	public ExaminationEntity() {
+		super();
+	}
 	
 	public Long getExaminationId() {
 		return examinationId;
@@ -146,7 +154,7 @@ public class ExaminationEntity {
 	}
 	@Override
 	public String toString() {
-		return "ExaminationEntity [examinationId=" + examinationId + ", examinationCode=" + examinationCode
+		return "ExaminationEntity [examinationCode=" + examinationCode
 				+ ", status=" + status + ", serviceType=" + serviceType + ", priority=" + priority + ", startDate="
 				+ startDate + ", endDate=" + endDate + ", diagnosis=" + diagnosis + ", medicList=" + medicList
 				+ ", organization=" + organization + ", patient=" + patient + "]";

@@ -11,15 +11,25 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Where;
+
 @Entity
-@Table(name="Organization")
+@Table(name="Organization", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "organizationCode" }))
+@Where(clause = "active=true")
 public class OrganizationEntity {
+	
+	
+//	 uniqueConstraints=
+//			 *            &#064;UniqueConstraint(columnNames={"EMP_ID", "EMP_NAME"})
+//			 *    )
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long organizationId;
+	
 	
 	private final String organizationCode = "ORG-"+UUID.randomUUID().toString().substring(0, 8);
 	@NotNull

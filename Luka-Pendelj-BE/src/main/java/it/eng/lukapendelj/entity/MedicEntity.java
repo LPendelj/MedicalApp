@@ -14,16 +14,25 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 //import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Where;
+
+//Changed the name of this Entity from Practitioner to Medic for its clarity and length. UI Entity name will be as requested (Practitioner)
+
+
 @Entity
-@Table(name="Medic")
+@Table(name="Medic", uniqueConstraints = @UniqueConstraint(columnNames = {"medicCode" }))
+@Where(clause = "active=true")
 public class MedicEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long MedicId;
-	private final String MedicCode = "MED-"+UUID.randomUUID().toString().substring(0, 8);
+	private Long medicId;
+	private final String medicCode = "MED-"+UUID.randomUUID().toString().substring(0, 8);
 	@NotNull
 	private Boolean active; //req
 	@NotNull
@@ -35,6 +44,7 @@ public class MedicEntity {
 	@OneToOne
 	private Gender gender; 
 	@NotNull
+	@Temporal(TemporalType.DATE)
 	private Date birthDate; //req
 	private String address;
 	private String phone;
@@ -47,14 +57,35 @@ public class MedicEntity {
 	private OrganizationEntity organization;
 	
 	
+	
+	public MedicEntity(Long medicId, String medicCode, String firstname, String lastname, Gender gender, Date birthDate,
+			String address, String email, String phone, String qualification) {
+		super();
+		this.medicId = medicId;
+		//MedicCode = medicCode;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.gender = gender;
+		this.birthDate = birthDate;
+		this.address = address;
+		this.email = email;
+		this.phone = phone;
+		this.qualification = qualification;
+	}
+	
+	public MedicEntity() {
+		
+	}
+	
+	
 	public Long getMedicId() {
-		return MedicId;
+		return medicId;
 	}
 	public void setMedicId(Long medicId) {
-		MedicId = medicId;
+		this.medicId = medicId;
 	}
 	public String getMedicCode() {
-		return MedicCode;
+		return medicCode;
 	}
 //	public void setMedicCode(String medicCode) {
 //		MedicCode = medicCode;
@@ -109,23 +140,12 @@ public class MedicEntity {
 	}
 	
 	
-	public MedicEntity(Long medicId, String medicCode, String firstname, String lastname, Gender gender, Date birthDate,
-			String address, String email, String phone, String qualification) {
-		super();
-		this.MedicId = medicId;
-		//MedicCode = medicCode;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.gender = gender;
-		this.birthDate = birthDate;
-		this.address = address;
-		this.email = email;
-		this.phone = phone;
-		this.qualification = qualification;
-	}
+	
+	
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(MedicCode, MedicId, address, birthDate, phone, email, firstname, phone, gender, lastname,
+		return Objects.hash(medicCode, medicId, address, birthDate, phone, email, firstname, phone, gender, lastname,
 				qualification);
 	}
 	@Override
@@ -137,7 +157,7 @@ public class MedicEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		MedicEntity other = (MedicEntity) obj;
-		return Objects.equals(MedicCode, other.MedicCode) && Objects.equals(MedicId, other.MedicId)
+		return Objects.equals(medicCode, other.medicCode) && Objects.equals(medicId, other.medicId)
 				&& Objects.equals(address, other.address) && Objects.equals(birthDate, other.birthDate)
 				&& Objects.equals(phone, other.phone) && Objects.equals(email, other.email)
 				&& Objects.equals(firstname, other.firstname) && Objects.equals(gender, other.gender)
@@ -145,7 +165,7 @@ public class MedicEntity {
 	}
 	@Override
 	public String toString() {
-		return "MedicCode=" + MedicCode + ", firstname=" + firstname
+		return "MedicCode=" + medicCode + ", firstname=" + firstname
 				+ ", lastname=" + lastname + ", gender=" + gender + ", birthDate=" + birthDate + ", address=" + address
 				+ ", email=" + email + ", phone=" + phone + ", qualification=" + qualification + "]";
 	}

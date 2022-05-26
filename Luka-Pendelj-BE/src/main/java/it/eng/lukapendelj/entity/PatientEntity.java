@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -33,6 +35,7 @@ public class PatientEntity {
 	@JoinColumn(name="genderCode")
 	private Gender gender;
 	@NotNull
+	@Temporal(TemporalType.DATE) 
 	private Date birthDate; //req
 	private String address;
 	private String phone;

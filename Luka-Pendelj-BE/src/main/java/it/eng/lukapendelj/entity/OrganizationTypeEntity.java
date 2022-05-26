@@ -20,6 +20,11 @@ public class OrganizationTypeEntity {
 		this.organizationTypeId = id;
 		this.name = name;
 	}
+	
+	public OrganizationTypeEntity() {
+	
+	}
+	
 	public Long getId() {
 		return organizationTypeId;
 	}

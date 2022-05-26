@@ -20,6 +20,11 @@ public class ServiceTypeEntity {
 		this.serviceId = serviceId;
 		this.serviceName = serviceName;
 	}
+	
+	public ServiceTypeEntity() {
+		super();
+	
+	}
 
 	public Long getServiceId() {
 		return serviceId;
