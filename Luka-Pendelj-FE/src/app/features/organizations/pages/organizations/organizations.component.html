@@ -1,0 +1,22 @@
+<main>
+<div>
+  filters
+</div>
+  <table>
+    <thead>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Contact</th>
+      <th>Address</th>
+    </thead>
+    <tbody>
+          <tr div *ngFor="let org of organizationsList">
+            <td>{{org.name}}</td>
+            <td>{{org.organizationType.name}}</td>
+            <td>{{org.email}}</td>
+            <td>{{org.address}}</td>
+          </tr>
+    </tbody>
+  </table>
+
+</main>

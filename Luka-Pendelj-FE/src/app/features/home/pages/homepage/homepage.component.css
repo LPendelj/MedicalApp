@@ -1,0 +1,41 @@
+.main-container{
+  display: grid;
+  justify-content: stretch;
+
+  grid-template-areas:
+    "div div"
+    "div div";
+  /* grid-template-rows: 50vw, 50vw;
+  grid-template-columns: 30vh; */
+  /* grid-template: "div, div"; */
+}
+
+.main-container div{
+  height: 30vh;
+  /* width: auto; */
+  margin: 5px;
+  border: 2px solid black;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  border-radius: 10px;
+}
+
+.main-container div p{
+  vertical-align: middle;
+}
+
+#a{
+  background-color: red;
+}
+
+#b{
+  background-color: blue;
+}
+
+#c{
+  background-color: yellow;
+}
+
+#d{
+  background-color: green;
+}
