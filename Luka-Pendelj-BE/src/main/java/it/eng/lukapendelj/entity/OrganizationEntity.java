@@ -1,6 +1,7 @@
 package it.eng.lukapendelj.entity;
 
-import java.sql.SQLException;
+import java.sql.SQLInput;
+//import java.sql.SQLException;
 //import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -11,15 +12,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PostUpdate;
 import javax.persistence.PrePersist;
+import javax.persistence.PreRemove;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.springframework.data.jpa.repository.Query;
 
 @Entity
 @Table(name="Organization", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "organizationCode" }))
+@SQLDelete(sql = "UPDATE organization SET active = false WHERE organization_id=?")  //proveriti!!!!
 @Where(clause = "active=true")
 public class OrganizationEntity {
 	
@@ -56,6 +63,13 @@ public class OrganizationEntity {
 		
 	}
 	
+@PreRemove
+@Query("UPDATE medic JOIN ORGANIZATION ON medic.organization_id = organization.organization_id SET medic.organization_id=NULL WHERE organization.active = FALSE")
+public void checkEmployees() {
+	System.out.println("Check employees called!");
+}
+	
+	
 	@PrePersist
 	public void check() throws Exception {
 		System.out.println("prepersist called");
@@ -67,12 +81,19 @@ public class OrganizationEntity {
 		 * if(this.name.equals("Bolnica3")) { throw new Exception(); }
 		 */
 	}
+	
+	@PostUpdate
+	public void setEmplyeesOrgToNull() {
+		if(this.active==false) {
+			
+		}
+	}
 
-	public Long getOrganizationID() {
+	public Long getOrganizationId() {
 		return organizationId;
 	}
 
-	public void setOrganizationID(Long organizationId) {
+	public void setOrganizationId(Long organizationId) {
 		this.organizationId = organizationId;
 	}
 

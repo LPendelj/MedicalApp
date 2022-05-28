@@ -19,10 +19,14 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Check;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name="Patient")
-@Check(constraints = "this.medicId==medic.organizationId")
+//@Check(constraints = "this.medicId==medic.organizationId")
+@SQLDelete(sql = "UPDATE Patient SET active = false WHERE patient_id=?")
+@Where(clause = "active=true")
 public class PatientEntity {
 	
 	@Id
@@ -59,17 +63,17 @@ public class PatientEntity {
 	
 	////String uniqueID = "PAT-"+UUID.randomUUID().toString();
 	
-	/*
-	 * @PrePersist public void prePersist() throws SQLException {
-	 * System.out.println("prepersist called");
-	 * 
-	 * if(mainMedic.getOrganization().getOrganizationID()!=this.organization.
-	 * getOrganizationID()) {
-	 * 
-	 * throw new SQLException(); }
-	 * 
-	 * }
-	 */
+	
+	  @PrePersist public void prePersist() throws SQLException {
+	  System.out.println("prepersist called");
+	  
+	  if(mainMedic.getOrganization().getOrganizationId()!=this.organization.
+	  getOrganizationId()) {
+	  
+	  throw new SQLException(); }
+	  
+	  }
+	 
 	
 	
 	public PatientEntity(){	}
@@ -89,9 +93,27 @@ public class PatientEntity {
 //	public void setPatientCode(String patientCode) {
 //		this.patientCode = patientCode;
 //	}
+	
+	
 
 	public Boolean getActive() {
 		return active;
+	}
+
+	public MedicEntity getMainMedic() {
+		return mainMedic;
+	}
+
+	public void setMainMedic(MedicEntity mainMedic) {
+		this.mainMedic = mainMedic;
+	}
+
+	public OrganizationEntity getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(OrganizationEntity organization) {
+		this.organization = organization;
 	}
 
 	public void setActive(Boolean active) {
@@ -192,6 +214,14 @@ public class PatientEntity {
 				&& Objects.equals(mainMedic, other.mainMedic) && Objects.equals(maritialStatus, other.maritialStatus)
 				&& Objects.equals(organization, other.organization) && Objects.equals(patientCode, other.patientCode)
 				&& Objects.equals(patientId, other.patientId) && Objects.equals(phone, other.phone);
+	}
+
+	@Override
+	public String toString() {
+		return "PatientEntity [patientCode=" + patientCode + ", active=" + active + ", firstname=" + firstname
+				+ ", lastname=" + lastname + ", gender=" + gender + ", birthDate=" + birthDate + ", address=" + address
+				+ ", phone=" + phone + ", email=" + email + ", deceased=" + deceased + ", maritialStatus="
+				+ maritialStatus + ", mainMedic=" + mainMedic.getFirstname() + " " + mainMedic.getLastname() + ", organization=" + organization.getName() + "]";
 	}
 	
 	

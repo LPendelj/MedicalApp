@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 //Changed the name of this Entity from Practitioner to Medic for its clarity and length. UI Entity name will be as requested (Practitioner)
@@ -26,8 +27,11 @@ import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name="Medic", uniqueConstraints = @UniqueConstraint(columnNames = {"medicCode" }))
+@SQLDelete(sql = "UPDATE Medic SET active = false WHERE medic_id=?")
 @Where(clause = "active=true")
 public class MedicEntity {
+	
+
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -75,6 +79,10 @@ public class MedicEntity {
 	
 	public MedicEntity() {
 		
+	}
+	
+	public void setNull() {
+		this.organization = null;
 	}
 	
 	

@@ -14,17 +14,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 //import javax.persistence.OneToMany;
 //import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name="Examination")
-@Where(clause = "active=true")
+@Where(clause = "status=entered-in-error")
+@SQLDelete(sql = "UPDATE Examination SET status = 'entered-in-error' WHERE examination_id=?") //proveriti!!!
 public class ExaminationEntity {
 	
 	@Id
@@ -50,7 +54,7 @@ public class ExaminationEntity {
 	
 	@ManyToMany
 	@JoinTable(name = "EXAMINATION_MEDIC", joinColumns = { @JoinColumn(name = "examination_id") }, inverseJoinColumns = { @JoinColumn(name = "medic_id") },
-	uniqueConstraints =  @UniqueConstraint(columnNames = { "examination_id", "medic_id" })) 
+	uniqueConstraints =  @UniqueConstraint(columnNames = { "examination_id", "medic_id" }))
 	private Set<MedicEntity> medicList;
 	
 	
@@ -61,7 +65,23 @@ public class ExaminationEntity {
 	@JoinColumn(name = "patientId")
 	private PatientEntity patient;
 	
+	//SHOULD be CHECKED!!!
 	
+	@PrePersist
+	public void checkOrg() throws Exception {
+		System.out.println("prepersist called");
+		
+		System.out.println(this.organization.getOrganizationId());
+		System.out.println(this.patient.getOrganization().getOrganizationId());
+		
+		medicList.forEach(medic -> System.out.println(medic.getOrganization().getOrganizationId()));
+		
+		//System.out.println(this.med);
+		
+		/*
+		 * if(this.name.equals("Bolnica3")) { throw new Exception(); }
+		 */
+	}
 	
 	public ExaminationEntity() {
 		super();

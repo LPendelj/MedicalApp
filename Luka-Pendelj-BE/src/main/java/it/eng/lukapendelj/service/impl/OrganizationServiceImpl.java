@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
+import it.eng.lukapendelj.dao.MedicDAO;
 import it.eng.lukapendelj.dao.OrganizationDAO;
 //import it.eng.lukapendelj.dao.impl.OrganizationDaoImpl;
 import it.eng.lukapendelj.entity.OrganizationEntity;
@@ -17,12 +18,17 @@ import it.eng.lukapendelj.service.OrganizationService;
 public class OrganizationServiceImpl implements OrganizationService {
 	
 	
+	@Autowired
+	MedicServiceImpl medicService;
+	
 	OrganizationDAO organizationDao;
+	MedicDAO medicDao;
 	
 	@Autowired
-	public OrganizationServiceImpl(OrganizationDAO organizationDao) {
+	public OrganizationServiceImpl(OrganizationDAO organizationDao, MedicDAO medicDao) {
 		super();
 		this.organizationDao = organizationDao;
+		this.medicDao = medicDao;
 	}
 
 	@Override
@@ -49,10 +55,10 @@ public class OrganizationServiceImpl implements OrganizationService {
 	@Override
 	public OrganizationEntity update(OrganizationEntity organization) throws RuntimeException {
 			
-		Optional<OrganizationEntity> orgEntity = organizationDao.findById(organization.getOrganizationID());
+		Optional<OrganizationEntity> orgEntity = organizationDao.findById(organization.getOrganizationId());
 		
 		if(!orgEntity.isPresent()) {
-			throw new RuntimeException("City does not exist:" + organization.getOrganizationCode());
+			throw new RuntimeException("Organization does not exist:" + organization.getOrganizationCode());
 		}
 		
 		OrganizationEntity organizationUpdated = organizationDao.save(organization);
@@ -68,13 +74,27 @@ public class OrganizationServiceImpl implements OrganizationService {
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
+		
+		
+		System.out.println("Pozvan deleteOrgById");
+		
+		//medicDao.findByOrganization(organizationDao.findById(id).get()).set;
+		medicService.setOrganizationNull(organizationDao.findById(id).get());
+		
+		organizationDao.deleteById(id);
 
 	}
+	
+	
+//	@Query("UPDATE medic JOIN ORGANIZATION ON medic.organization_id = organization.organization_id SET medic.organization_id=NULL WHERE organization.active = FALSE")
+//	public void checkEmployees() {
+//		System.out.println("Check employees FROM SERVICE called!");
+//	}
 
 	@Override
 	public void delete(OrganizationEntity organization) {
 		organizationDao.delete(organization);
+		
 		
 	}
 	

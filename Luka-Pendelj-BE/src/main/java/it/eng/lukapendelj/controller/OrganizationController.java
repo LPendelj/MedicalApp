@@ -81,6 +81,7 @@ public class OrganizationController {
 	@DeleteMapping("delete/{id}")
 	public ResponseEntity<Object> delete(@PathVariable Long id){
 		try {
+			System.out.println("Pozvan delete metod");
 			organizationService.deleteById(id);
 			return ResponseEntity.ok("Organization with id " + id + ": DELETED");
 		} catch (Exception ex) {
