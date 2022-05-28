@@ -93,9 +93,30 @@ public class MedicEntity {
 	
 	
 	
+	
 	public String getFirstname() {
 		return firstname;
 	}
+	public String getQualification() {
+		return qualification;
+	}
+
+	public void setQualification(String qualification) {
+		this.qualification = qualification;
+	}
+
+	public OrganizationEntity getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(OrganizationEntity organization) {
+		this.organization = organization;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	public Boolean getActive() {
 		return active;
 	}

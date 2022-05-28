@@ -1,5 +1,6 @@
 package it.eng.lukapendelj.entity;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -11,13 +12,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Check;
+
 @Entity
 @Table(name="Patient")
+@Check(constraints = "this.medicId==medic.organizationId")
 public class PatientEntity {
 	
 	@Id
@@ -53,6 +58,19 @@ public class PatientEntity {
 	
 	
 	////String uniqueID = "PAT-"+UUID.randomUUID().toString();
+	
+	/*
+	 * @PrePersist public void prePersist() throws SQLException {
+	 * System.out.println("prepersist called");
+	 * 
+	 * if(mainMedic.getOrganization().getOrganizationID()!=this.organization.
+	 * getOrganizationID()) {
+	 * 
+	 * throw new SQLException(); }
+	 * 
+	 * }
+	 */
+	
 	
 	public PatientEntity(){	}
 

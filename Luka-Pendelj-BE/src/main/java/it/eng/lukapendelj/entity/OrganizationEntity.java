@@ -1,5 +1,6 @@
 package it.eng.lukapendelj.entity;
 
+import java.sql.SQLException;
 //import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -21,10 +23,7 @@ import org.hibernate.annotations.Where;
 @Where(clause = "active=true")
 public class OrganizationEntity {
 	
-	
-//	 uniqueConstraints=
-//			 *            &#064;UniqueConstraint(columnNames={"EMP_ID", "EMP_NAME"})
-//			 *    )
+
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -55,6 +54,18 @@ public class OrganizationEntity {
 	
 	public OrganizationEntity(){
 		
+	}
+	
+	@PrePersist
+	public void check() throws Exception {
+		System.out.println("prepersist called");
+		
+		System.out.println(this.organizationType.getId());
+		//System.out.println(this.med);
+		
+		/*
+		 * if(this.name.equals("Bolnica3")) { throw new Exception(); }
+		 */
 	}
 
 	public Long getOrganizationID() {

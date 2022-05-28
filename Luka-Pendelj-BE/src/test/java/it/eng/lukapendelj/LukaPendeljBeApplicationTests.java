@@ -9,5 +9,11 @@ class LukaPendeljBeApplicationTests {
 	@Test
 	void contextLoads() {
 	}
+	
+	@Test
+	void testPatient()
+	{
+		//persist
+	}
 
 }
