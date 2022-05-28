@@ -1,6 +1,6 @@
 package it.eng.lukapendelj.entity;
 
-import java.sql.SQLInput;
+//import java.sql.SQLInput;
 //import java.sql.SQLException;
 //import java.util.List;
 import java.util.Objects;
@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PostUpdate;
 import javax.persistence.PrePersist;
 import javax.persistence.PreRemove;
-import javax.persistence.PreUpdate;
+//import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;

@@ -27,20 +27,20 @@ public class MedicServiceImpl implements MedicService {
 
 	@Override
 	public List<MedicEntity> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return medicDao.findAll();
 	}
 
 	@Override
 	public Optional<MedicEntity> findById(Long id) {
 		// TODO Auto-generated method stub
-		return null;
+		return medicDao.findById(id);
 	}
 
 	@Override
-	public List<MedicEntity> findByName(String name) {
+	public List<MedicEntity> findByName(String firstname, String lastname) {
 		// TODO Auto-generated method stub
-		return null;
+		return medicDao.findByFirstnameAndLastname(firstname, lastname);
 	}
 
 	@Override
@@ -59,15 +59,17 @@ public class MedicServiceImpl implements MedicService {
 	@Override
 	public MedicEntity save(MedicEntity medic) {
 		// TODO Auto-generated method stub
-		return null;
+		return medicDao.save(medic);
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
+		medicDao.deleteById(id);
 
 	}
 	
+	
+	//MEthod by which we achieve to set
 	@Override
 	public void setOrganizationNull(OrganizationEntity organizationInactive) {
 		List<MedicEntity> medicList = medicDao.findByOrganization(organizationInactive);

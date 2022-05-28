@@ -15,7 +15,7 @@ public interface MedicService {
 
 	Optional<MedicEntity> findById(Long id);
 	
-	List<MedicEntity> findByName(String name);
+	List<MedicEntity> findByName(String name, String lastname);
 	
 	MedicEntity update(MedicEntity medic) throws RuntimeException;
 

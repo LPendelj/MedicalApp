@@ -27,7 +27,7 @@ import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name="Medic", uniqueConstraints = @UniqueConstraint(columnNames = {"medicCode" }))
-@SQLDelete(sql = "UPDATE Medic SET active = false WHERE medic_id=?")
+@SQLDelete(sql = "UPDATE medic SET active = false WHERE medic_id=?")
 @Where(clause = "active=true")
 public class MedicEntity {
 	
