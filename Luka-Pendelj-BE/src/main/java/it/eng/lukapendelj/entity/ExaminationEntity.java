@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.PostPersist;
 import javax.persistence.PrePersist;
 //import javax.persistence.OneToMany;
 //import javax.persistence.OneToMany;
@@ -25,10 +26,14 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+//CHECK SQLDELETE!!!
+
 @Entity
 @Table(name="Examination")
-@Where(clause = "status=entered-in-error")
-@SQLDelete(sql = "UPDATE Examination SET status = 'entered-in-error' WHERE examination_id=?") //proveriti!!!
+//@Where(clause = "status!=entered-in-error")
+@SQLDelete(sql = "UPDATE Examination SET status = 'entered-in-error' WHERE examination_id=?") //TO CHECK!!!
 public class ExaminationEntity {
 	
 	@Id
@@ -49,13 +54,17 @@ public class ExaminationEntity {
 	private Date endDate;
 	private String diagnosis;
 	
+	// Another possible solution for creating ManyToMany relation?
 	//	@JoinTable(name = "STUDENT_COURSE", joinColumns = { @JoinColumn(name = "STUDENT_ID") }, inverseJoinColumns = { @JoinColumn(name = "COURSE_ID") })
 
 	
+	
+	//ADD Cascading! CHECK JsonProperty!
 	@ManyToMany
 	@JoinTable(name = "EXAMINATION_MEDIC", joinColumns = { @JoinColumn(name = "examination_id") }, inverseJoinColumns = { @JoinColumn(name = "medic_id") },
 	uniqueConstraints =  @UniqueConstraint(columnNames = { "examination_id", "medic_id" }))
-	private Set<MedicEntity> medicList;
+	@JsonProperty("medic")
+	private List<MedicEntity> medicList;
 	
 	
 	@ManyToOne
@@ -71,16 +80,26 @@ public class ExaminationEntity {
 	public void checkOrg() throws Exception {
 		System.out.println("prepersist called");
 		
-		System.out.println(this.organization.getOrganizationId());
-		System.out.println(this.patient.getOrganization().getOrganizationId());
+		System.out.println("organizacija ID:" + this.organization.getOrganizationId());
+		System.out.println("pacijent ID:" + this.patient.getOrganization().getOrganizationId());
 		
-		medicList.forEach(medic -> System.out.println(medic.getOrganization().getOrganizationId()));
+		
+		if(this.patient.getOrganization().getOrganizationId() != this.organization.getOrganizationId()){
+			//Patient must have Examination in the same place where he is staying
+			throw new Exception();
+		}
+		
 		
 		//System.out.println(this.med);
 		
 		/*
 		 * if(this.name.equals("Bolnica3")) { throw new Exception(); }
 		 */
+	}
+	
+	@PostPersist
+	public void checkMedics() {
+		medicList.forEach(medic -> System.out.println("LekarID: " + medic.getOrganization().getOrganizationId()));
 	}
 	
 	public ExaminationEntity() {
@@ -133,7 +152,7 @@ public class ExaminationEntity {
 	public void setDiagnosis(String diagnosis) {
 		this.diagnosis = diagnosis;
 	}
-	public Set<MedicEntity> getMedic() {
+	public List<MedicEntity> getMedic() {
 		return this.medicList;
 	}
 //	public void setMedic(MedicEntity medic) {
