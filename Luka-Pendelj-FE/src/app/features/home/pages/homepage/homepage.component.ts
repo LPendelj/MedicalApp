@@ -20,4 +20,23 @@ export class HomepageComponent implements OnInit {
     this.router.navigate(['organizations'])
   }
 
+  medicsPage(){
+    console.log("medic link clicked");
+
+    this.router.navigate(['practitioners'])
+  }
+
+  patientsPage(){
+    console.log("patients link clicked");
+
+    this.router.navigate(['patients'])
+  }
+
+  examinationsPage(){
+    console.log("exams link clicked");
+
+    this.router.navigate(['examinations'])
+  }
+
+
 }

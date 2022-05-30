@@ -23,6 +23,7 @@
 
 .main-container :hover{
   border: none;
+  cursor: pointer;
 }
 
 .main-container div p{
