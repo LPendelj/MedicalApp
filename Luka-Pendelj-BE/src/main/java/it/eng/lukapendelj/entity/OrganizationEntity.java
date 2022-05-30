@@ -22,6 +22,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.data.jpa.repository.Query;
 
 @Entity
@@ -36,8 +37,8 @@ public class OrganizationEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long organizationId;
 	
-	
-	private final String organizationCode = "ORG-"+UUID.randomUUID().toString().substring(0, 8);
+	@Length(min = 5)
+	private String organizationCode;
 	@NotNull
 	private Boolean active; //req
 	
@@ -47,6 +48,7 @@ public class OrganizationEntity {
 	@NotNull
 	private OrganizationTypeEntity organizationType; //req
 	@NotNull
+	@Length(min = 5)
 	private String name; //req
 	private String address;
 	private String phone;
@@ -63,11 +65,11 @@ public class OrganizationEntity {
 		
 	}
 	
-@PreRemove
-@Query("UPDATE medic JOIN ORGANIZATION ON medic.organization_id = organization.organization_id SET medic.organization_id=NULL WHERE organization.active = FALSE")
-public void checkEmployees() {
-	System.out.println("Check employees called!");
-}
+	@PreRemove
+	@Query("UPDATE medic JOIN ORGANIZATION ON medic.organization_id = organization.organization_id SET medic.organization_id=NULL WHERE organization.active = FALSE")
+	public void checkEmployees() {
+		System.out.println("Check employees called!");
+	}
 	
 	
 	@PrePersist
