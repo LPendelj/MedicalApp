@@ -13,4 +13,8 @@ export class HttpExaminationsService {
   getAll(): Observable<Examination[]>{
     return this.httpExaminations.get<Examination[]>(`http://localhost:8080/examinations`);
   }
+
+  getExamination(examId: number){
+    return this.httpExaminations.get<Examination>(`http://localhost:8080/examinations/${examId}`);
+  }
 }

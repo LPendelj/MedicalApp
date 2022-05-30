@@ -46,7 +46,21 @@ public class PatientController {
 			return patientService.findAll();
 		}
 		
-		@GetMapping("{name}")
+		
+		@GetMapping("{id}")
+		public ResponseEntity<Object> findById(@PathVariable Long id) {
+			Optional<PatientEntity> patientEntity = patientService.findById(id);
+			
+			System.out.println("Pozvan findById metod");
+
+			
+			if(patientEntity.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid patient id!");
+			} return ResponseEntity.status(HttpStatus.OK).body(patientEntity.get());
+			
+		}
+		
+		@GetMapping("name/{name}")
 		public ResponseEntity<Object> findByName(@PathVariable String name) {
 			Optional<PatientEntity> patientEntity = Optional.of(patientService.findByName(name).get(0));
 			

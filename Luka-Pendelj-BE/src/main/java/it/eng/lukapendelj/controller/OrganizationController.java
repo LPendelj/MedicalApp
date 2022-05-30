@@ -47,7 +47,20 @@ public class OrganizationController {
 		return organizationService.findAll();
 	}
 	
-	@GetMapping("{name}")
+	@GetMapping("{id}")
+	public ResponseEntity<Object> findById(@PathVariable Long id){
+		
+		System.out.println("Pozvan findById metod");
+		
+		if(organizationService.findById(id).isPresent()) {
+			return ResponseEntity.ok(organizationService.findById(id));
+		}
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid organization id!");
+		
+	}
+	
+	
+	@GetMapping("name={name}")
 	public ResponseEntity<Object> findByName(@PathVariable String name) {
 		Optional<OrganizationEntity> orgEntity = Optional.of(organizationService.findByName(name).get(0));
 		

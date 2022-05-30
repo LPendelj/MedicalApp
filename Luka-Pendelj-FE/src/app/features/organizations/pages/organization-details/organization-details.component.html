@@ -1,1 +1,110 @@
-<p>organization-details works!</p>
+<h2>Organization {{organization?.name}}</h2>
+
+<div class="table">
+  <table class="table-responsive-lg">
+
+      <tr><th>Code</th> <td>{{organization?.organizationCode}}</td></tr>
+      <tr><th>Type</th> <td>{{organization?.organizationType?.name}}</td></tr>
+      <tr><th>Address</th>  <td>{{organization?.address}}</td></tr>
+      <tr><th>Phone</th> <td>{{organization?.phone}}</td></tr>
+      <tr><th>E-mail</th>  <td>{{organization?.email}}</td></tr>
+      <tr><th>Actions</th> <td><button class="btn btn-primary">Edit</button><button class="btn btn-danger">Delete</button></td></tr>
+      <tr><th>Practitioners</th> <td><button class="btn btn-primary">Practitioners</button></td></tr>
+      <tr><th>Examinations</th> <td><button class="btn btn-primary">Examinations</button></td></tr>
+
+    <tr>
+    </tr>
+  </table>
+</div>
+
+<div class="table">
+  <table class="table-responsive-sm">
+    <thead>
+      <th>Code</th>
+      <th>Type</th>
+      <th>Address</th>
+      <th>Phone</th>
+      <th>E-mail</th>
+      <th>Actions</th>
+      <th>Practitioners</th>
+      <th>Examinations</th>
+    </thead>
+    <tr>
+      <td>{{organization?.organizationCode}}</td>
+      <td>{{organization?.organizationType?.name}}</td>
+      <td>{{organization?.address}}</td>
+      <td>{{organization?.phone}}</td>
+      <td>{{organization?.email}}</td>
+      <td><button class="btn btn-primary">Edit</button><button class="btn btn-danger">Delete</button></td>
+      <td><button class="btn btn-primary">Practitioners</button></td>
+      <td><button class="btn btn-primary">Examinations</button></td>
+    </tr>
+  </table>
+</div>
+
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-sm">
+      Code
+    </div>
+    <div class="col-sm">
+      {{organization?.organizationCode}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      Type
+    </div>
+    <div class="col-sm">
+      {{organization?.organizationType?.name}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      Address
+    </div>
+    <div class="col-sm">
+      {{organization?.address}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      Phone
+    </div>
+    <div class="col-sm">
+      {{organization?.phone}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      E-mail
+    </div>
+    <div class="col-sm">
+      {{organization?.email}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      Actions
+    </div>
+    <div>
+      <button class="btn btn-primary">Edit</button><button class="btn btn-danger">Delete</button>
+    </div>
+  </div>
+  <div class="row">
+     <div class="col-sm">
+      Practitioners
+    </div>
+    <div class=".col-6 .col-md-4">
+      <button class="btn btn-primary">Practitioners</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      Examinations
+    </div>
+    <div class=".col-6 .col-md-4">
+      <button class="btn btn-primary">Examinations</button>
+    </div>
+  </div>
+</div> -->

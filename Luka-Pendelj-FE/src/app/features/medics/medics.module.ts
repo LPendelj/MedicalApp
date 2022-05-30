@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { MedicsRoutingModule } from './medics-routing.module';
 import { MedicsComponent } from './pages/medics/medics.component';
 import { SharedModuleModule } from 'src/app/shared/shared-module/shared-module.module';
+import { MedicDetailsComponent } from './pages/medic-details/medic-details.component';
 
 
 @NgModule({
   declarations: [
-    MedicsComponent
+    MedicsComponent,
+    MedicDetailsComponent
   ],
   imports: [
     CommonModule,

@@ -35,7 +35,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 	public List<OrganizationEntity> findAll() {
 		List<OrganizationEntity> organizationEntity = organizationDao.findAll();
 		
-		System.out.println(organizationEntity);
+		//System.out.println(organizationEntity);
 		
 		return organizationEntity;
 	}
@@ -43,7 +43,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 	@Override
 	public Optional<OrganizationEntity> findById(Long id) {
 		// TODO Auto-generated method stub
-		return null;
+		return organizationDao.findById(id);
 	}
 
 	@Override

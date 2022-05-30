@@ -24,4 +24,8 @@ export class MedicsComponent implements OnInit {
   loadMedics(){
     this.httpMedics.getAll().subscribe(medics =>this.medicsList = medics);
   }
+
+  medicDetails(medic: Medic){
+    this.router.navigate(['practitioners/practitioner-details', medic.medicId]);
+  }
 }

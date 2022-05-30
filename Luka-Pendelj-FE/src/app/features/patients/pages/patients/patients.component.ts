@@ -22,4 +22,8 @@ export class PatientsComponent implements OnInit {
   loadPatients(){
     this.httpPatient.getAll().subscribe(patients => this.patientsList=patients);
   }
+
+  patientDetails(pat: Patient){
+    this.router.navigate(['patients/patient-details', pat.patientId]);
+  }
 }

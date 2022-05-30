@@ -19,4 +19,8 @@ export class HttpMedicsService {
     return this.httpMedics.get<Medic[]>(`http://localhost:8080/practitioners`);
   }
 
+  getMedic(medicId: number): Observable<Medic>{
+    return this.httpMedics.get<Medic>(`http://localhost:8080/practitioners/${medicId}`);
+  }
+
 }

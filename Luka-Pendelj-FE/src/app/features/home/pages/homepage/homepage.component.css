@@ -31,17 +31,17 @@
 }
 
 #a{
-  background-color: red;
+  background-color: rgba(233, 91, 35, 0.932);
 }
 
 #b{
-  background-color: blue;
+  background-color: rgb(0, 192, 226);
 }
 
 #c{
-  background-color: yellow;
+  background-color: rgb(224, 209, 0);
 }
 
 #d{
-  background-color: green;
+  background-color: rgb(0, 175, 0);
 }

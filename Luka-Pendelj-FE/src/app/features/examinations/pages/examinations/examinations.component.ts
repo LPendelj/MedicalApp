@@ -23,5 +23,9 @@ export class ExaminationsComponent implements OnInit {
     this.httpExamination.getAll().subscribe(examinations => this.examinationsList = examinations);
   }
 
+  examDetails(exam: Examination){
+    this.router.navigate(['examinations/examination-details', exam.examinationId]);
+  }
+
 
 }

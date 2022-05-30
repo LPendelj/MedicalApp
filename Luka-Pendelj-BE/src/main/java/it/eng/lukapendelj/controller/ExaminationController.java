@@ -48,7 +48,20 @@ public class ExaminationController {
 		
 	}
 	
-	@GetMapping("{code}")
+	@GetMapping("{id}")
+	public ResponseEntity<Object> findById(@PathVariable Long id) {
+		Optional<ExaminationEntity> examEntity = (examinationService.findById(id)); //TO BE IMPLEMENTED!
+		
+		System.out.println("Pozvan findById metod");
+
+		
+		if(examEntity.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid examination id!");
+		} return ResponseEntity.status(HttpStatus.OK).body(examEntity.get());
+		
+	}
+	
+	@GetMapping("code/{code}")
 	public ResponseEntity<Object> findByCode(@PathVariable String code) {
 		Optional<ExaminationEntity> examEntity = Optional.of(examinationService.findByCode(code).get(0)); //TO BE IMPLEMENTED!
 		
