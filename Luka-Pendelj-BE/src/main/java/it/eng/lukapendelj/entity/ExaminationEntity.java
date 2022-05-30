@@ -42,7 +42,7 @@ public class ExaminationEntity {
 	private Long examinationId;
 	
 	
-	private final String examinationCode = "EXA-"+UUID.randomUUID().toString();
+	private String examinationCode;
 	@NotNull
 	private String status;
 	

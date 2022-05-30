@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Patient } from 'src/app/core/model/models';
+import { HttpPatientsService } from 'src/app/core/services/http-patients.service';
 
 @Component({
   selector: 'app-patients',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PatientsComponent implements OnInit {
 
-  constructor() { }
+  patientsList?: Patient[];
+
+  constructor(private httpPatient: HttpPatientsService,
+              private router: Router) { }
 
   ngOnInit(): void {
+    this.loadPatients();
   }
 
+  loadPatients(){
+    this.httpPatient.getAll().subscribe(patients => this.patientsList=patients);
+  }
 }

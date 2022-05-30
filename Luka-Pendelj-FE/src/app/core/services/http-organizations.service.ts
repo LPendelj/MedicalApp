@@ -16,7 +16,7 @@ export class HttpOrganizationsService {
     // let headers = new HttpHeaders();
     // headers = headers.set('Authorization', this.userLoginService.token!);
 
-
+    
     return this.httpClient.get<Organization[]>(`http://localhost:8080/organizations`)
 
 }

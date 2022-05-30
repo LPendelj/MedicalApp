@@ -14,24 +14,26 @@ PRACTITIONERS
 </div>
   <table class="table">
         <thead class="thead-dark">
-          <th>Name</th>
-          <th>Type</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Title</th>
           <th>Contact</th>
           <th>Address</th>
           <th>Actions</th>
         </thead>
     <tbody>
-        <!-- <tr div *ngFor="let org of organizationsList">
-          <td>{{org.name}}</td>
-          <td>{{org.organizationType.name}}</td>
-          <td>{{org.email}}</td>
-          <td>{{org.address}}</td>
+        <tr div *ngFor="let med of medicsList">
+          <td>{{med.firstname}}</td>
+          <td>{{med.lastname}}</td>
+          <td>{{med.qualification}}</td>
+          <td>{{med.email}}</td>
+          <td>{{med.address}}</td>
           <td>
             <button class="btn btn-primary">Details</button>
             <button class="btn btn-secondary">Edit</button>
             <button class="btn btn-danger">Delete</button>
           </td>
-        </tr> -->
+        </tr>
     </tbody>
   </table>
 
