@@ -6,25 +6,23 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './features/header/header/header.component';
-import { OrganizationsComponent } from './features/organizations/pages/organizations/organizations.component';
-import { PatientsComponent } from './features/patients/pages/patients/patients.component';
-import { ExaminationsComponent } from './features/examinations/pages/examinations/examinations.component';
-import { MedicsComponent } from './features/medics/pages/medics/medics.component';
 import { PageNotFoundComponent } from './features/page-not-found/page-not-found.component';
+import { CoreModule } from './core/core.module';
+import { SharedModuleModule } from './shared/shared-module/shared-module.module';
+//import { OrganizationsModule } from './features/organizations/organizations.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-        OrganizationsComponent,
-        PatientsComponent,
-        ExaminationsComponent,
-        MedicsComponent,
-        PageNotFoundComponent
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    CoreModule,
+    SharedModuleModule,
+    //OrganizationsModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,

@@ -17,12 +17,18 @@ export class OrganizationsComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
+    console.log("org initialized");
+
     this.loadOrganizations();
   }
 
   loadOrganizations(){
     this.httpOrganizations.getAll().subscribe(organizations => this.organizationsList = organizations);
 
+  }
+
+  organizationDetails(org: Organization){
+    this.router.navigate(['organizations/organization-details', org.organizationId])
   }
 
 }

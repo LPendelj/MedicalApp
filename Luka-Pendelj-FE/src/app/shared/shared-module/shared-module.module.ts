@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppModule } from 'src/app/app.module';
+//import { AppModule } from 'src/app/app.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
@@ -11,7 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [],
   imports: [
     CommonModule,
-    AppModule,
+    //AppModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
@@ -19,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   exports: [
     CommonModule,
-    AppModule,
+   // AppModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,

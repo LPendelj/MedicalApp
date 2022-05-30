@@ -17,25 +17,25 @@ export class HomepageComponent implements OnInit {
   organizationsPage(){
     console.log("org link clicked");
 
-    this.router.navigate(['organizations'])
+    this.router.navigate(['organizations/organizations'])
   }
 
   medicsPage(){
     console.log("medic link clicked");
 
-    this.router.navigate(['practitioners'])
+    this.router.navigate(['practitioners/practitioners'])
   }
 
   patientsPage(){
     console.log("patients link clicked");
 
-    this.router.navigate(['patients'])
+    this.router.navigate(['patients/patients'])
   }
 
   examinationsPage(){
     console.log("exams link clicked");
 
-    this.router.navigate(['examinations'])
+    this.router.navigate(['examinations/examinations'])
   }
 
 
