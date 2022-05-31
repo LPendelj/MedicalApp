@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import it.eng.lukapendelj.entity.PatientEntity;
 import it.eng.lukapendelj.service.PatientService;
 
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("patients")
 public class PatientController {

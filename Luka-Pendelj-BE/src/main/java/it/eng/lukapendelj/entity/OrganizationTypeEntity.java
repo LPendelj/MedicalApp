@@ -1,5 +1,7 @@
 package it.eng.lukapendelj.entity;
 
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +13,7 @@ import javax.persistence.Table;
 public class OrganizationTypeEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long organizationTypeId;
 	private String name;
 	
@@ -37,6 +39,30 @@ public class OrganizationTypeEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, organizationTypeId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OrganizationTypeEntity other = (OrganizationTypeEntity) obj;
+		return Objects.equals(name, other.name) && Objects.equals(organizationTypeId, other.organizationTypeId);
+	}
+
+	@Override
+	public String toString() {
+		return "OrganizationTypeEntity [organizationTypeId=" + organizationTypeId + ", name=" + name + "]";
+	}
+	
+	
 	
 	
 	

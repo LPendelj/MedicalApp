@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import it.eng.lukapendelj.entity.ExaminationEntity;
 import it.eng.lukapendelj.service.ExaminationService;
 
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("examinations")
 public class ExaminationController {

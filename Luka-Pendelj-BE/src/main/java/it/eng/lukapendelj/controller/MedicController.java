@@ -24,7 +24,7 @@ import it.eng.lukapendelj.service.impl.MedicServiceImpl;
 
 //MEDICS are named PRACTITIONERS in the Frontend part of the App
 
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("practitioners")
 public class MedicController {

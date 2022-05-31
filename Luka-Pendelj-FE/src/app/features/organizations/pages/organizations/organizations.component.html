@@ -1,6 +1,6 @@
 <div>
   <!-- routerLink="add" -->
-  Header: <a href="#">Add new</a>
+  Header: <a routerLink="./../organization-add">Add new</a>
 </div>
 <main>
 <div>
@@ -21,12 +21,12 @@
     <tbody>
         <tr div *ngFor="let org of organizationsList">
           <td>{{org.name}}</td>
-          <td>{{org.organizationType.name}}</td>
+          <td>{{org.organizationType?.name}}</td>
           <td>{{org.email}}</td>
           <td>{{org.address}}</td>
           <td>
             <button class="btn btn-primary" (click)="organizationDetails(org)">Details</button>
-            <button class="btn btn-secondary">Edit</button>
+            <button class="btn btn-secondary" >Edit</button>
             <button class="btn btn-danger">Delete</button>
           </td>
         </tr>

@@ -40,7 +40,7 @@ public class OrganizationEntity {
 	@Length(min = 5)
 	private String organizationCode;
 	@NotNull
-	private Boolean active; //req
+	private Boolean active = true; //req
 	
 	//napraviti entity
 	@ManyToOne
@@ -72,17 +72,17 @@ public class OrganizationEntity {
 	}
 	
 	
-	@PrePersist
-	public void check() throws Exception {
-		System.out.println("prepersist called");
-		
-		System.out.println(this.organizationType.getId());
-		//System.out.println(this.med);
-		
-		/*
-		 * if(this.name.equals("Bolnica3")) { throw new Exception(); }
-		 */
-	}
+//	@PrePersist
+//	public void check() throws Exception {
+//		System.out.println("prepersist called");
+//		
+//		System.out.println(this.organizationType.getId());
+//		//System.out.println(this.med);
+//		
+//		/*
+//		 * if(this.name.equals("Bolnica3")) { throw new Exception(); }
+//		 */
+//	}
 	
 	@PostUpdate
 	public void setEmplyeesOrgToNull() {

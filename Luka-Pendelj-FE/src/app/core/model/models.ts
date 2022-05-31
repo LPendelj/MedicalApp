@@ -10,7 +10,7 @@ export interface Organization {
 }
 
 export interface OrganizationType {
-  orgTypeId: number;
+  id: number;
   name: string;
 }
 

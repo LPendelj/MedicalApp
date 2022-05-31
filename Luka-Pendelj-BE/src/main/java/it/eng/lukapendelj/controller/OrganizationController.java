@@ -25,7 +25,8 @@ import it.eng.lukapendelj.service.impl.OrganizationServiceImpl;
 //import it.engineering.app.dto.CityDto;
 
 
-@CrossOrigin(origins = "*")
+
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("organizations")
 public class OrganizationController {
@@ -74,7 +75,8 @@ public class OrganizationController {
 	}
 	
 	@PostMapping("save")
-	public ResponseEntity<Object> save(@Valid @RequestBody OrganizationEntity orgEntity) {
+	public ResponseEntity<Object> save( @RequestBody OrganizationEntity orgEntity) {
+		System.out.println(orgEntity);
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(organizationService.save(orgEntity));
 		} catch (Exception ex) {

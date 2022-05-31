@@ -31,4 +31,9 @@ export class OrganizationsComponent implements OnInit {
     this.router.navigate(['organizations/organization-details', org.organizationId])
   }
 
+  // organizationAdd(){
+  //   this.router.navigate(['organizations/organization-add']);
+  // }
+
+
 }

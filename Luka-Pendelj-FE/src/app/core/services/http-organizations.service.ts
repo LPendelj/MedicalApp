@@ -25,6 +25,13 @@ export class HttpOrganizationsService {
       return this.httpClient.get<Organization>(`http://localhost:8080/organizations/${organizationId}`);
   }
 
+  //CHECK!!
+  createOrganization(organization: Organization): Observable<Organization>{
+
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.httpClient.post<Organization>(`http://localhost:8080/organizations/save`, organization, {headers:headers});
+  }
+
 }
 
 /* const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');

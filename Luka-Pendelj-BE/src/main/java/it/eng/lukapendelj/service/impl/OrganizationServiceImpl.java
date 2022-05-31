@@ -68,7 +68,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
 	@Override
 	public OrganizationEntity save(OrganizationEntity organization) {
-		// TODO Auto-generated method stub
+		System.out.println("Pozvan service orgSave ");
 		return organizationDao.save(organization);
 	}
 
