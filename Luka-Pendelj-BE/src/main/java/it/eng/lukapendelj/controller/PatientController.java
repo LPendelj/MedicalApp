@@ -74,7 +74,8 @@ public class PatientController {
 		}
 		
 		@PostMapping("save")
-		public ResponseEntity<Object> save(@Valid @RequestBody PatientEntity patEntity) {
+		public ResponseEntity<Object> save(@RequestBody PatientEntity patEntity) {
+			System.out.println("Pozvan save Patient");
 			try {
 				return ResponseEntity.status(HttpStatus.OK).body(patientService.save(patEntity));
 			} catch (Exception ex) {

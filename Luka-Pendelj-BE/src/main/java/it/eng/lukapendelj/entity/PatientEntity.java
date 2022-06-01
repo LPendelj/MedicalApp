@@ -32,10 +32,10 @@ public class PatientEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long patientId;
-	private final String patientCode = "PAT-"+UUID.randomUUID().toString().substring(0, 13); 
+	private String patientCode; 
 	
 	@NotNull
-	private Boolean active; //req
+	private Boolean active = true; //req
 	@NotNull
 	private String firstname; //req
 	@NotNull
@@ -50,7 +50,7 @@ public class PatientEntity {
 	private String phone;
 	private String email;
 	private Boolean deceased;
-	private String maritialStatus;
+	private String maritalStatus;
 	
 	@JoinColumn(name="medicId")
 	@ManyToOne
@@ -64,15 +64,15 @@ public class PatientEntity {
 	////String uniqueID = "PAT-"+UUID.randomUUID().toString();
 	
 	
-	  @PrePersist public void prePersist() throws SQLException {
-	  System.out.println("prepersist called");
-	  
-	  if(mainMedic.getOrganization().getOrganizationId()!=this.organization.
-	  getOrganizationId()) {
-	  
-	  throw new SQLException(); }
-	  
-	  }
+//	  @PrePersist public void prePersist() throws SQLException {
+//	  System.out.println("prepersist called");
+//	  
+//	  if(mainMedic.getOrganization().getOrganizationId()!=this.organization.
+//	  getOrganizationId()) {
+//	  
+//	  throw new SQLException(); }
+//	  
+//	  }
 	 
 	
 	
@@ -184,18 +184,18 @@ public class PatientEntity {
 		this.deceased = deceased;
 	}
 
-	public String getMaritialStatus() {
-		return maritialStatus;
+	public String getMaritalStatus() {
+		return maritalStatus;
 	}
 
-	public void setMaritialStatus(String maritialStatus) {
-		this.maritialStatus = maritialStatus;
+	public void setMaritialStatus(String maritalStatus) {
+		this.maritalStatus = maritalStatus;
 	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(active, address, birthDate, deceased, email, firstname, gender, lastname, mainMedic,
-				maritialStatus, organization, patientCode, patientId, phone);
+				maritalStatus, organization, patientCode, patientId, phone);
 	}
 
 	@Override
@@ -211,7 +211,7 @@ public class PatientEntity {
 				&& Objects.equals(birthDate, other.birthDate) && Objects.equals(deceased, other.deceased)
 				&& Objects.equals(email, other.email) && Objects.equals(firstname, other.firstname)
 				&& Objects.equals(gender, other.gender) && Objects.equals(lastname, other.lastname)
-				&& Objects.equals(mainMedic, other.mainMedic) && Objects.equals(maritialStatus, other.maritialStatus)
+				&& Objects.equals(mainMedic, other.mainMedic) && Objects.equals(maritalStatus, other.maritalStatus)
 				&& Objects.equals(organization, other.organization) && Objects.equals(patientCode, other.patientCode)
 				&& Objects.equals(patientId, other.patientId) && Objects.equals(phone, other.phone);
 	}
@@ -220,8 +220,8 @@ public class PatientEntity {
 	public String toString() {
 		return "PatientEntity [patientCode=" + patientCode + ", active=" + active + ", firstname=" + firstname
 				+ ", lastname=" + lastname + ", gender=" + gender + ", birthDate=" + birthDate + ", address=" + address
-				+ ", phone=" + phone + ", email=" + email + ", deceased=" + deceased + ", maritialStatus="
-				+ maritialStatus + ", mainMedic=" + mainMedic.getFirstname() + " " + mainMedic.getLastname() + ", organization=" + organization.getName() + "]";
+				+ ", phone=" + phone + ", email=" + email + ", deceased=" + deceased + ", maritalStatus="
+				+ maritalStatus + ", mainMedic=" + mainMedic.getFirstname() + " " + mainMedic.getLastname() + ", organization=" + organization.getName() + "]";
 	}
 	
 	

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PatientAddComponent } from './pages/patient-add/patient-add.component';
 import { PatientDetailsComponent } from './pages/patient-details/patient-details.component';
 import { PatientsComponent } from './pages/patients/patients.component';
 
@@ -9,6 +10,9 @@ const routes: Routes = [
   },
   {
     path: 'patient-details/:patientId', component: PatientDetailsComponent
+  },
+  {
+    path: 'patient-add', component: PatientAddComponent
   }
 ];
 

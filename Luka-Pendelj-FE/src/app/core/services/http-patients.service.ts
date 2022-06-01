@@ -17,4 +17,8 @@ export class HttpPatientsService {
   getPatient(patientId: number){
     return this.httpPatients.get<Patient>(`http://localhost:8080/patients/${patientId}`);
   }
+
+  createPatient(patient: Patient){
+    return this.httpPatients.post<Patient>(`http://localhost:8080/patients/save`, patient);
+  }
 }

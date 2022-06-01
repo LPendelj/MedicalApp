@@ -1,0 +1,107 @@
+
+<main >
+  <div style="width:50vw" *ngIf="addPatientForm">
+    <!-- [formGroup]="form"] -->
+    <form  [formGroup]="addPatientForm">
+        <div class="form-group row" >
+          <label for="firstname">First name: <span>*</span></label>
+          <input type="text" name="firstname" formControlName="firstname"/>
+        </div>
+        <div class="form-group row" >
+          <label for="lastname">Last name: <span>*</span></label>
+          <input type="text" name="lastname" formControlName="lastname"/>
+        </div>
+        <div class="form-group row">
+          <label for="code">Code:</label>
+          <!-- VALIDATION(min5) -->
+          <input type="text" name="code" formControlName="patientCode"/>
+        </div>
+        <div class="form-group row">
+          <label for="phone">Gender: <span>*</span></label>
+          <select name="gender" id="gender" formControlName="gender" >
+            <!-- *ngFor list of Specs -->
+            <option  *ngFor="let item of gender" [ngValue]="item">{{item.genderName}}</option>
+
+          </select>
+        </div>
+        <div class="form-group row">
+          <label for="birthDate">Select date of birth:</label>
+          <input type="date" name="birthDate" formControlName="birthDate">
+        </div>
+
+        <!-- ‘Doctor’, ‘’, ‘’, ‘’,  -->
+        <!-- <div class="form-group row">
+          <label for="qualification">Select Spec: <span>*</span></label>
+          <select name="qualification" id="qualification" formControlName="qualification" >
+            *ngFor list of Specs
+            <option  *ngFor="let item of maritalStatus" [ngValue]="item">{{item}}</option>
+
+          </select>
+        </div> -->
+
+        <div class="form-group row">
+          <label for="address">Address:</label>
+          <input type="text" name="address" formControlName="address"/>
+        </div>
+        <div class="form-group row">
+          <label for="email">E-mail:</label>
+          <input type="text" formControlName="email"  />
+        </div>
+        <div class="form-group row">
+          <label for="phone">Phone:</label>
+          <input type="text" name="phone" formControlName="phone"/>
+        </div>
+        <div class="form-group row">
+          <label for="deceased">Deceased?</label>
+
+          <!--<label for="deceased-true">Yes</label>
+          <input type="radio" name="deceased-true" formControlName="deceased" value="true"/>
+
+          <label for="deceased-false">No</label>
+          <input type="radio" name="deceased-false" formControlName="deceased" value="false"/> -->
+          <select name="deceased" formControlName="deceased" >
+            <!-- *ngFor list of Specs -->
+            <option  value="true">Yes</option>
+            <option  value="false">No</option>
+
+          </select>
+
+        </div>
+
+        <div class="form-group row">
+          <label for="maritalStatus">Marital status:</label>
+          <select name="maritalStatus" formControlName="maritalStatus" >
+            <!-- *ngFor list of Specs -->
+            <option  *ngFor="let item of maritalStatus" [ngValue]="item">{{item}}</option>
+
+          </select>
+        </div>
+
+        <div class="form-group row">
+          <label for="organization">Organization:</label>
+          <select name="organization" formControlName="organization" >
+            <!-- *ngFor list of Specs -->
+            <option  *ngFor="let item of organizations" [ngValue]="item">{{item.name}}</option>
+
+          </select>
+        </div>
+
+        <div class="form-group row">
+          <label for="mainMedic">Main practitioner:</label>
+          <select name="mainMedic" formControlName="mainMedic" >
+            <!-- *ngFor list of Specs -->
+            <option  *ngFor="let item of medics" [ngValue]="item">{{item.firstname}} {{item.lastname}}</option>
+
+          </select>
+        </div>
+        <br/>
+        <button class="btn btn-secondary btn-sm" type="submit" (click)="createPatient()">Save</button>
+
+         <!-- <div class="form-group row">
+          <submit Spec="save" ngForm="MedicAdd">Submit</submit>
+        </div> -->
+
+    </form>
+  </div>
+</main>
+

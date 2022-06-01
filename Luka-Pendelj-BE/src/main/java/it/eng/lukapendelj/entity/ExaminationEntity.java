@@ -44,7 +44,7 @@ public class ExaminationEntity {
 	
 	private String examinationCode;
 	@NotNull
-	private String status;
+	private String status = "planned";
 	
 	@ManyToOne
 	@JoinColumn(name = "serviceId")

@@ -12,7 +12,7 @@ export class MedicsComponent implements OnInit {
 
   medicsList?: Medic[];
   //httpMedic, Router
-  constructor(private httpMedics: HttpMedicsService,
+  constructor(private httpMedic: HttpMedicsService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -22,7 +22,7 @@ export class MedicsComponent implements OnInit {
 
   //httpS | method: list | subscribe()  (arrowF with userDefined varname for return value of getAll method)
   loadMedics(){
-    this.httpMedics.getAll().subscribe(medics =>this.medicsList = medics);
+    this.httpMedic.getAll().subscribe(medics =>this.medicsList = medics);
   }
 
   medicDetails(medic: Medic){

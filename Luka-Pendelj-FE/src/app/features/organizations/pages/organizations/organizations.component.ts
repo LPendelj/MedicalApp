@@ -13,7 +13,7 @@ export class OrganizationsComponent implements OnInit {
 
   organizationsList?: Organization[] = undefined;
 
-  constructor(private httpOrganizations: HttpOrganizationsService,
+  constructor(private httpOrganization: HttpOrganizationsService,
               private router: Router) { }
 
   ngOnInit(): void {
@@ -23,7 +23,7 @@ export class OrganizationsComponent implements OnInit {
   }
 
   loadOrganizations(){
-    this.httpOrganizations.getAll().subscribe(organizations => this.organizationsList = organizations);
+    this.httpOrganization.getAll().subscribe(organizations => this.organizationsList = organizations);
 
   }
 
