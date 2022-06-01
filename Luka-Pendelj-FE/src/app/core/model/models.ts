@@ -75,6 +75,6 @@ export interface ServiceType {
 }
 
 export interface Gender {
-  genderId: number,
+  genderCode: string,
   genderName: string
 }

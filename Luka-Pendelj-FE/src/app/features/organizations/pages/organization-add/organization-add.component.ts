@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ConnectableObservable } from 'rxjs';
 import { Organization, OrganizationType } from 'src/app/core/model/models';
 import { HttpOrganizationsService } from 'src/app/core/services/http-organizations.service';
 
@@ -11,7 +10,7 @@ import { HttpOrganizationsService } from 'src/app/core/services/http-organizatio
   styleUrls: ['./organization-add.component.css'],
 })
 export class OrganizationAddComponent implements OnInit {
-  addOrganizationform: FormGroup | undefined;
+  addOrganizationForm: FormGroup | undefined;
 
   organization?: Organization;
   // options: any;
@@ -54,7 +53,7 @@ export class OrganizationAddComponent implements OnInit {
   }
 
   createFormGroup() {
-    this.addOrganizationform = new FormGroup({
+    this.addOrganizationForm = new FormGroup({
       name: new FormControl('', Validators.required),
       organizationCode: new FormControl(''),
       organizationType: new FormControl(''),
@@ -63,11 +62,11 @@ export class OrganizationAddComponent implements OnInit {
       phone: new FormControl(''),
     });
   }
-item: any
+
   createOrganization() {
 
 
-    this.organization = this.addOrganizationform?.getRawValue();
+    this.organization = this.addOrganizationForm?.getRawValue();
 
 
 

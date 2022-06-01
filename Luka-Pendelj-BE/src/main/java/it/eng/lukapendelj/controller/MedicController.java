@@ -75,6 +75,7 @@ public class MedicController {
 	
 	@PostMapping("save")
 	public ResponseEntity<Object> save(@Valid @RequestBody MedicEntity medicEntity) {
+		System.out.println(medicEntity);
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(medicService.save(medicEntity));
 		} catch (Exception ex) {

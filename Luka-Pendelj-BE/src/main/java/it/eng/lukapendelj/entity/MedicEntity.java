@@ -36,9 +36,9 @@ public class MedicEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long medicId;
-	private final String medicCode = "MED-"+UUID.randomUUID().toString().substring(0, 8);
+	private String medicCode;
 	@NotNull
-	private Boolean active; //req
+	private Boolean active = true; //req
 	@NotNull
 	private String firstname; //req
 	@NotNull
@@ -66,6 +66,7 @@ public class MedicEntity {
 			String address, String email, String phone, String qualification) {
 		super();
 		this.medicId = medicId;
+		
 		//MedicCode = medicCode;
 		this.firstname = firstname;
 		this.lastname = lastname;
