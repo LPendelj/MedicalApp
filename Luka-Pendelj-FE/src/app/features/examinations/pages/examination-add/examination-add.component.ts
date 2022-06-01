@@ -84,7 +84,7 @@ export class ExaminationAddComponent implements OnInit {
       diagnosis: new FormControl(''),
       organization: new FormControl(''),
       patient: new FormControl(''),
-      medic: new FormControl('')
+      medicList: new FormControl('')
     });
   }
 

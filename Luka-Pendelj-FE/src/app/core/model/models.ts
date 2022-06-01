@@ -66,7 +66,7 @@ export interface Examination {
   diagnosis?: string;
   organization?: Organization;
   patient?: Patient;
-  medic?: Medic;
+  medicList?: Medic[];
 }
 
 export interface ServiceType {

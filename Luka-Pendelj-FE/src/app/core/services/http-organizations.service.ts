@@ -32,6 +32,10 @@ export class HttpOrganizationsService {
     return this.httpClient.post<Organization>(`http://localhost:8080/organizations/save`, organization, {headers:headers});
   }
 
+  deleteOrganization(organizationId: number){
+    return this.httpClient.delete<Organization>(`http://localhost:8080/organizations/delete/${organizationId}`);
+  }
+
 }
 
 /* const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');

@@ -75,7 +75,9 @@ public class ExaminationController {
 	}
 	
 	@PostMapping("save")
-	public ResponseEntity<Object> save(@Valid @RequestBody ExaminationEntity examEntity) {
+	public ResponseEntity<Object> save( @RequestBody ExaminationEntity examEntity) {
+		
+		System.out.println(examEntity);
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(examinationService.save(examEntity));
 		} catch (Exception ex) {

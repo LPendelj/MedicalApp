@@ -61,10 +61,10 @@ public class ExaminationEntity {
 	
 	
 	//ADD Cascading! CHECK JsonProperty!
-	@ManyToMany(cascade= {CascadeType.REMOVE})
+	@ManyToMany()
 	@JoinTable(name = "EXAMINATION_MEDIC", joinColumns = { @JoinColumn(name = "examination_id") }, inverseJoinColumns = { @JoinColumn(name = "medic_id") },
 	uniqueConstraints =  @UniqueConstraint(columnNames = { "examination_id", "medic_id" }))
-	@JsonProperty("medic")
+	@JsonProperty("medicList")
 	private List<MedicEntity> medicList;
 	
 	
@@ -77,35 +77,35 @@ public class ExaminationEntity {
 	
 	//SHOULD be CHECKED!!!
 	
-	@PrePersist
-	public void checkOrg()  {
-		System.out.println("prepersist called");
-		
-		System.out.println("organizacija ID: " + this.organization.getOrganizationId());
-		System.out.println("pacijent org ID: " + this.patient.getOrganization().getOrganizationId());
-		System.out.println("medic org id: " +  this.medicList.get(0).getOrganization().getOrganizationId());
-		
+//	@PrePersist
+//	public void checkOrg()  {
+////		System.out.println("prepersist called");
+////		
+////		System.out.println("organizacija ID: " + this.organization.getOrganizationId());
+////		System.out.println("pacijent org ID: " + this.patient.getOrganization().getOrganizationId());
+////		System.out.println("medic org id: " +  this.medicList.get(0).getOrganization().getOrganizationId());
 //		
-//		if(this.patient.getOrganization().getOrganizationId() != this.organization.getOrganizationId()){
-//			//Patient must have Examination in the same place where he is staying
-//			throw new Exception();
-//		}
-		
-		
-		//System.out.println(this.med);
-		
-		/*
-		 * if(this.name.equals("Bolnica3")) { throw new Exception(); }
-		 */
-	}
-	
-	@PostPersist
-	public void checkMedics() {
-		medicList.forEach(medic -> System.out.println("LekarID: " + medic.getOrganization().getOrganizationId()));
-	}
+////		
+////		if(this.patient.getOrganization().getOrganizationId() != this.organization.getOrganizationId()){
+////			//Patient must have Examination in the same place where he is staying
+////			throw new Exception();
+////		}
+//		
+//		
+//		//System.out.println(this.med);
+//		
+//		/*
+//		 * if(this.name.equals("Bolnica3")) { throw new Exception(); }
+//		 */
+//	}
+//	
+////	@PostPersist
+////	public void checkMedics() {
+////		medicList.forEach(medic -> System.out.println("LekarID: " + medic.getOrganization().getOrganizationId()));
+////	}
 	
 	public ExaminationEntity() {
-		super();
+		
 	}
 	
 	public Long getExaminationId() {
@@ -154,12 +154,24 @@ public class ExaminationEntity {
 	public void setDiagnosis(String diagnosis) {
 		this.diagnosis = diagnosis;
 	}
-	public List<MedicEntity> getMedic() {
-		return this.medicList;
-	}
-//	public void setMedic(MedicEntity medic) {
-//		this.medic = medic;
+//	public List<MedicEntity> getMedic() {
+//		return this.medicList;
 //	}
+	
+	
+	
+	public List<MedicEntity> getMedicList() {
+		return medicList;
+	}
+
+	public void setMedicList(List<MedicEntity> medicList) {
+		this.medicList = medicList;
+	}
+
+	public void setExaminationCode(String examinationCode) {
+		this.examinationCode = examinationCode;
+	}
+
 	public OrganizationEntity getOrganization() {
 		return organization;
 	}

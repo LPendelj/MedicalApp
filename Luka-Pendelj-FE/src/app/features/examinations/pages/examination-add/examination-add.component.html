@@ -77,10 +77,10 @@
         </div>
 
         <div class="form-group row">
-          <label for="medic">Select Practitioner: <span>*</span></label>
-          <select name="medic" id="medic" formControlName="medic" multiple>
+          <label for="medicList">Select Practitioner: <span>*</span></label>
+          <select name="medicList" id="medicList" formControlName="medicList">
             <!-- *ngFor list of Specs -->
-            <option  *ngFor="let item of medics"  [ngValue]="item">{{item.firstname}} {{item.lastname}}</option>
+            <option  *ngFor="let item of medics"  [ngValue]="[item]">{{item.firstname}} {{item.lastname}}</option>
 
           </select>
         </div>

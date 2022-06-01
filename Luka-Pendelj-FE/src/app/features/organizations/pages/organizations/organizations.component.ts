@@ -35,5 +35,10 @@ export class OrganizationsComponent implements OnInit {
   //   this.router.navigate(['organizations/organization-add']);
   // }
 
+  deleteOrganization(organizationId: number){
+    alert("You are going to delete an entity!");
+    this.httpOrganization.deleteOrganization(organizationId).subscribe();
+    location.reload();
+  }
 
 }
