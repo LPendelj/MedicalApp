@@ -13,7 +13,7 @@ import { HttpPatientsService } from 'src/app/core/services/http-patients.service
 })
 export class PatientAddComponent implements OnInit {
 
-  addPatientForm?: FormGroup;
+  addPatientForm!: FormGroup;
 
   patient!: Patient;
 
