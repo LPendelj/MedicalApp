@@ -78,17 +78,18 @@ public class ExaminationEntity {
 	//SHOULD be CHECKED!!!
 	
 	@PrePersist
-	public void checkOrg() throws Exception {
+	public void checkOrg()  {
 		System.out.println("prepersist called");
 		
-		System.out.println("organizacija ID:" + this.organization.getOrganizationId());
-		System.out.println("pacijent ID:" + this.patient.getOrganization().getOrganizationId());
+		System.out.println("organizacija ID: " + this.organization.getOrganizationId());
+		System.out.println("pacijent org ID: " + this.patient.getOrganization().getOrganizationId());
+		System.out.println("medic org id: " +  this.medicList.get(0).getOrganization().getOrganizationId());
 		
-		
-		if(this.patient.getOrganization().getOrganizationId() != this.organization.getOrganizationId()){
-			//Patient must have Examination in the same place where he is staying
-			throw new Exception();
-		}
+//		
+//		if(this.patient.getOrganization().getOrganizationId() != this.organization.getOrganizationId()){
+//			//Patient must have Examination in the same place where he is staying
+//			throw new Exception();
+//		}
 		
 		
 		//System.out.println(this.med);

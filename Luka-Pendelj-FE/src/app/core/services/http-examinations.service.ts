@@ -17,4 +17,8 @@ export class HttpExaminationsService {
   getExamination(examId: number){
     return this.httpExaminations.get<Examination>(`http://localhost:8080/examinations/${examId}`);
   }
+
+  createExamination(examination: Examination){
+    return this.httpExaminations.post<Examination>(`http://localhost:8080/examinations/save`, examination);
+  }
 }

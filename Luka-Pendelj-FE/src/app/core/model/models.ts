@@ -70,7 +70,7 @@ export interface Examination {
 }
 
 export interface ServiceType {
-  serviceTypeId: number,
+  serviceId: number,
   serviceName: string
 }
 
