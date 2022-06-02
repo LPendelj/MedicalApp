@@ -18,6 +18,8 @@ public interface PatientService {
 	
 	List<PatientEntity> findByName(String name);
 	
+	List<PatientEntity> findByOrganization(Long id);
+	
 	PatientEntity update(PatientEntity patient) throws RuntimeException;
 
 	PatientEntity save(PatientEntity patient);

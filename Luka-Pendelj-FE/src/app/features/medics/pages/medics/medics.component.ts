@@ -34,7 +34,7 @@ export class MedicsComponent implements OnInit {
     var answer = window.confirm(`Are you sure that you want to delete entity with Id ${medic.medicId}?`);
     if(answer){
     this.httpMedic.deleteMedic(medic.medicId).subscribe();
-    location.reload();
+    //location.reload();
     }
   }
 

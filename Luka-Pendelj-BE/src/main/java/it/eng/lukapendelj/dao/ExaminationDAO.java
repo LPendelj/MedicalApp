@@ -2,12 +2,15 @@ package it.eng.lukapendelj.dao;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import it.eng.lukapendelj.entity.ExaminationEntity;
 import it.eng.lukapendelj.entity.OrganizationEntity;
 import it.eng.lukapendelj.entity.ServiceTypeEntity;
 
+@Transactional
 public interface ExaminationDAO extends JpaRepository<ExaminationEntity, Long> {
 		
 	
@@ -30,6 +33,8 @@ public interface ExaminationDAO extends JpaRepository<ExaminationEntity, Long> {
 	List<ExaminationEntity> findByStatus(String status);
 	
 	//CHECK method arguments!!
+	
+	void deleteByOrganization(OrganizationEntity organizationEntity);
 	
 	
 }

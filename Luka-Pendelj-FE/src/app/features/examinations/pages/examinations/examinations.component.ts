@@ -31,7 +31,7 @@ export class ExaminationsComponent implements OnInit {
     var answer = window.confirm(`Are you sure that you want to delete entity with Id ${examinationId}?`);
     if(answer){
     this.httpExamination.deleteExamination(examinationId).subscribe();
-    location.reload();
+   // location.reload();
     }
   }
 

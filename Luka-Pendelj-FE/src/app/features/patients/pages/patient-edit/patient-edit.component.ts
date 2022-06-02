@@ -48,7 +48,7 @@ export class PatientEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadOrganizations();
-    this.loadMedics();
+    //this.loadMedics();
     this.createPatientForm();
     this.loadPatient();
   }
@@ -76,10 +76,27 @@ export class PatientEditComponent implements OnInit {
     this.httpOrganization.getAll().subscribe(organizations => this.organizations = organizations);
   }
 
-  loadMedics(){
-    this.httpMedic.getAll().subscribe(medics =>this.medics = medics);
-    //this.medics = this.medics?.filter((medic, organization)=>medic.organization===this.organizationCheck?.organizationId)
-  }
+  // loadMedics(){
+  //   this.httpMedic.getAll().subscribe(medics =>this.medics = medics);
+  //   //this.medics = this.medics?.filter((medic, organization)=>medic.organization===this.organizationCheck?.organizationId)
+  // }
+
+  getValue(){
+    // let val = event.
+
+     console.log(this.editPatientForm.get('organization')?.value.organizationId);
+
+     const orgId= this.editPatientForm.get('organization')?.value.organizationId;
+
+     this.loadMedics(orgId);
+
+   }
+
+   loadMedics(orgId: number){
+
+     this.httpMedic.getMedicsByOrganization(orgId).subscribe(medics=>this.medics=medics);
+     //this.medics = this.medics?.filter((medic, organization)=>medic.organization===this.organizationCheck?.organizationId)
+   }
 
   loadPatient(){
     const patientId = Number(this.activeRoute.snapshot.paramMap.get('patientId'));

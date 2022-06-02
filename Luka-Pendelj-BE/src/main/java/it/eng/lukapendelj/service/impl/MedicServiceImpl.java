@@ -11,25 +11,29 @@ import it.eng.lukapendelj.dao.OrganizationDAO;
 import it.eng.lukapendelj.entity.MedicEntity;
 import it.eng.lukapendelj.entity.OrganizationEntity;
 import it.eng.lukapendelj.service.MedicService;
+import it.eng.lukapendelj.service.OrganizationService;
 import it.eng.lukapendelj.service.PatientService;
 
 @Service
 public class MedicServiceImpl implements MedicService {
 	
 	
-	MedicDAO medicDao;
+	private MedicDAO medicDao;
 	
-	PatientService patientService;
+	private HelperServiceClass helperService;
 	
-	OrganizationDAO organizationDao;
+	//private PatientService patientService;
+	
+	//private OrganizationService organizationService;
 	
 	
 	@Autowired
-	public MedicServiceImpl(MedicDAO medicDao, OrganizationDAO organizationDao, PatientService patientService) {
+	public MedicServiceImpl(MedicDAO medicDao, HelperServiceClass helperService) {
 		super();
-		this.organizationDao = organizationDao;
+		//this.organizationService = organizationService;
 		this.medicDao = medicDao;
-		this.patientService = patientService;
+		//this.patientService = patientService;
+		this.helperService = helperService;
 	}
 
 	@Override
@@ -72,7 +76,7 @@ public class MedicServiceImpl implements MedicService {
 	@Override
 	public void deleteById(Long id) {
 		
-		patientService.setMedicNull(medicDao.findById(id).get());
+		helperService.setPatientMedicNull(medicDao.findById(id).get());
 		
 		medicDao.deleteById(id);
 
@@ -98,11 +102,11 @@ public class MedicServiceImpl implements MedicService {
 	@Override
 	public List<MedicEntity> findByOrganization(Long id) {
 		// TODO Auto-generated method stub
-	System.out.println("organizacija je: " +  organizationDao.findById(id).get());
-		
-		System.out.println(medicDao.findByOrganization(organizationDao.findById(id).get()));
+		//System.out.println("organizacija je: " +  organizationService.findById(id).get());
+		//
+		//System.out.println(medicDao.findByOrganization(organizationService.findById(id).get()));
 	
-		return medicDao.findByOrganization(organizationDao.findById(id).get());
+		return medicDao.findByOrganization(helperService.getOrganizationDao().findById(id).get());
 	}
 
 }

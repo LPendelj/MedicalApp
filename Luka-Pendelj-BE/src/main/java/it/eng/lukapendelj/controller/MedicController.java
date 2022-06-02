@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.eng.lukapendelj.entity.MedicEntity;
+import it.eng.lukapendelj.service.MedicService;
 import it.eng.lukapendelj.service.impl.MedicServiceImpl;
 
 //MEDICS are named PRACTITIONERS in the Frontend part of the App
@@ -29,10 +30,10 @@ import it.eng.lukapendelj.service.impl.MedicServiceImpl;
 @RequestMapping("practitioners")
 public class MedicController {
 	
-	MedicServiceImpl medicService;
+	MedicService medicService;
 	
 	@Autowired
-	public MedicController(MedicServiceImpl medicService) {
+	public MedicController(MedicService medicService) {
 		super();
 		this.medicService = medicService;
 	}
@@ -93,11 +94,12 @@ public class MedicController {
 	}
 	
 	@DeleteMapping("delete/{id}")
+	@ResponseBody
 	public ResponseEntity<Object> delete(@PathVariable Long id){
 		try {
 			System.out.println("Pozvan MEDIC delete metod");
 			medicService.deleteById(id);
-			return ResponseEntity.ok("Medic with id " + id + ": DELETED");
+			return ResponseEntity.status(HttpStatus.OK).body("Practitioner deleted");
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
 		}

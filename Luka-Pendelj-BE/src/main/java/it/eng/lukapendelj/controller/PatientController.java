@@ -103,8 +103,14 @@ public class PatientController {
 			}
 		}
 
-	
-	
+		/////////////////////////////////////////////////////////////////////
+		
+		@GetMapping("organization/{id}")
+		public ResponseEntity<Object> findByOrganization(@PathVariable Long id){
+			
+			
+			return ResponseEntity.status(HttpStatus.OK).body(patientService.findByOrganization(id));
+		}
 	
 	
 }

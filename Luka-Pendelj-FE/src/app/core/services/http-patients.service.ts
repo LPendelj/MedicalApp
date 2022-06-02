@@ -32,5 +32,8 @@ export class HttpPatientsService {
 
   ///////////////////////////////////////////////////////////
 
+  getPatientsByOrganization(organizationId: number){
+    return this.httpPatients.get<Patient[]>(`https://localhost:8080/patients/organization/${organizationId}`);
+  }
 
 }

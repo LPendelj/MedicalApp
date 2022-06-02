@@ -41,7 +41,7 @@ export class OrganizationsComponent implements OnInit {
     var answer = window.confirm(`Are you sure that you want to delete entity with Id ${organizationId}?`);
     if(answer){
     this.httpOrganization.deleteOrganization(organizationId).subscribe();
-    location.reload();
+    //location.reload();
     }
 
   }

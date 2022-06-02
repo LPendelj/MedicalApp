@@ -12,7 +12,9 @@ import it.eng.lukapendelj.dao.OrganizationDAO;
 //import it.eng.lukapendelj.dao.impl.OrganizationDaoImpl;
 import it.eng.lukapendelj.entity.OrganizationEntity;
 import it.eng.lukapendelj.service.ExaminationService;
+import it.eng.lukapendelj.service.MedicService;
 import it.eng.lukapendelj.service.OrganizationService;
+import it.eng.lukapendelj.service.PatientService;
 
 
 @Service
@@ -22,20 +24,22 @@ public class OrganizationServiceImpl implements OrganizationService {
 	
 	private OrganizationDAO organizationDao;
 	
-	private ExaminationService examinationService;
+	private HelperServiceClass helperService;
 	
-	private MedicServiceImpl medicService;
+	//private ExaminationService examinationService;
 	
-	private PatientServiceImpl patientService;
+	//private MedicService medicService;
+	
+	//private PatientService patientService;
 	
 	
 	@Autowired
-	public OrganizationServiceImpl(OrganizationDAO organizationDao, MedicServiceImpl medicService, PatientServiceImpl patientService, ExaminationService examinationService) {
+	public OrganizationServiceImpl(OrganizationDAO organizationDao,  HelperServiceClass helperService) {
 		super();
 		this.organizationDao = organizationDao;
-		this.medicService = medicService;
-		this.patientService = patientService;
-		this.examinationService = examinationService;
+		//this.medicService = medicService;
+		//this.patientService = patientService;
+		this.helperService = helperService;
 	}
 
 	@Override
@@ -86,9 +90,9 @@ public class OrganizationServiceImpl implements OrganizationService {
 		System.out.println("Pozvan deleteOrgById");
 		
 		//examinationSrvice.setOrganizationNull();
-		examinationService.deleteByOrganization(organizationDao.findById(id).get());
-		medicService.setOrganizationNull(organizationDao.findById(id).get());
-		patientService.setOrganizationNull(organizationDao.findById(id).get());
+		helperService.getExaminationDao().deleteByOrganization(organizationDao.findById(id).get());
+		helperService.setMedicOrganizationNull(organizationDao.findById(id).get());
+		helperService.setPatientOrganizationNull(organizationDao.findById(id).get());
 		
 		organizationDao.deleteById(id);
 
