@@ -79,9 +79,9 @@
 
         <div class="form-group row">
           <label for="organization">Organization:</label>
-          <select name="organization" formControlName="organization" >
+          <select name="organization" #org formControlName="organization"  (change)="getValue()">
             <!-- *ngFor list of Specs -->
-            <option  *ngFor="let item of organizations" [ngValue]="item">{{item.name}}</option>
+            <option  *ngFor="let item of organizations"  [ngValue]="item" >{{item.name}}</option>
 
           </select>
         </div>

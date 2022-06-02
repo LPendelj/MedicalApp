@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.eng.lukapendelj.dao.MedicDAO;
+import it.eng.lukapendelj.dao.OrganizationDAO;
 import it.eng.lukapendelj.entity.MedicEntity;
 import it.eng.lukapendelj.entity.OrganizationEntity;
 import it.eng.lukapendelj.service.MedicService;
@@ -20,11 +21,15 @@ public class MedicServiceImpl implements MedicService {
 	
 	PatientService patientService;
 	
+	OrganizationDAO organizationDao;
+	
 	
 	@Autowired
-	public MedicServiceImpl(MedicDAO medicDao) {
+	public MedicServiceImpl(MedicDAO medicDao, OrganizationDAO organizationDao, PatientService patientService) {
 		super();
+		this.organizationDao = organizationDao;
 		this.medicDao = medicDao;
+		this.patientService = patientService;
 	}
 
 	@Override
@@ -88,6 +93,16 @@ public class MedicServiceImpl implements MedicService {
 		}
 		);
 		
+	}
+
+	@Override
+	public List<MedicEntity> findByOrganization(Long id) {
+		// TODO Auto-generated method stub
+	System.out.println("organizacija je: " +  organizationDao.findById(id).get());
+		
+		System.out.println(medicDao.findByOrganization(organizationDao.findById(id).get()));
+	
+		return medicDao.findByOrganization(organizationDao.findById(id).get());
 	}
 
 }

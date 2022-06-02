@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Gender, Medic, Organization, Patient } from 'src/app/core/model/models';
@@ -11,7 +11,7 @@ import { HttpPatientsService } from 'src/app/core/services/http-patients.service
   templateUrl: './patient-add.component.html',
   styleUrls: ['./patient-add.component.css']
 })
-export class PatientAddComponent implements OnInit {
+export class PatientAddComponent implements OnInit, OnChanges {
 
   addPatientForm!: FormGroup;
 
@@ -45,11 +45,23 @@ export class PatientAddComponent implements OnInit {
               private httpOrganization: HttpOrganizationsService,
               private router: Router) { }
 
+  ngOnChanges(changes: SimpleChanges): void {
+
+  }
+
+  // ngOnInputChanges(event: any){
+  //   this.loadMedics();
+  // }
+
   ngOnInit(): void {
     this.loadOrganizations();
-    this.loadMedics();
+
     this.createPatientForm();
   }
+
+  // ngOnInputChange(): void{
+
+  // }
 
 
 
@@ -74,8 +86,21 @@ export class PatientAddComponent implements OnInit {
     this.httpOrganization.getAll().subscribe(organizations => this.organizations = organizations);
   }
 
-  loadMedics(){
-    this.httpMedic.getAll().subscribe(medics =>this.medics = medics);
+
+  getValue(){
+   // let val = event.
+
+    console.log(this.addPatientForm.get('organization')?.value.organizationId);
+
+    const orgId= this.addPatientForm.get('organization')?.value.organizationId;
+
+    this.loadMedics(orgId);
+
+  }
+
+  loadMedics(orgId: number){
+
+    this.httpMedic.getMedicsByOrganization(orgId).subscribe(medics=>this.medics=medics);
     //this.medics = this.medics?.filter((medic, organization)=>medic.organization===this.organizationCheck?.organizationId)
   }
 

@@ -15,6 +15,8 @@ public interface MedicDAO extends JpaRepository<MedicEntity, Long> {
 	
 	List<MedicEntity> findByOrganization(OrganizationEntity organization);
 	
+	//List<MedicEntity> findByOrganization(Long organizationId);
+	
 	//void setOrganizationToNull();
 	
 	

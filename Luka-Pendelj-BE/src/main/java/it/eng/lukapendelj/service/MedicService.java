@@ -24,4 +24,6 @@ public interface MedicService {
 	void deleteById(Long id); // throws InvalidEntityException
 	
 	void setOrganizationNull(OrganizationEntity organizationInactive);
+	
+	List<MedicEntity> findByOrganization(Long id);
 }

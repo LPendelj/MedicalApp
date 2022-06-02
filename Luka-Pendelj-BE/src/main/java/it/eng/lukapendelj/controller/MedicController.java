@@ -103,7 +103,22 @@ public class MedicController {
 		}
 	}
 	
+	////////////////////////////////////////////////////////////////////////////////////////////
 	
+	@GetMapping("organization/{id}")
+	public ResponseEntity<Object> findByOrgId(@PathVariable Long id){
+		
+		System.out.println("Pozvan MEDIC findBy Organization Id metod");
+		System.out.println(id);
+//		if(medicService.findByOrganization(id).isEmpty()) {
+//			
+//			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No Practitioners in looke");
+//			
+//		}
+			
+			return ResponseEntity.ok(medicService.findByOrganization(id));
+		
+	}
 	
 	
 

@@ -38,4 +38,8 @@ export class HttpMedicsService {
 
   ///////////////////////////////////////////////////////////
 
+  getMedicsByOrganization(organizationId: number){
+    return this.httpMedics.get<Medic[]>(`http://localhost:8080/practitioners/organization/${organizationId}`);
+  }
+
 }
