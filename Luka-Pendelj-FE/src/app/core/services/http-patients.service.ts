@@ -21,4 +21,16 @@ export class HttpPatientsService {
   createPatient(patient: Patient){
     return this.httpPatients.post<Patient>(`http://localhost:8080/patients/save`, patient);
   }
+
+  deletePatient(patientId: number){
+    return this.httpPatients.delete<Patient>(`http://localhost:8080/patients/delete/${patientId}`);
+  }
+
+  updatePatient(patientId: number, patient: Patient){
+    return this.httpPatients.put<Patient>(`http://localhost:8080/patients/${patientId}`, patient);
+  }
+
+  ///////////////////////////////////////////////////////////
+
+
 }

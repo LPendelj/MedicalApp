@@ -21,4 +21,14 @@ export class HttpExaminationsService {
   createExamination(examination: Examination){
     return this.httpExaminations.post<Examination>(`http://localhost:8080/examinations/save`, examination);
   }
+
+  deleteExamination(examinationId: number){
+    return this.httpExaminations.delete<Examination>(`http://localhost:8080/examinations/delete/${examinationId}`);
+  }
+
+  updateExamination(examinationId: number, examination: Examination){
+    return this.httpExaminations.put<Examination>(`http://localhost:8080/examinations/${examinationId}`, examination);
+  }
+
+  ///////////////////////////////////////////////////////////
 }

@@ -11,6 +11,7 @@ import it.eng.lukapendelj.dao.MedicDAO;
 import it.eng.lukapendelj.dao.OrganizationDAO;
 //import it.eng.lukapendelj.dao.impl.OrganizationDaoImpl;
 import it.eng.lukapendelj.entity.OrganizationEntity;
+import it.eng.lukapendelj.service.ExaminationService;
 import it.eng.lukapendelj.service.OrganizationService;
 
 
@@ -18,17 +19,23 @@ import it.eng.lukapendelj.service.OrganizationService;
 public class OrganizationServiceImpl implements OrganizationService {
 	
 	
-	@Autowired
-	MedicServiceImpl medicService;
 	
-	OrganizationDAO organizationDao;
-	MedicDAO medicDao;
+	private OrganizationDAO organizationDao;
+	
+	private ExaminationService examinationService;
+	
+	private MedicServiceImpl medicService;
+	
+	private PatientServiceImpl patientService;
+	
 	
 	@Autowired
-	public OrganizationServiceImpl(OrganizationDAO organizationDao, MedicDAO medicDao) {
+	public OrganizationServiceImpl(OrganizationDAO organizationDao, MedicServiceImpl medicService, PatientServiceImpl patientService, ExaminationService examinationService) {
 		super();
 		this.organizationDao = organizationDao;
-		this.medicDao = medicDao;
+		this.medicService = medicService;
+		this.patientService = patientService;
+		this.examinationService = examinationService;
 	}
 
 	@Override
@@ -78,8 +85,10 @@ public class OrganizationServiceImpl implements OrganizationService {
 		
 		System.out.println("Pozvan deleteOrgById");
 		
-		//medicDao.findByOrganization(organizationDao.findById(id).get()).set;
+		//examinationSrvice.setOrganizationNull();
+		examinationService.deleteByOrganization(organizationDao.findById(id).get());
 		medicService.setOrganizationNull(organizationDao.findById(id).get());
+		patientService.setOrganizationNull(organizationDao.findById(id).get());
 		
 		organizationDao.deleteById(id);
 

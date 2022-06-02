@@ -27,13 +27,14 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 //CHECK SQLDELETE!!!
 
 @Entity
 @Table(name="Examination")
-//@Where(clause = "status!=entered-in-error")
+@Where(clause = "status!='entered-in-error'")
 @SQLDelete(sql = "UPDATE Examination SET status = 'entered-in-error' WHERE examination_id=?") //TO CHECK!!!
 public class ExaminationEntity {
 	
@@ -75,6 +76,11 @@ public class ExaminationEntity {
 	@JoinColumn(name = "patientId")
 	private PatientEntity patient;
 	
+	
+	
+	
+	
+	
 	//SHOULD be CHECKED!!!
 	
 //	@PrePersist
@@ -104,6 +110,24 @@ public class ExaminationEntity {
 ////		medicList.forEach(medic -> System.out.println("LekarID: " + medic.getOrganization().getOrganizationId()));
 ////	}
 	
+	
+	public ExaminationEntity(Long examinationId, String examinationCode, @NotNull String status,
+			@NotNull ServiceTypeEntity serviceType, String priority, Date startDate, Date endDate, String diagnosis,
+			List<MedicEntity> medicList, OrganizationEntity organization, PatientEntity patient) {
+		super();
+		this.examinationId = examinationId;
+		this.examinationCode = examinationCode;
+		this.status = status;
+		this.serviceType = serviceType;
+		this.priority = priority;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.diagnosis = diagnosis;
+		this.medicList = medicList;
+		this.organization = organization;
+		this.patient = patient;
+	}
+
 	public ExaminationEntity() {
 		
 	}
@@ -163,7 +187,8 @@ public class ExaminationEntity {
 	public List<MedicEntity> getMedicList() {
 		return medicList;
 	}
-
+	
+	
 	public void setMedicList(List<MedicEntity> medicList) {
 		this.medicList = medicList;
 	}

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.eng.lukapendelj.dao.PatientDAO;
+import it.eng.lukapendelj.entity.OrganizationEntity;
 import it.eng.lukapendelj.entity.PatientEntity;
 import it.eng.lukapendelj.service.PatientService;
 
@@ -74,6 +75,19 @@ public class PatientServiceImpl implements PatientService {
 	public void delete(PatientEntity patient) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void setOrganizationNull(OrganizationEntity organizationInactive) {
+		List<PatientEntity> patientList = patientDao.findByOrganization(organizationInactive);
+		
+		patientList.forEach(patientItem -> {
+			patientItem.setOrganization(null);
+			//System.out.println("organizacije za brisanje: " + medicItem.getOrganization().getName());
+			patientDao.save(patientItem);
+		}
+		);
+		
 	}
 
 }

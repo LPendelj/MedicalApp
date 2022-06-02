@@ -85,7 +85,7 @@ public class OrganizationController {
 	}
 	
 	@PutMapping("{id}")
-	public @ResponseBody ResponseEntity<Object> update(@PathVariable Long id, @Valid @RequestBody OrganizationEntity orgEntity) {
+	public @ResponseBody ResponseEntity<Object> update(@PathVariable Long id,  @RequestBody OrganizationEntity orgEntity) {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(organizationService.update(orgEntity));
 		} catch (RuntimeException ex) {

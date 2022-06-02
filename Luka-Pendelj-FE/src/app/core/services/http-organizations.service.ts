@@ -8,7 +8,7 @@ import { Organization } from '../model/models';
 })
 export class HttpOrganizationsService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpOrganizations: HttpClient) { }
 
 
   getAll(): Observable<Organization[]>{
@@ -17,25 +17,33 @@ export class HttpOrganizationsService {
     // headers = headers.set('Authorization', this.userLoginService.token!);
 
 
-    return this.httpClient.get<Organization[]>(`http://localhost:8080/organizations`)
+    return this.httpOrganizations.get<Organization[]>(`http://localhost:8080/organizations`)
 
   }
 
   getOrganization(organizationId: number): Observable<Organization>{
-      return this.httpClient.get<Organization>(`http://localhost:8080/organizations/${organizationId}`);
+      return this.httpOrganizations.get<Organization>(`http://localhost:8080/organizations/${organizationId}`);
   }
 
   //CHECK!!
   createOrganization(organization: Organization): Observable<Organization>{
 
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.httpClient.post<Organization>(`http://localhost:8080/organizations/save`, organization, {headers:headers});
+    return this.httpOrganizations.post<Organization>(`http://localhost:8080/organizations/save`, organization, {headers:headers});
   }
 
   deleteOrganization(organizationId: number){
-    return this.httpClient.delete<Organization>(`http://localhost:8080/organizations/delete/${organizationId}`);
+    return this.httpOrganizations.delete<Organization>(`http://localhost:8080/organizations/delete/${organizationId}`);
   }
 
+  updateOrganization(organizationId: number, organization: Organization){
+    return this.httpOrganizations.put<Organization>(`http://localhost:8080/organizations/${organizationId}`, organization);
+  }
+
+  ///////////////////////////////////////////////////////////
+
+
+  
 }
 
 /* const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');

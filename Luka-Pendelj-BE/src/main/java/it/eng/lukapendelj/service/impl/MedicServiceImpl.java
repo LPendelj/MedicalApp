@@ -69,7 +69,7 @@ public class MedicServiceImpl implements MedicService {
 	}
 	
 	
-	//MEthod by which we achieve to set
+	//MEthod by which we achieve to set inactive organizations' references at null
 	@Override
 	public void setOrganizationNull(OrganizationEntity organizationInactive) {
 		List<MedicEntity> medicList = medicDao.findByOrganization(organizationInactive);

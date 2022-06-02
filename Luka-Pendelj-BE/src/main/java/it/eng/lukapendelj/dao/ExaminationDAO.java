@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import it.eng.lukapendelj.entity.ExaminationEntity;
+import it.eng.lukapendelj.entity.OrganizationEntity;
 import it.eng.lukapendelj.entity.ServiceTypeEntity;
 
 public interface ExaminationDAO extends JpaRepository<ExaminationEntity, Long> {
@@ -16,7 +17,7 @@ public interface ExaminationDAO extends JpaRepository<ExaminationEntity, Long> {
 	
 	//CHECK method names!!!
 	
-	List<ExaminationEntity> findByOrganization(Long id);
+	List<ExaminationEntity> findByOrganization(OrganizationEntity organizationEntity);
 	
 	//List<ExaminationEntity> findByMedic(Long id);
 	

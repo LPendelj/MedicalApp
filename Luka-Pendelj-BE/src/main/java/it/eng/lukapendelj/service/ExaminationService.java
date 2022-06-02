@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import it.eng.lukapendelj.entity.ExaminationEntity;
+import it.eng.lukapendelj.entity.OrganizationEntity;
 
 //import org.springframework.stereotype.Service;
 
@@ -28,4 +29,6 @@ public interface ExaminationService {
 	void deleteById(Long id); // throws InvalidEntityException
 	
 	void delete(ExaminationEntity examination);
+	
+	void deleteByOrganization(OrganizationEntity organizationEntity);
 }

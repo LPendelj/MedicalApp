@@ -37,7 +37,7 @@ public class OrganizationEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long organizationId;
 	
-	@Length(min = 5)
+	//@Length(min = 5)
 	private String organizationCode;
 	@NotNull
 	private Boolean active = true; //req
@@ -65,11 +65,11 @@ public class OrganizationEntity {
 		
 	}
 	
-	@PreRemove
-	@Query("UPDATE medic JOIN ORGANIZATION ON medic.organization_id = organization.organization_id SET medic.organization_id=NULL WHERE organization.active = FALSE")
-	public void checkEmployees() {
-		System.out.println("Check employees called!");
-	}
+//	@PreRemove
+//	@Query("UPDATE medic JOIN ORGANIZATION ON medic.organization_id = organization.organization_id SET medic.organization_id=NULL WHERE organization.active = FALSE")
+//	public void checkEmployees() {
+//		System.out.println("Check employees called!");
+//	}
 	
 	
 //	@PrePersist
@@ -84,12 +84,12 @@ public class OrganizationEntity {
 //		 */
 //	}
 	
-	@PostUpdate
-	public void setEmplyeesOrgToNull() {
-		if(this.active==false) {
-			
-		}
-	}
+//	@PostUpdate
+//	public void setEmplyeesOrgToNull() {
+//		if(this.active==false) {
+//			
+//		}
+//	}
 
 	public Long getOrganizationId() {
 		return organizationId;

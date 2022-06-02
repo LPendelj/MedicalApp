@@ -6,13 +6,15 @@ import { OrganizationsComponent } from './pages/organizations/organizations.comp
 import { OrganizationDetailsComponent } from './pages/organization-details/organization-details.component';
 import { SharedModuleModule } from 'src/app/shared/shared-module/shared-module.module';
 import { OrganizationAddComponent } from './pages/organization-add/organization-add.component';
+import { OrganizationEditComponent } from './pages/organization-edit/organization-edit.component';
 
 
 @NgModule({
   declarations: [
     OrganizationsComponent,
     OrganizationDetailsComponent,
-    OrganizationAddComponent
+    OrganizationAddComponent,
+    OrganizationEditComponent
   ],
   imports: [
     CommonModule,

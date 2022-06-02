@@ -27,5 +27,13 @@ export class ExaminationsComponent implements OnInit {
     this.router.navigate(['examinations/examination-details', exam.examinationId]);
   }
 
+  deleteExamination(examinationId: number){
+    var answer = window.confirm(`Are you sure that you want to delete entity with Id ${examinationId}?`);
+    if(answer){
+    this.httpExamination.deleteExamination(examinationId).subscribe();
+    location.reload();
+    }
+  }
+
 
 }

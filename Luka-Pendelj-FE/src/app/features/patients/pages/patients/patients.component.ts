@@ -26,4 +26,12 @@ export class PatientsComponent implements OnInit {
   patientDetails(pat: Patient){
     this.router.navigate(['patients/patient-details', pat.patientId]);
   }
+
+  deletePatient(pat: Patient){
+    var answer = window.confirm(`Are you sure that you want to delete entity with Id ${pat.patientId}?`);
+    if(answer){
+      this.httpPatient.deletePatient(pat.patientId).subscribe();
+      location.reload();
+    }
+  }
 }

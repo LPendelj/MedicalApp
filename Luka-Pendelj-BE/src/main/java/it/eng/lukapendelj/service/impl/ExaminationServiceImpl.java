@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import it.eng.lukapendelj.dao.ExaminationDAO;
 import it.eng.lukapendelj.entity.ExaminationEntity;
+import it.eng.lukapendelj.entity.OrganizationEntity;
 import it.eng.lukapendelj.service.ExaminationService;
 
 @Service
@@ -75,5 +76,17 @@ public class ExaminationServiceImpl implements ExaminationService {
 		// TODO Auto-generated method stub
 
 	}
+	
+	@Override
+	public void deleteByOrganization(OrganizationEntity organizationEntity) {
+		List<ExaminationEntity> examinationList = examinationDao.findByOrganization(organizationEntity);
+		
+		System.out.println("Delete Examination by organization called!");
+		
+		examinationList.forEach(exam -> examinationDao.delete(exam));
+// @formatter:on
+
+	}
+	
 
 }
