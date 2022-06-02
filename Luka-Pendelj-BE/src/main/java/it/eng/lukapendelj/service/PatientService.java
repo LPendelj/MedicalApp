@@ -3,6 +3,7 @@ package it.eng.lukapendelj.service;
 import java.util.List;
 import java.util.Optional;
 
+import it.eng.lukapendelj.entity.MedicEntity;
 import it.eng.lukapendelj.entity.OrganizationEntity;
 import it.eng.lukapendelj.entity.PatientEntity;
 
@@ -26,4 +27,6 @@ public interface PatientService {
 	void delete(PatientEntity patient);
 	
 	void setOrganizationNull(OrganizationEntity organizationInactive);
+	
+	void setMedicNull(MedicEntity medicEntity);
 }

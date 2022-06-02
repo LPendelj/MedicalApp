@@ -16,7 +16,7 @@ export class OrganizationAddComponent implements OnInit {
   // options: any;
   // selectedIndex: any;
 
-  organizationTypeOne?: OrganizationType;
+  //organizationTypeOne?: OrganizationType;
 
   organizationType: OrganizationType[] = [
     {

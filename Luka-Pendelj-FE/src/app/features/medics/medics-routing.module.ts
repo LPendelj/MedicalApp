@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MedicAddComponent } from './pages/medic-add/medic-add.component';
 import { MedicDetailsComponent } from './pages/medic-details/medic-details.component';
+import { MedicEditComponent } from './pages/medic-edit/medic-edit.component';
 import { MedicsComponent } from './pages/medics/medics.component';
 
 //RAZMISLI DA ISKLJUCIS DEO RUTE!!!
@@ -15,6 +16,9 @@ const routes: Routes = [
   },
   {
     path: 'practitioner-add', component: MedicAddComponent
+  },
+  {
+    path: 'practitioner-edit/:medicId', component: MedicEditComponent
   }
 ];
 

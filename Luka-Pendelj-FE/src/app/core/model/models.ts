@@ -36,7 +36,7 @@ export interface Medic {
 //[‘Annulled’, ‘Divorced’, ‘Married’, ‘Polygamous’, ‘Never Married’, ‘Widowed’]
 
 export interface Patient {
-  patientId: 1;
+  patientId: number;
   patientCode?: string;
   active: Boolean;
   firstname: string;
@@ -47,7 +47,7 @@ export interface Patient {
   phone?: string;
   email?: string;
   deceased?: boolean;
-  maritialStatus?: string;
+  maritalStatus?: string;
   mainMedic?: Medic;
   organization?: Organization;
 }

@@ -26,8 +26,8 @@ export class HttpExaminationsService {
     return this.httpExaminations.delete<Examination>(`http://localhost:8080/examinations/delete/${examinationId}`);
   }
 
-  updateExamination(examinationId: number, examination: Examination){
-    return this.httpExaminations.put<Examination>(`http://localhost:8080/examinations/${examinationId}`, examination);
+  updateExamination(examination: Examination){
+    return this.httpExaminations.put<Examination>(`http://localhost:8080/examinations/${examination.examinationId}`, examination);
   }
 
   ///////////////////////////////////////////////////////////

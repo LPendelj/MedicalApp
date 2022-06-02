@@ -37,4 +37,8 @@ export class MedicsComponent implements OnInit {
     location.reload();
     }
   }
+
+  editMedic(medic: Medic){
+    this.router.navigate(['practitioners/practitioner-edit', medic.medicId]);
+  }
 }

@@ -10,6 +10,7 @@ import it.eng.lukapendelj.dao.MedicDAO;
 import it.eng.lukapendelj.entity.MedicEntity;
 import it.eng.lukapendelj.entity.OrganizationEntity;
 import it.eng.lukapendelj.service.MedicService;
+import it.eng.lukapendelj.service.PatientService;
 
 @Service
 public class MedicServiceImpl implements MedicService {
@@ -17,6 +18,7 @@ public class MedicServiceImpl implements MedicService {
 	
 	MedicDAO medicDao;
 	
+	PatientService patientService;
 	
 	
 	@Autowired
@@ -64,6 +66,9 @@ public class MedicServiceImpl implements MedicService {
 
 	@Override
 	public void deleteById(Long id) {
+		
+		patientService.setMedicNull(medicDao.findById(id).get());
+		
 		medicDao.deleteById(id);
 
 	}

@@ -6,13 +6,15 @@ import { MedicsComponent } from './pages/medics/medics.component';
 import { SharedModuleModule } from 'src/app/shared/shared-module/shared-module.module';
 import { MedicDetailsComponent } from './pages/medic-details/medic-details.component';
 import { MedicAddComponent } from './pages/medic-add/medic-add.component';
+import { MedicEditComponent } from './pages/medic-edit/medic-edit.component';
 
 
 @NgModule({
   declarations: [
     MedicsComponent,
     MedicDetailsComponent,
-    MedicAddComponent
+    MedicAddComponent,
+    MedicEditComponent
   ],
   imports: [
     CommonModule,

@@ -23,8 +23,8 @@ export class ExaminationsComponent implements OnInit {
     this.httpExamination.getAll().subscribe(examinations => this.examinationsList = examinations);
   }
 
-  examDetails(exam: Examination){
-    this.router.navigate(['examinations/examination-details', exam.examinationId]);
+  examDetails(examination: Examination){
+    this.router.navigate(['examinations/examination-details', examination.examinationId]);
   }
 
   deleteExamination(examinationId: number){
@@ -33,6 +33,10 @@ export class ExaminationsComponent implements OnInit {
     this.httpExamination.deleteExamination(examinationId).subscribe();
     location.reload();
     }
+  }
+
+  editExamination(examination: Examination){
+    this.router.navigate(['examinations/examination-edit', examination.examinationId]);
   }
 
 

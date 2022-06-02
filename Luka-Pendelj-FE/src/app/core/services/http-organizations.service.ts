@@ -36,14 +36,14 @@ export class HttpOrganizationsService {
     return this.httpOrganizations.delete<Organization>(`http://localhost:8080/organizations/delete/${organizationId}`);
   }
 
-  updateOrganization(organizationId: number, organization: Organization){
-    return this.httpOrganizations.put<Organization>(`http://localhost:8080/organizations/${organizationId}`, organization);
+  updateOrganization(organization: Organization){
+    return this.httpOrganizations.put<Organization>(`http://localhost:8080/organizations/${organization.organizationId}`, organization);
   }
 
   ///////////////////////////////////////////////////////////
 
 
-  
+
 }
 
 /* const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');

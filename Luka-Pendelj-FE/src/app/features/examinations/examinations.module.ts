@@ -6,13 +6,15 @@ import { SharedModuleModule } from 'src/app/shared/shared-module/shared-module.m
 import { ExaminationsComponent } from './pages/examinations/examinations.component';
 import { ExaminationDetailsComponent } from './pages/examination-details/examination-details.component';
 import { ExaminationAddComponent } from './pages/examination-add/examination-add.component';
+import { ExaminationEditComponent } from './pages/examination-edit/examination-edit.component';
 
 
 @NgModule({
   declarations: [
     ExaminationsComponent,
     ExaminationDetailsComponent,
-    ExaminationAddComponent
+    ExaminationAddComponent,
+    ExaminationEditComponent
   ],
   imports: [
     CommonModule,

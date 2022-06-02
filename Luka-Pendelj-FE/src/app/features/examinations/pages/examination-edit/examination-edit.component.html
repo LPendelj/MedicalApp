@@ -1,0 +1,98 @@
+<h2>Edit Examination</h2>
+<main >
+  <div style="width:50vw" *ngIf="editExaminationForm">
+    <!-- [formGroup]="form"] -->
+    <form  [formGroup]="editExaminationForm">
+
+        <div class="form-group row">
+          <label for="code">Code:</label>
+          <!-- VALIDATION(min5) -->
+          <input type="text" name="code" formControlName="examinationCode"/>
+        </div>
+
+        <div class="form-group row">
+          <label for="status">Status: <span>*</span></label>
+          <select name="status" id="status" formControlName="status" >
+            <!-- *ngFor list of Specs -->
+            <option  *ngFor="let item of status" [ngValue]="item">{{item}}</option>
+
+          </select>
+        </div>
+
+        <div class="form-group row">
+          <label for="serviceType">Service type: <span>*</span></label>
+          <select name="serviceType" id="serviceType" formControlName="serviceType" >
+            <!-- *ngFor list of Specs -->
+            <option  *ngFor="let item of serviceTypes" [ngValue]="item">{{item.serviceName}}</option>
+
+          </select>
+        </div>
+
+        <div class="form-group row">
+          <label for="priority">Priority: <span>*</span></label>
+          <select name="priority" id="priority" formControlName="priority" >
+            <!-- *ngFor list of Specs -->
+            <option  *ngFor="let item of priorities" [ngValue]="item">{{item}}</option>
+
+          </select>
+        </div>
+
+
+
+        <div class="form-group row">
+          <label for="startDate">Select start date:</label>
+          <input type="date" name="startDate" formControlName="startDate">
+        </div>
+
+        <div class="form-group row">
+          <label for="endDate">Select end date:</label>
+          <input type="date" name="endDate" formControlName="endDate">
+        </div>
+
+        <!-- ‘Doctor’, ‘’, ‘’, ‘’,  -->
+
+
+        <div class="form-group row">
+          <label for="diagnosis">Diagnosis:</label>
+          <input type="text" name="diagnosis" formControlName="diagnosis"/>
+        </div>
+
+
+        <div class="form-group row">
+          <label for="organization">Select Organization:</label>
+          <select name="organization" formControlName="organization" >
+            <!-- *ngFor list of Specs -->
+            <option  *ngFor="let item of organizations" [ngValue]="item">{{item.name}}</option>
+
+          </select>
+        </div>
+
+        <div class="form-group row">
+          <label for="patient">Select Patient: <span>*</span></label>
+          <select name="patient" id="patient" formControlName="patient" >
+            <!-- *ngFor list of Specs -->
+            <option  *ngFor="let item of patients" [ngValue]="item">{{item.firstname}} {{item.lastname}}</option>
+
+          </select>
+        </div>
+
+        <div class="form-group row">
+          <label for="medicList">Select Practitioner: <span>*</span></label>
+          <select name="medicList" id="medicList" formControlName="medicList" multiple>
+            <!-- *ngFor list of Specs -->
+            <option  *ngFor="let item of medics"  [ngValue]="item">{{item.firstname}} {{item.lastname}}</option>
+
+          </select>
+        </div>
+
+
+        <br/>
+        <button class="btn btn-secondary btn-sm" type="submit" (click)="editExamination()">Save</button>
+
+         <!-- <div class="form-group row">
+          <submit Spec="save" ngForm="MedicAdd">Submit</submit>
+        </div> -->
+
+    </form>
+  </div>
+</main>

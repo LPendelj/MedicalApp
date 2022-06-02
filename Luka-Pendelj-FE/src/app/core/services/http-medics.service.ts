@@ -32,8 +32,8 @@ export class HttpMedicsService {
     return this.httpMedics.delete<Medic>(`http://localhost:8080/practitioners/delete/${medicId}`);
   }
 
-  updateMedic(medicId: number, medic: Medic){
-    return this.httpMedics.put<Medic>(`http://localhost:8080/practitioners/${medicId}`, medic);
+  updateMedic(medic: Medic){
+    return this.httpMedics.put<Medic>(`http://localhost:8080/practitioners/${medic.medicId}`, medic);
   }
 
   ///////////////////////////////////////////////////////////

@@ -34,4 +34,8 @@ export class PatientsComponent implements OnInit {
       location.reload();
     }
   }
+
+  editPatient(pat: Patient){
+    this.router.navigate(['patients/patient-edit', pat.patientId]);
+  }
 }

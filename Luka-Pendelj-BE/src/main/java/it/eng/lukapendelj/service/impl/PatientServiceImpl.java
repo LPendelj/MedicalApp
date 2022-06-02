@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.eng.lukapendelj.dao.PatientDAO;
+import it.eng.lukapendelj.entity.MedicEntity;
 import it.eng.lukapendelj.entity.OrganizationEntity;
 import it.eng.lukapendelj.entity.PatientEntity;
 import it.eng.lukapendelj.service.PatientService;
@@ -88,6 +89,15 @@ public class PatientServiceImpl implements PatientService {
 		}
 		);
 		
+	}
+
+	@Override
+	public void setMedicNull(MedicEntity medicInactive) {
+		List<PatientEntity> patientList = patientDao.findByMainMedic(medicInactive);
+		patientList.forEach(patient -> {
+			patient.setMainMedic(null);
+			patientDao.save(patient);
+		});
 	}
 
 }

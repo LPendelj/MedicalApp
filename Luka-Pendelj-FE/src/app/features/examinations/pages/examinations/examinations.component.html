@@ -30,7 +30,7 @@ EXAMINATIONS
           <td>{{exam.organization?.name}}</td>
           <td>
             <button class="btn btn-primary" (click)="examDetails(exam)">Details</button>
-            <button class="btn btn-secondary">Edit</button>
+            <button class="btn btn-secondary" (click)="editExamination(exam)">Edit</button>
             <button class="btn btn-danger" (click)="deleteExamination(exam.examinationId)">Delete</button>
           </td>
         </tr>
