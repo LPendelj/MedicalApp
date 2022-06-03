@@ -57,7 +57,7 @@ export class PatientEditComponent implements OnInit {
 
   createPatientForm(){
     this.editPatientForm = new FormGroup({
-      firstname: new FormControl('', Validators.required),
+      firstname: new FormControl(this.patient?.firstname, Validators.required),
       lastname: new FormControl(''),
       patientCode: new FormControl(''),
       gender: new FormControl(''),
@@ -109,7 +109,7 @@ export class PatientEditComponent implements OnInit {
       console.log(this.patient?.patientId);
 
       const patientId = Number(this.activeRoute.snapshot.paramMap.get('patientId'));
-
+      
       this.patient.patientId = patientId;
       console.log(this.patient);
 

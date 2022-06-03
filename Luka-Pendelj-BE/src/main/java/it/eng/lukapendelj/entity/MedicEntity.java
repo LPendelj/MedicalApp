@@ -2,7 +2,7 @@ package it.eng.lukapendelj.entity;
 
 import java.util.Date;
 import java.util.Objects;
-import java.util.UUID;
+//import java.util.UUID;
 
 
 import javax.persistence.Entity;

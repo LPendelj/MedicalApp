@@ -66,9 +66,9 @@ export class ExaminationEditComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.loadMedics();
+
     this.loadOrganizations();
-    this.loadPatients();
+
 
     this.createFormGroup();
 
@@ -91,12 +91,18 @@ export class ExaminationEditComponent implements OnInit {
   }
 
 
-  loadMedics(){
-    this.httpMedic.getAll().subscribe(medics=>this.medics=medics);
+  getValue(){
+    const orgId= this.editExaminationForm?.get('organization')?.value.organizationId;
+    this.loadMedics(orgId);
+    this.loadPatients(orgId);
   }
 
-  loadPatients(){
-    this.httpPatient.getAll().subscribe(patients=>this.patients=patients);
+  loadMedics(orgId: number){
+    this.httpMedic.getMedicsByOrganization(orgId).subscribe(medics=>this.medics=medics);
+  }
+
+  loadPatients(orgId: number){
+    this.httpPatient.getPatientsByOrganization(orgId).subscribe(patients=>this.patients=patients);
   }
 
   loadOrganizations(){

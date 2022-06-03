@@ -2,22 +2,32 @@
 <main >
   <div style="width:50vw" *ngIf="addPatientForm">
     <!-- [formGroup]="form"] -->
-    <form  [formGroup]="addPatientForm">
+    <form class="form-group" [formGroup]="addPatientForm">
         <div class="form-group row" >
           <label for="firstname">First name: <span>*</span></label>
-          <input type="text" name="firstname" formControlName="firstname"/>
+          <input type="text" name="firstname" formControlName="firstname"  required/>
+        <div class="validation">
+          <p class="alert alert-danger" *ngIf="firstName?.hasError('required') && firstName?.touched">First name is required</p>
+          <p class="alert alert-danger" *ngIf="firstName?.hasError('minlength')">Please enter valid first name</p>
+       </div>
         </div>
+
         <div class="form-group row" >
           <label for="lastname">Last name: <span>*</span></label>
-          <input type="text" name="lastname" formControlName="lastname"/>
+          <input type="text" name="lastname" formControlName="lastname" required/>
+          <p class="alert alert-danger" *ngIf="lastName?.hasError('required') && lastName?.touched">Last name is required</p>
+        <p class="alert alert-danger" *ngIf="lastName?.hasError('minlength')">Please enter valid last name</p>
         </div>
         <div class="form-group row">
           <label for="code">Code:</label>
           <!-- VALIDATION(min5) -->
           <input type="text" name="code" formControlName="patientCode"/>
+          <p class="alert alert-danger" *ngIf="patientCode?.hasError('minlength') || patientCode?.hasError('maxlength')
+          && patientCode?.touched">Please enter between 3 and 12 characters.</p>
+
         </div>
         <div class="form-group row">
-          <label for="phone">Gender: <span>*</span></label>
+          <label for="gender">Gender:</label>
           <select name="gender" id="gender" formControlName="gender" >
             <!-- *ngFor list of Specs -->
             <option  *ngFor="let item of gender" [ngValue]="item">{{item.genderName}}</option>
@@ -25,8 +35,10 @@
           </select>
         </div>
         <div class="form-group row">
-          <label for="birthDate">Select date of birth:</label>
-          <input type="date" name="birthDate" formControlName="birthDate">
+          <label for="birthDate">Select date of birth: <span>*</span></label>
+          <input type="date" name="birthDate" formControlName="birthDate" >
+          <p class="alert alert-danger" *ngIf="birthDate?.hasError('required') && birthDate?.touched">Birth date is required</p>
+          <p class="alert alert-danger" *ngIf="isInTheFuture(birthDate?.value)  && birthDate?.touched">Please enter valid birth date</p>
         </div>
 
         <!-- ‘Doctor’, ‘’, ‘’, ‘’,  -->
@@ -46,6 +58,7 @@
         <div class="form-group row">
           <label for="email">E-mail:</label>
           <input type="text" formControlName="email"  />
+          <p class="alert alert-danger" *ngIf="email?.hasError('email') && email?.touched">E-mail is invalid</p>
         </div>
         <div class="form-group row">
           <label for="phone">Phone:</label>
@@ -54,11 +67,6 @@
         <div class="form-group row">
           <label for="deceased">Deceased?</label>
 
-          <!--<label for="deceased-true">Yes</label>
-          <input type="radio" name="deceased-true" formControlName="deceased" value="true"/>
-
-          <label for="deceased-false">No</label>
-          <input type="radio" name="deceased-false" formControlName="deceased" value="false"/> -->
           <select name="deceased" formControlName="deceased" >
             <!-- *ngFor list of Specs -->
             <option  value="true">Yes</option>
@@ -95,7 +103,7 @@
           </select>
         </div>
         <br/>
-        <button class="btn btn-secondary btn-sm" type="submit" (click)="createPatient()">Save</button>
+        <button class="btn btn-secondary btn-sm" [disabled]="!addPatientForm.valid"  type="submit" (click)="createPatient()">Save</button>
 
          <!-- <div class="form-group row">
           <submit Spec="save" ngForm="MedicAdd">Submit</submit>

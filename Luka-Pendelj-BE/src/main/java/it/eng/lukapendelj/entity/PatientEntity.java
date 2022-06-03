@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +22,9 @@ import javax.validation.constraints.NotNull;
 //import org.hibernate.annotations.Check;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.springframework.lang.Nullable;
+
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 @Entity
 @Table(name="Patient")
@@ -52,7 +56,7 @@ public class PatientEntity {
 	private Boolean deceased;
 	private String maritalStatus;
 	
-	@JoinColumn(name="medicId")
+	@JoinColumn(name="medicId", nullable = true)
 	@ManyToOne
 	private MedicEntity mainMedic;
 	

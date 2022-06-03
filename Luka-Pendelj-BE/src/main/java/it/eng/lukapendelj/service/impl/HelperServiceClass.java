@@ -13,6 +13,8 @@ import it.eng.lukapendelj.entity.MedicEntity;
 import it.eng.lukapendelj.entity.OrganizationEntity;
 import it.eng.lukapendelj.entity.PatientEntity;
 
+//Utility class made to avoid circular bean references
+
 @Service
 public class HelperServiceClass {
 	
