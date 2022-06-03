@@ -69,6 +69,12 @@ export class PatientsComponent implements OnInit {
     }
   }
 
+  filterPatientsByFilter(term: string){
+    const filter = this.filterPatients?.get('filterText')?.value;
+
+    this.httpPatient.getPatientsByFilter(term, filter).subscribe(patients => this.patientsList=patients);
+  }
+
   filterPatientsByFirstName(){
 
   }

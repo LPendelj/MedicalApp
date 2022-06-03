@@ -98,7 +98,7 @@ public class OrganizationController {
 		try {
 			System.out.println("Pozvan delete metod");
 			organizationService.deleteById(id);
-			return ResponseEntity.ok("Organization with id " + id + ": DELETED");
+			return ResponseEntity.ok().build();
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
 		}

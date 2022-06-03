@@ -40,4 +40,9 @@ export class HttpPatientsService {
      return this.httpPatients.get<Patient[]>(`http://localhost:8080/patients/organizationName/${organizationName}`);
   }
 
+  getPatientsByFilter(filter: string, term: string){
+
+    return this.httpPatients.post<Patient[]>(`http://localhost:8080/patients/filter`, [filter, term]);
+  }
+
 }

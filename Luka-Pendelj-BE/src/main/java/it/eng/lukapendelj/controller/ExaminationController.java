@@ -99,7 +99,7 @@ public class ExaminationController {
 		try {
 			System.out.println("Pozvan delete EXAMINATION metod");
 			examinationService.deleteById(id);
-			return ResponseEntity.ok("Examination with id " + id + ": DELETED");
+			return ResponseEntity.status(HttpStatus.OK).build();
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
 		}

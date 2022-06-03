@@ -99,7 +99,7 @@ public class MedicController {
 		try {
 			System.out.println("Pozvan MEDIC delete metod");
 			medicService.deleteById(id);
-			return ResponseEntity.status(HttpStatus.OK).body("Practitioner deleted");
+			return ResponseEntity.status(HttpStatus.OK).build();
 		} catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
 		}

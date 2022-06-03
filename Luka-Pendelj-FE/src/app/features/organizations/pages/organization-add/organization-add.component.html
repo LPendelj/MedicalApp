@@ -35,7 +35,7 @@
           <label for="phone">Phone:</label>
           <input type="text" name="phone" formControlName="phone"/>
         </div>
-        <button class="btn btn-secondary" type="submit" (click)="createOrganization()">Save</button>
+        <button class="btn btn-secondary" type="submit" (click)="createOrganization()" (click)="this.addOrganizationForm.reset()" >Save</button>
 
          <!-- <div class="form-group row">
           <submit type="save" ngForm="OrganizationAdd">Submit</submit>

@@ -16,7 +16,7 @@ PATIENTS
         <option value="mainMedic">Main practitioner</option>
       </select>
       <input  type="text" id="filter" name="filter" formControlName="filterText">
-      <button class="btn btn-secondary btn-sm" (click)="filterPatientsBy(filterPatients.get('filterSelect')?.value)" >Search</button>
+      <button class="btn btn-secondary btn-sm" (click)="filterPatientsByFilter(filterPatients.get('filterSelect')?.value)" >Search</button>
     </form>
 </div>
   <table class="table">

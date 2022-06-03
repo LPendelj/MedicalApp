@@ -1,5 +1,6 @@
 package it.eng.lukapendelj.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -97,7 +99,7 @@ public class PatientController {
 			try {
 				System.out.println("Pozvan PATIENT delete metod");
 				patientService.deleteById(id);
-				return ResponseEntity.ok("Patient with code " + id + ": DELETED");
+				return ResponseEntity.ok().build();
 			} catch (Exception ex) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
 			}
@@ -116,6 +118,21 @@ public class PatientController {
 		public ResponseEntity<Object> findByOrganizationName(@PathVariable String name){
 			List<PatientEntity> patientsList = patientService.findByOrganizationName(name);
 			System.out.println("From controller " + patientsList);
+			return ResponseEntity.status(HttpStatus.OK).body(patientsList);
+		}
+		
+		@PostMapping("filter")
+		public ResponseEntity<Object> findByFilter(@RequestBody String[] values){
+			//List<PatientEntity> patientsList = patientService.findByOrganizationName(term);
+				System.out.println(values[0]+ " " + values[1]);
+				
+				List<PatientEntity> patientsList = null;
+				
+				switch(values[0]) {
+				case "organization":  patientsList = patientService.findByOrganizationName(values[1]);
+				break;
+				}
+			
 			return ResponseEntity.status(HttpStatus.OK).body(patientsList);
 		}
 	

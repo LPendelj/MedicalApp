@@ -77,6 +77,11 @@ export class MedicAddComponent implements OnInit {
   loadOrganizations(){
     this.httpOrganization.getAll().subscribe(organizations => this.organizations = organizations);
   }
+
+
+  resetForm() {
+    this.addMedicForm?.reset();
+  }
   // {
   //   "medicId": 6,
   //   "medicCode": "MED-66",

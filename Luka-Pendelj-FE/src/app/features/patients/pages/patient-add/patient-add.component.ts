@@ -102,7 +102,7 @@ export class PatientAddComponent implements OnInit, OnChanges {
     const today = new Date();
    let pipe = new DatePipe('en_US');
     let changedFormat = pipe.transform(today, 'YYYY-MM-dd');
-    
+
 
     return this.birthDate?.value > changedFormat!;
   }
@@ -150,6 +150,11 @@ export class PatientAddComponent implements OnInit, OnChanges {
       console.log(this.patient);
 
       this.httpPatient.createPatient(this.patient).subscribe();
+  }
+
+
+    resetForm() {
+    this.addPatientForm.reset();
   }
 }
 
