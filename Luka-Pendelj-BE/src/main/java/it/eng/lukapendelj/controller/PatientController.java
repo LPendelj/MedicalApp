@@ -111,6 +111,13 @@ public class PatientController {
 			
 			return ResponseEntity.status(HttpStatus.OK).body(patientService.findByOrganization(id));
 		}
+		
+		@GetMapping("organizationName/{name}")
+		public ResponseEntity<Object> findByOrganizationName(@PathVariable String name){
+			List<PatientEntity> patientsList = patientService.findByOrganizationName(name);
+			System.out.println("From controller " + patientsList);
+			return ResponseEntity.status(HttpStatus.OK).body(patientsList);
+		}
 	
 	
 }

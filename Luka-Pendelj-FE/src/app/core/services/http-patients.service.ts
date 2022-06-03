@@ -33,7 +33,11 @@ export class HttpPatientsService {
   ///////////////////////////////////////////////////////////
 
   getPatientsByOrganization(organizationId: number){
-    return this.httpPatients.get<Patient[]>(`https://localhost:8080/patients/organization/${organizationId}`);
+    return this.httpPatients.get<Patient[]>(`http://localhost:8080/patients/organization/${organizationId}`);
+  }
+
+   getPatientsByOrganizationName(organizationName: string){
+     return this.httpPatients.get<Patient[]>(`http://localhost:8080/patients/organizationName/${organizationName}`);
   }
 
 }

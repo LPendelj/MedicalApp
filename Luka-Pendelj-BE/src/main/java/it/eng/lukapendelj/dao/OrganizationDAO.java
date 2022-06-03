@@ -15,8 +15,8 @@ import it.eng.lukapendelj.entity.OrganizationEntity;
 @Transactional
 public interface OrganizationDAO extends JpaRepository<OrganizationEntity, Long> {
 	
-	List<OrganizationEntity> findByName(String name);
+	List<OrganizationEntity> findByNameContaining(String name);
 	
-	//Optional<OrganizationEntity> findByName( String name);
+	List<OrganizationEntity> findByName(String name);
 
 }

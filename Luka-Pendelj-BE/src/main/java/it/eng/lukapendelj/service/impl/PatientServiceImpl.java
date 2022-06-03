@@ -1,7 +1,9 @@
 package it.eng.lukapendelj.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -114,9 +116,29 @@ public class PatientServiceImpl implements PatientService {
 		
 		return patientList;
 	}
+
+	
 	
 	///////////////////////////////////////////////////////////////////////////
 	
+	@Override
+	public List<PatientEntity> findByOrganizationName(String name) {
+			
+			List<OrganizationEntity> listOrganization = helperService.getOrganizationDao().findByNameContaining(name);
+			
+			List<PatientEntity> patientList = new ArrayList<PatientEntity>();
+			
+			System.out.println("listOrganization is " + listOrganization );
+			
+			for(OrganizationEntity org: listOrganization) {
+				System.out.print(org.getOrganizationId() + ": ");
+				patientList.addAll(patientDao.findByOrganization(org));
+			}
+			
+		
+			System.out.println("From service " + patientList);
+		return patientList;
+	}
 	
 
 }
