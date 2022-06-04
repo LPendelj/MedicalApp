@@ -15,6 +15,13 @@ export class PatientsComponent implements OnInit {
 
   filterPatients?: FormGroup;
 
+  pageNo: number = 1;
+
+  pageSize: number = 5;
+
+  totalItems = 20;
+
+
   constructor(private httpPatient: HttpPatientsService,
               private router: Router) { }
 
@@ -31,7 +38,14 @@ export class PatientsComponent implements OnInit {
   }
 
   loadPatients(){
-    this.httpPatient.getAll().subscribe(patients => this.patientsList=patients);
+    //this.httpPatient.getAll().subscribe(patients => this.patientsList=patients);
+    this.httpPatient.getSome((this.pageNo-1), this.pageSize).subscribe(
+        patientPage=> {
+        this.patientsList = patientPage.content;
+        this.totalItems = patientPage.totalElements;
+        this.pageSize = patientPage.size;
+        }
+    )
   }
 
   patientDetails(pat: Patient){
@@ -67,6 +81,10 @@ export class PatientsComponent implements OnInit {
 
 
     }
+  }
+
+  onPageChange(page: number){
+      this.loadPatients();
   }
 
   filterPatientsByFilter(term: string){

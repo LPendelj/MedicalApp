@@ -6,6 +6,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import it.eng.lukapendelj.dao.OrganizationDAO;
@@ -40,6 +43,17 @@ public class PatientServiceImpl implements PatientService {
 		// TODO Auto-generated method stub
 		return patientDao.findAll();
 	}
+	
+	
+	@Override
+	public Page<PatientEntity> findAll(Integer pageNo, Integer pageSize) {
+		// TODO Auto-generated method stub
+		Pageable pageable = PageRequest.of(pageNo, pageSize);
+		
+		return patientDao.findAll(pageable);
+	}
+	
+	
 
 	@Override
 	public Optional<PatientEntity> findById(Long id) {
@@ -139,6 +153,7 @@ public class PatientServiceImpl implements PatientService {
 			System.out.println("From service " + patientList);
 		return patientList;
 	}
+
 	
 
 }

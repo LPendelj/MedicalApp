@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { NgbPagination, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -16,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     RouterModule,
     HttpClientModule,
+    NgbPaginationModule
   ],
   exports: [
     CommonModule,
@@ -24,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     RouterModule,
     HttpClientModule,
+    NgbPaginationModule
   ]
 })
 export class SharedModuleModule { }

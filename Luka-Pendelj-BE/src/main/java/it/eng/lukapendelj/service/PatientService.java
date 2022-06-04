@@ -3,6 +3,8 @@ package it.eng.lukapendelj.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+
 import it.eng.lukapendelj.entity.MedicEntity;
 import it.eng.lukapendelj.entity.OrganizationEntity;
 import it.eng.lukapendelj.entity.PatientEntity;
@@ -12,7 +14,9 @@ public interface PatientService {
 	
 	List<PatientEntity> findAll();
 	
-	//Page<OrganizationEntity> findAll(Integer pageNo, Integer pageSize, String sortBy);
+	Page<PatientEntity> findAll(Integer pageNo, Integer pageSize);
+	
+	//String sortBy
 
 	Optional<PatientEntity> findById(Long id);
 	

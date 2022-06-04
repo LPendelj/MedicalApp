@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -47,6 +48,17 @@ public class PatientController {
 			
 			return patientService.findAll();
 		}
+		
+		@GetMapping("filter")
+		public ResponseEntity<Page<PatientEntity>> findAll(@RequestParam(defaultValue = "0")Integer pageNo, @RequestParam(defaultValue = "5")Integer pageSize){
+			
+			System.out.println("Pozvan Patient findAll metod");
+			
+			
+			return ResponseEntity.status(HttpStatus.OK).body(patientService.findAll(pageNo, pageSize));
+		}
+		
+		
 		
 		
 		@GetMapping("{id}")

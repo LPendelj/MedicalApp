@@ -9,6 +9,7 @@ import { HeaderComponent } from './features/header/header/header.component';
 import { PageNotFoundComponent } from './features/page-not-found/page-not-found.component';
 import { CoreModule } from './core/core.module';
 import { SharedModuleModule } from './shared/shared-module/shared-module.module';
+import { NgbModule, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 //import { OrganizationsModule } from './features/organizations/organizations.module';
 
 @NgModule({
@@ -27,6 +28,7 @@ import { SharedModuleModule } from './shared/shared-module/shared-module.module'
     ReactiveFormsModule,
     RouterModule,
     HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

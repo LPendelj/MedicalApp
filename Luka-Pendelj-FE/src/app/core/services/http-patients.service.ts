@@ -14,6 +14,11 @@ export class HttpPatientsService {
     return this.httpPatients.get<Patient[]>(`http://localhost:8080/patients`);
   }
 
+  getSome(pageNo: number, pageSize: number){
+    return this.httpPatients.get<any>(`http://localhost:8080/patients/filter?pageNo=${pageNo}&pageSize=${pageSize}`);
+  }
+
+
   getPatient(patientId: number){
     return this.httpPatients.get<Patient>(`http://localhost:8080/patients/${patientId}`);
   }

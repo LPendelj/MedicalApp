@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import it.eng.lukapendelj.entity.MedicEntity;
@@ -16,6 +18,10 @@ public interface PatientDAO extends JpaRepository<PatientEntity, Long> {
 	 List<PatientEntity> findByOrganization(OrganizationEntity organizationEntity);
 	 
 	 List<PatientEntity> findByMainMedic(MedicEntity medicEntity);
+	 
+	 Page<PatientEntity> findByFirstnameContaining(String name, Pageable p);
+		
+	 Page<PatientEntity> findByOrganizationContaining(String name, Pageable p);
 	
 
 }
