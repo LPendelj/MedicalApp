@@ -22,6 +22,8 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
+import com.fasterxml.jackson.annotation.Nulls;
+
 //Changed the name of this Entity from Practitioner to Medic for its clarity and length. UI Entity name will be as requested (Practitioner)
 
 
@@ -82,8 +84,9 @@ public class MedicEntity {
 		
 	}
 	
-	public void setNull() {
+	public Nulls setNull() {
 		this.organization = null;
+		return null;
 	}
 	
 	

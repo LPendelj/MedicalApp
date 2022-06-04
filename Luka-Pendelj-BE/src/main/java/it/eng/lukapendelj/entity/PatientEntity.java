@@ -25,6 +25,7 @@ import org.hibernate.annotations.Where;
 import org.springframework.lang.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 
 @Entity
 @Table(name="Patient")
@@ -107,7 +108,8 @@ public class PatientEntity {
 	public MedicEntity getMainMedic() {
 		return mainMedic;
 	}
-
+	
+	@JsonSetter(contentNulls = Nulls.AS_EMPTY )
 	public void setMainMedic(MedicEntity mainMedic) {
 		this.mainMedic = mainMedic;
 	}
