@@ -12,6 +12,15 @@ export class MedicsComponent implements OnInit {
 
   medicsList?: Medic[];
   //httpMedic, Router
+
+  pageNo = 0;
+  pageSize = 5;
+
+  totalItems = 20;
+
+
+
+
   constructor(private httpMedic: HttpMedicsService,
     private router: Router) { }
 
@@ -20,9 +29,22 @@ export class MedicsComponent implements OnInit {
     this.loadMedics()
   }
 
+  onPageChange(pageNo: number){
+    this.loadMedics();
+  }
+
   //httpS | method: list | subscribe()  (arrowF with userDefined varname for return value of getAll method)
   loadMedics(){
-    this.httpMedic.getAll().subscribe(medics =>this.medicsList = medics);
+    //this.httpMedic.getAll().subscribe(medics =>this.medicsList = medics);
+    this.httpMedic.getSome((this.pageNo-1), this.pageSize).subscribe(
+      medicPage=> {
+      this.medicsList = medicPage.content;
+      this.totalItems = medicPage.totalElements;
+      this.pageSize = medicPage.size;
+      }
+  )
+
+
   }
 
   medicDetails(medic: Medic){

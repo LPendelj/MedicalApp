@@ -3,6 +3,8 @@ package it.eng.lukapendelj.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+
 import it.eng.lukapendelj.entity.ExaminationEntity;
 import it.eng.lukapendelj.entity.OrganizationEntity;
 
@@ -16,7 +18,9 @@ public interface ExaminationService {
 	
 	List<ExaminationEntity> findAll();
 	
-	//Page<ExaminationEntity> findAll(Integer pageNo, Integer pageSize, String sortBy);
+	
+	
+	Page<ExaminationEntity> findAll(Integer pageNo, Integer pageSize);
 
 	Optional<ExaminationEntity> findById(Long id);
 	

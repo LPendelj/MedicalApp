@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,10 +17,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.eng.lukapendelj.entity.OrganizationEntity;
+import it.eng.lukapendelj.entity.PatientEntity;
 //import it.eng.lukapendelj.service.OrganizationService;
 import it.eng.lukapendelj.service.impl.OrganizationServiceImpl;
 //import it.engineering.app.dto.CityDto;
@@ -47,6 +50,18 @@ public class OrganizationController {
 		
 		return organizationService.findAll();
 	}
+	
+	
+	
+	@GetMapping("filter")
+	public ResponseEntity<Page<OrganizationEntity>> findAll(@RequestParam(defaultValue = "0")Integer pageNo, @RequestParam(defaultValue = "5")Integer pageSize){
+		
+		System.out.println("Pozvan Patient findAll metod");
+		
+		
+		return ResponseEntity.status(HttpStatus.OK).body(organizationService.findAll(pageNo, pageSize));
+	}
+	
 	
 	@GetMapping("{id}")
 	public ResponseEntity<Object> findById(@PathVariable Long id){

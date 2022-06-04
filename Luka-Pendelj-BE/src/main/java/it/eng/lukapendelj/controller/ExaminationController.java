@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,10 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.eng.lukapendelj.entity.ExaminationEntity;
+import it.eng.lukapendelj.entity.MedicEntity;
 import it.eng.lukapendelj.service.ExaminationService;
 
 //@CrossOrigin(origins = "*")
@@ -46,6 +49,16 @@ public class ExaminationController {
 		
 		return examinationService.findAll();
 		
+	}
+	
+	
+	@GetMapping("filter")
+	public ResponseEntity<Page<ExaminationEntity>> findAll(@RequestParam(defaultValue = "0")Integer pageNo, @RequestParam(defaultValue = "5")Integer pageSize){
+		
+		System.out.println("Pozvan Patient findAll metod");
+		
+		
+		return ResponseEntity.status(HttpStatus.OK).body(examinationService.findAll(pageNo, pageSize));
 	}
 	
 	@GetMapping("{id}")
@@ -111,47 +124,3 @@ public class ExaminationController {
 
 }
 
-/*	
-	
-	@GetMapping("{code}")
-	public ResponseEntity<Object> findByCode(@PathVariable String code) {
-		Optional<OrganizationEntity> examEntity = Optional.of(examinationService.findBycode(code).get(0));
-		
-		System.out.println("Pozvan findByCODE metod");
-
-		
-		if(orgEntity.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid examination code!");
-		} return ResponseEntity.status(HttpStatus.OK).body(examEntity.get());
-		
-	}
-	
-	@PostMapping("save")
-	public ResponseEntity<Object> save(@Valid @RequestBody ExamEntity examEntity) {
-		try {
-			return ResponseEntity.status(HttpStatus.OK).body(examinationService.save(orgEntity));
-		} catch (Exception ex) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
-		}
-	}
-	
-	@PutMapping("{id}")
-	public @ResponseBody ResponseEntity<Object> update(@PathVariable Long id, @Valid @RequestBody ExaminationEntity examEntity) {
-		try {
-			return ResponseEntity.status(HttpStatus.OK).body(organizationService.update(examEntity));
-		} catch (RuntimeException ex) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
-		}
-	}
-	
-	@DeleteMapping("delete/{id}")
-	public ResponseEntity<Object> delete(@PathVariable Long id){
-		try {
-			System.out.println("Pozvan delete EXAMINATION metod");
-			examinationService.deleteById(id);
-			return ResponseEntity.ok("Examination with id " + id + ": DELETED");
-		} catch (Exception ex) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
-		}
-	}
-	*/

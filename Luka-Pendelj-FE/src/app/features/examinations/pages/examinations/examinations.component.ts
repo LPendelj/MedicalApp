@@ -12,6 +12,12 @@ export class ExaminationsComponent implements OnInit {
 
   examinationsList?: Examination[];
 
+
+  pageNo = 0;
+  pageSize = 5;
+
+  totalItems = 20;
+
   constructor(private httpExamination: HttpExaminationsService,
               private router: Router) { }
 
@@ -19,8 +25,25 @@ export class ExaminationsComponent implements OnInit {
     this.loadExaminations();
   }
 
+  onPageChange(pageNo: number){
+    this.loadExaminations();
+  }
+
+
+
+
+
   loadExaminations(){
-    this.httpExamination.getAll().subscribe(examinations => this.examinationsList = examinations);
+    //this.httpExamination.getAll().subscribe(examinations => this.examinationsList = examinations);
+
+    this.httpExamination.getSome((this.pageNo-1), this.pageSize).subscribe(
+      examinationPage => {
+      this.examinationsList = examinationPage.content;
+      this.totalItems = examinationPage.totalElements;
+      this.pageSize = examinationPage.size;
+      }
+  )
+
   }
 
   examDetails(examination: Examination){

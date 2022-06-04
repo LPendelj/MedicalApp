@@ -13,6 +13,14 @@ export class OrganizationsComponent implements OnInit {
 
   organizationsList?: Organization[] = undefined;
 
+
+  pageNo = 0;
+  pageSize = 5;
+
+  totalItems = 20;
+
+
+
   constructor(private httpOrganization: HttpOrganizationsService,
               private router: Router) { }
 
@@ -22,9 +30,21 @@ export class OrganizationsComponent implements OnInit {
     this.loadOrganizations();
   }
 
-  loadOrganizations(){
-    this.httpOrganization.getAll().subscribe(organizations => this.organizationsList = organizations);
 
+
+  onPageChange(pageNo: number){
+    this.loadOrganizations();
+  }
+
+  loadOrganizations(){
+    //this.httpOrganization.getAll().subscribe(organizations => this.organizationsList = organizations);
+    this.httpOrganization.getSome((this.pageNo-1), this.pageSize).subscribe(
+      organizationPage=> {
+      this.organizationsList = organizationPage.content;
+      this.totalItems = organizationPage.totalElements;
+      this.pageSize = organizationPage.size;
+      }
+  )
   }
 
   organizationDetails(org: Organization){
@@ -34,6 +54,9 @@ export class OrganizationsComponent implements OnInit {
   // organizationAdd(){
   //   this.router.navigate(['organizations/organization-add']);
   // }
+
+
+
 
   deleteOrganization(organizationId: number){
 

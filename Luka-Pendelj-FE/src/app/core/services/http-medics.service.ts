@@ -20,6 +20,10 @@ export class HttpMedicsService {
     return this.httpMedics.get<Medic[]>(`http://localhost:8080/practitioners`);
   }
 
+  getSome(pageNo: number, pageSize: number){
+    return this.httpMedics.get<any>(`http://localhost:8080/practitioners/filter?pageNo=${pageNo}&pageSize=${pageSize}`);
+  }
+
   getMedic(medicId: number): Observable<Medic>{
     return this.httpMedics.get<Medic>(`http://localhost:8080/practitioners/${medicId}`);
   }

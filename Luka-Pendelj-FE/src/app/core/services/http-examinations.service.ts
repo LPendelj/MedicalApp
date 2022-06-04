@@ -14,6 +14,10 @@ export class HttpExaminationsService {
     return this.httpExaminations.get<Examination[]>(`http://localhost:8080/examinations`);
   }
 
+  getSome(pageNo: number, pageSize: number){
+    return this.httpExaminations.get<any>(`http://localhost:8080/examinations/filter?pageNo=${pageNo}&pageSize=${pageSize}`);
+  }
+
   getExamination(examId: number){
     return this.httpExaminations.get<Examination>(`http://localhost:8080/examinations/${examId}`);
   }

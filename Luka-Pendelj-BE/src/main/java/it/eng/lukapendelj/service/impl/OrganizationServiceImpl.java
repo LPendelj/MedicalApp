@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +27,10 @@ public class OrganizationServiceImpl implements OrganizationService {
 	
 	private OrganizationDAO organizationDao;
 	
+	
+	/**
+	   * This variable is used to bypass the circular referencing Spring Beans.
+	   */
 	private HelperServiceClass helperService;
 	
 	//private ExaminationService examinationService;
@@ -41,14 +48,23 @@ public class OrganizationServiceImpl implements OrganizationService {
 		//this.patientService = patientService;
 		this.helperService = helperService;
 	}
-
+	
+	
 	@Override
 	public List<OrganizationEntity> findAll() {
-		List<OrganizationEntity> organizationEntity = organizationDao.findAll();
+		// TODO Auto-generated method stub
+		return organizationDao.findAll();
+	}
+
+	@Override
+	public Page<OrganizationEntity> findAll(Integer pageNo, Integer pageSize) {
+		
 		
 		//System.out.println(organizationEntity);
+		Pageable pageable = PageRequest.of(pageNo, pageSize);
 		
-		return organizationEntity;
+		
+		return organizationDao.findAll(pageable);
 	}
 
 	@Override
@@ -82,12 +98,23 @@ public class OrganizationServiceImpl implements OrganizationService {
 		System.out.println("Pozvan service orgSave ");
 		return organizationDao.save(organization);
 	}
-
+	
+	/**
+	   * This method is used to delete organization Entites. First, there is a check. 
+	   * If any examination in organization cooncerned is active, delete is impossible.
+	   * Then, if the examination list is empty, the references to the organization are deleted inside the Exam, Medic and Patient entites??
+	   * @return no value returned
+	   */
 	@Override
 	public void deleteById(Long id) {
 		
 		
 		System.out.println("Pozvan deleteOrgById");
+		
+		if(!helperService.getExaminationDao().findByOrganization(organizationDao.findById(id).get()).isEmpty()) {
+			//throw new RuntimeException();
+			System.err.println("Organization cannot be deleted!");
+		}
 		
 		//examinationSrvice.setOrganizationNull();
 		helperService.getExaminationDao().deleteByOrganization(organizationDao.findById(id).get());
@@ -110,6 +137,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 		
 		
 	}
+
+
 	
 //	Optional<CityEntity> entity = cityDao.findById(cityDto.getZipCode());
 //	if (!entity.isPresent()) {

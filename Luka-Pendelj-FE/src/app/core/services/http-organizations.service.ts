@@ -21,6 +21,10 @@ export class HttpOrganizationsService {
 
   }
 
+  getSome(pageNo: number, pageSize: number){
+    return this.httpOrganizations.get<any>(`http://localhost:8080/organizations/filter?pageNo=${pageNo}&pageSize=${pageSize}`);
+  }
+
   getOrganization(organizationId: number): Observable<Organization>{
       return this.httpOrganizations.get<Organization>(`http://localhost:8080/organizations/${organizationId}`);
   }

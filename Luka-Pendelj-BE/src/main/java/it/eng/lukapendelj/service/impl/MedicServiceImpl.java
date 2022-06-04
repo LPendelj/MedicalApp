@@ -1,9 +1,13 @@
 package it.eng.lukapendelj.service.impl;
 
+
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import it.eng.lukapendelj.dao.MedicDAO;
@@ -40,6 +44,15 @@ public class MedicServiceImpl implements MedicService {
 	public List<MedicEntity> findAll() {
 		
 		return medicDao.findAll();
+	}
+	
+	@Override
+	public Page<MedicEntity> findAll(Integer pageNo, Integer pageSize) {
+		// TODO Auto-generated method stub
+		
+		Pageable pageable = PageRequest.of(pageNo, pageSize);
+		
+		return medicDao.findAll(pageable);
 	}
 
 	@Override
@@ -108,5 +121,7 @@ public class MedicServiceImpl implements MedicService {
 	
 		return medicDao.findByOrganization(helperService.getOrganizationDao().findById(id).get());
 	}
+
+	
 
 }
