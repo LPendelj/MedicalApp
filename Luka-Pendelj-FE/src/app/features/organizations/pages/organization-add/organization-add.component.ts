@@ -55,10 +55,10 @@ export class OrganizationAddComponent implements OnInit {
   createFormGroup() {
     this.addOrganizationForm = new FormGroup({
       name: new FormControl('', Validators.required),
-      organizationCode: new FormControl(''),
-      organizationType: new FormControl(''),
+      organizationCode: new FormControl('', [Validators.minLength(3), Validators.maxLength(12)]),
+      organizationType: new FormControl('', Validators.required),
       address: new FormControl(''),
-      email: new FormControl(''),
+      email: new FormControl('', Validators.email),
       phone: new FormControl(''),
     });
   }

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -75,12 +76,12 @@ export class ExaminationAddComponent implements OnInit {
 
   createFormGroup() {
     this.addExaminationForm = new FormGroup({
-      examinationCode: new FormControl(''),
+      examinationCode: new FormControl('', [Validators.minLength(3), Validators.maxLength(12)]),
       status: new FormControl('', Validators.required),
-      serviceType: new FormControl(''),
+      serviceType: new FormControl('', Validators.required),
       priority: new FormControl(''),
-      startDate: new FormControl('', Validators.required),
-      endDate: new FormControl('', Validators.required),
+      startDate: new FormControl('' ),
+      endDate: new FormControl(''),
       diagnosis: new FormControl(''),
       organization: new FormControl(''),
       patient: new FormControl(''),
@@ -108,6 +109,16 @@ export class ExaminationAddComponent implements OnInit {
 
   }
 
+  isValidDate() {
+  //   const today = new Date();
+  //  let pipe = new DatePipe('en_US');
+  //   let changedFormat = pipe.transform(today, 'YYYY-MM-dd');
+  console.log(this.addExaminationForm?.get('startDate')?.value );
+    console.log(this.addExaminationForm?.get('endDate')?.value );
+
+
+    return this.addExaminationForm?.get('endDate')?.value > this.addExaminationForm?.get('startDate')?.value;
+  }
 
   createExamination(){
       console.log("create Ex called.");

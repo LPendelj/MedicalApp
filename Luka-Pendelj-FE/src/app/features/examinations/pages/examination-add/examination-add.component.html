@@ -8,6 +8,8 @@
           <label for="code">Code:</label>
           <!-- VALIDATION(min5) -->
           <input type="text" name="code" formControlName="examinationCode"/>
+          <p class="alert alert-danger"
+          *ngIf="addExaminationForm.get('examinationCode')?.hasError('minlength') || addExaminationForm.get('examinationCode')?.hasError('maxlength')">Please enter between 3 and 12 characters</p>
         </div>
 
         <div class="form-group row">
@@ -15,7 +17,7 @@
           <select name="status" id="status" formControlName="status" >
             <!-- *ngFor list of Specs -->
             <option  *ngFor="let item of status" [ngValue]="item">{{item}}</option>
-
+            <p class="alert alert-danger" *ngIf="addExaminationForm.get('status')?.hasError('required')">Please choose Examination status</p>
           </select>
         </div>
 
@@ -24,12 +26,12 @@
           <select name="serviceType" id="serviceType" formControlName="serviceType" >
             <!-- *ngFor list of Specs -->
             <option  *ngFor="let item of serviceTypes" [ngValue]="item">{{item.serviceName}}</option>
-
+            <p class="alert alert-danger" *ngIf="addExaminationForm.get('serviceType')?.hasError('required')">Please choose Service type status</p>
           </select>
         </div>
 
         <div class="form-group row">
-          <label for="priority">Priority: <span>*</span></label>
+          <label for="priority">Priority: </label>
           <select name="priority" id="priority" formControlName="priority" >
             <!-- *ngFor list of Specs -->
             <option  *ngFor="let item of priorities" [ngValue]="item">{{item}}</option>
@@ -47,6 +49,8 @@
         <div class="form-group row">
           <label for="endDate">Select end date:</label>
           <input type="date" name="endDate" formControlName="endDate">
+          <p class="alert alert-danger" *ngIf="!isValidDate()  && addExaminationForm.get('endDate')?.touched">Please enter valid end date</p>
+
         </div>
 
         <!-- ‘Doctor’, ‘’, ‘’, ‘’,  -->
@@ -68,7 +72,7 @@
         </div>
 
         <div class="form-group row">
-          <label for="patient">Select Patient: <span>*</span></label>
+          <label for="patient">Select Patient: </label>
           <select name="patient" id="patient" formControlName="patient" >
             <!-- *ngFor list of Specs -->
             <option  *ngFor="let item of patients" [ngValue]="item">{{item.firstname}} {{item.lastname}}</option>
@@ -77,7 +81,7 @@
         </div>
 
         <div class="form-group row">
-          <label for="medicList">Select Practitioner: <span>*</span></label>
+          <label for="medicList">Select Practitioner: </label>
           <select name="medicList" id="medicList" formControlName="medicList" multiple>
             <!-- *ngFor list of Specs -->
             <option  *ngFor="let item of medics"  [ngValue]="item">{{item.firstname}} {{item.lastname}}</option>
@@ -87,7 +91,7 @@
 
 
         <br/>
-        <button class="btn btn-secondary btn-sm" type="submit" (click)="createExamination()" (click)="this.addExaminationForm.reset()" >Save</button>
+        <button class="btn btn-secondary btn-sm" type="submit" [disabled]="!isValidDate() || !addExaminationForm.valid" (click)="createExamination()" (click)="this.addExaminationForm.reset()" >Save</button>
 
          <!-- <div class="form-group row">
           <submit Spec="save" ngForm="MedicAdd">Submit</submit>

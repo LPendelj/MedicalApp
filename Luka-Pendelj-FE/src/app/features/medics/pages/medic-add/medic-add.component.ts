@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -18,9 +19,7 @@ export class MedicAddComponent implements OnInit {
 
   organizations?: Organization[];
 
-  //[‘Doctor of Medicine’, ‘Medical Assistant’, ‘Nurse
-//Practitioner’, ‘Doctor of Pharmacy’, ‘Certified Nurse
-//Midwife’, ‘Emergency Medical Technician’]
+
 
   qualification?: string[] = [
     'Doctor of Medicine',
@@ -40,6 +39,7 @@ export class MedicAddComponent implements OnInit {
 
 
 
+
   constructor(private httpMedic: HttpMedicsService,
             private httpOrganization: HttpOrganizationsService,
             private router: Router) { }
@@ -54,12 +54,12 @@ export class MedicAddComponent implements OnInit {
 
   createFormGroup() {
     this.addMedicForm = new FormGroup({
-      firstname: new FormControl('', Validators.required),
-      lastname: new FormControl(''),
-      medicCode: new FormControl(''),
+      firstname: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      lastname: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      medicCode: new FormControl('', [Validators.minLength(3), Validators.maxLength(12)]),
       gender: new FormControl(''),
       birthDate: new FormControl('', Validators.required),
-      qualification: new FormControl(''),
+      qualification: new FormControl('', Validators.required),
       address: new FormControl(''),
       email: new FormControl('', Validators.email),
       phone: new FormControl(''),
@@ -78,6 +78,15 @@ export class MedicAddComponent implements OnInit {
     this.httpOrganization.getAll().subscribe(organizations => this.organizations = organizations);
   }
 
+
+  isInTheFuture(date: Date) {
+    const today = new Date();
+   let pipe = new DatePipe('en_US');
+    let changedFormat = pipe.transform(today, 'YYYY-MM-dd');
+
+
+    return this.addMedicForm?.get('birthDate')?.value > changedFormat!;
+  }
 
   resetForm() {
     this.addMedicForm?.reset();
