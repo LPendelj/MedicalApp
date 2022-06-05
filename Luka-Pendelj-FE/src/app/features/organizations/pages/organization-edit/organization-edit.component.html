@@ -1,6 +1,6 @@
-<h2>Edit Organization</h2>
-<main >
-  <div style="width:40vw" *ngIf="editOrganizationForm">
+<h4>Edit Organization</h4>
+<main class="container">
+  <div id="mainForm"  *ngIf="editOrganizationForm">
     <!-- [formGroup]="form"] -->
     <form  [formGroup]="editOrganizationForm">
         <div class="form-group row" >
@@ -43,10 +43,10 @@
 
     </form>
   </div>
-<div style="width:40vw">
-    <h2>Organization {{organization?.name}}</h2>
+<!-- <div style="width:40vw">
+    <h2>Organization {{organization?.name}}</h2> -->
 
-<div class="table">
+<!-- <div class="table">
   <table class="table-responsive-lg">
 
       <tr><th>Code</th> <td>{{organization?.organizationCode}}</td></tr>
@@ -59,8 +59,8 @@
     <tr>
     </tr>
   </table>
-</div>
-  </div>
+</div> -->
+
 </main>
 
 <!-- organizationCode?: string;

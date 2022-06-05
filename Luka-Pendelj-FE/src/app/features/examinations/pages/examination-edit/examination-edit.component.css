@@ -1,18 +1,26 @@
-.sidenav {
-  margin-top: 15vh;
-  height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 15vw; /* Set the width of the sidebar */
-  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  z-index: 1; /* Stay on top */
-  top: 0; /* Stay at the top */
-  left: 0;
-  background-color: rgb(0, 175, 0); /* Black */
-  overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 20px;
+h4{
+  background-color: rgb(34, 136, 34);
 }
 
-main {
-  margin-left: 20vw; /* Same as the width of the sidebar */
-  padding: 0px 10px;
 
+label span{
+  color: red;
 }
+
+.container{
+  display: flex;
+
+  justify-content: center;
+}
+
+
+body{
+  background-color: rgb(248,249,250);
+}
+
+@media only screen and (max-width: 600px){
+  #mainForm{
+    width: 100vw;
+  }
+}
+
