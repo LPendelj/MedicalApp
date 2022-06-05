@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Organization } from 'src/app/core/model/models';
 import { HttpOrganizationsService } from 'src/app/core/services/http-organizations.service';
@@ -11,10 +12,12 @@ import { HttpOrganizationsService } from 'src/app/core/services/http-organizatio
 })
 export class OrganizationsComponent implements OnInit {
 
+  filterOrganizations?: FormGroup;
+
   organizationsList?: Organization[] = undefined;
 
 
-  pageNo = 0;
+  pageNo = 1;
   pageSize = 5;
 
   totalItems = 20;
@@ -27,7 +30,16 @@ export class OrganizationsComponent implements OnInit {
   ngOnInit(): void {
     console.log("org initialized");
 
+    this.createFormGroup();
+
     this.loadOrganizations();
+  }
+
+  createFormGroup(){
+    this.filterOrganizations=new FormGroup({
+      filterSelect: new FormControl(''),
+      filterText: new FormControl('')
+    });
   }
 
 
@@ -47,6 +59,11 @@ export class OrganizationsComponent implements OnInit {
   )
   }
 
+
+  filterOrganizationsByFilter(filter: any){
+
+  }
+
   organizationDetails(org: Organization){
     this.router.navigate(['organizations/organization-details', org.organizationId])
   }
@@ -64,7 +81,7 @@ export class OrganizationsComponent implements OnInit {
     var answer = window.confirm(`Are you sure that you want to delete entity with Id ${organizationId}?`);
     if(answer){
     this.httpOrganization.deleteOrganization(organizationId).subscribe();
-    //location.reload();
+    location.reload();
     }
 
   }

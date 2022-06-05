@@ -1,6 +1,7 @@
-
-<main >
-  <div style="width:50vw" *ngIf="addPatientForm">
+<h4>Add Patient</h4>
+<body>
+<main class="container">
+  <div id="mainForm" *ngIf="addPatientForm">
     <!-- [formGroup]="form"] -->
     <form class="form-group" [formGroup]="addPatientForm">
         <div class="form-group row" >
@@ -112,4 +113,4 @@
     </form>
   </div>
 </main>
-
+</body>

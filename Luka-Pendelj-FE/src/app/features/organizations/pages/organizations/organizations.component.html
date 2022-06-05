@@ -1,15 +1,26 @@
-<div>
-  <!-- routerLink="add" -->
-  Header: <a routerLink="./../organization-add">Add new</a>
-</div>
-<main>
-<div>
-  <label for="filter">Filter</label>
-  <select name="idk" id=""></select>
-  <input class="input-group mb-3" type="text" id="filter" name="filter">
-  <button class="btn btn-secondary">Search</button>
+<div class="headline"><h4>ORGANIZATIONS</h4></div>
 
+<aside class="sidenav">
+  <div>
+    <!-- routerLink="add" -->
+    <button routerLink="./../organization-add">Add new</button>
+  </div>
+  <div *ngIf="filterOrganizations">
+    <form action="" [formGroup]="filterOrganizations">
+      <label for="filter">Filter by: </label>
+      <br>
+      <select name="filterSelect" id="filterSelect" formControlName="filterSelect" >
+        <option value="name">Name</option>
+        <option value="type">Organization type</option>
+        <option value="address">Address</option>
+      </select>
+      <input  type="text" id="filter" name="filter" formControlName="filterText">
+      <button class="btn btn-secondary btn-sm" (click)="filterOrganizationsByFilter(filterOrganizations.get('filterSelect')?.value)" >Search</button>
+    </form>
 </div>
+</aside>
+<main>
+
   <table class="table">
         <thead class="thead-dark">
           <th>Name</th>

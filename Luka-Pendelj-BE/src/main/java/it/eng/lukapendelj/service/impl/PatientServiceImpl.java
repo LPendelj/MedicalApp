@@ -92,7 +92,17 @@ public class PatientServiceImpl implements PatientService {
 
 	@Override
 	public void deleteById(Long id) {
-		patientDao.deleteById(id);
+			if(!helperService.getExaminationDao().findByPatient(patientDao.findById(id).get()).isEmpty()) {
+			
+			System.out.println("pacijent ima aktivne preglede!");
+			throw new RuntimeException("Patient cannot be deleted!");
+			//System.err.println("Organization cannot be deleted!");
+		} else {
+			System.out.println("Organization deleted");
+			patientDao.deleteById(id);
+		}
+		
+		
 	}
 
 	@Override
@@ -150,7 +160,7 @@ public class PatientServiceImpl implements PatientService {
 			}
 			
 		
-			System.out.println("From service " + patientList);
+			//System.out.println("From service " + patientList);
 		return patientList;
 	}
 

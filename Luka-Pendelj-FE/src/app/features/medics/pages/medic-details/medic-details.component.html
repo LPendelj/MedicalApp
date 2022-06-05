@@ -9,9 +9,12 @@
       <tr><th>Phone</th> <td>{{medic?.phone}}</td></tr>
       <tr><th>E-mail</th>  <td>{{medic?.email}}</td></tr>
       <tr><th>Qualifications</th>  <td>{{medic?.qualification}}</td></tr>
-      <tr><th>Actions</th> <td><button class="btn btn-primary">Edit</button><button class="btn btn-danger">Delete</button></td></tr>
-      <tr><th>Patients</th> <td><button class="btn btn-primary">Patients</button></td></tr>
-      <tr><th>Examinations</th> <td><button class="btn btn-primary">Examinations</button></td></tr>
+      <tr><th>Gender</th> <td>{{medic?.gender?.genderName}}</td></tr>
+      <tr><th>Actions</th> <td><button class="btn btn-primary" (click)="editMedic(medic)">Edit</button>
+        <button class="btn btn-danger" (click)="deleteMedic(medic)">Delete</button></td></tr>
+      <!-- <tr><th>Patients</th> <td><button class="btn btn-primary">Patients</button></td></tr> -->
+       <tr><th>Examinations</th> <td>No.</td></tr>
+      <!-- <button class="btn btn-primary">Examinations</button> -->
 
     <tr>
     </tr>

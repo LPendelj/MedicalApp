@@ -112,8 +112,12 @@ public class OrganizationServiceImpl implements OrganizationService {
 		System.out.println("Pozvan deleteOrgById");
 		
 		if(!helperService.getExaminationDao().findByOrganization(organizationDao.findById(id).get()).isEmpty()) {
-			//throw new RuntimeException();
-			System.err.println("Organization cannot be deleted!");
+			
+			System.out.println("organizacija ima aktivne preglede!");
+			throw new RuntimeException("Organization cannot be deleted!");
+			//System.err.println("Organization cannot be deleted!");
+		} else {
+			System.out.println("Organization deleted");
 		}
 		
 		//examinationSrvice.setOrganizationNull();

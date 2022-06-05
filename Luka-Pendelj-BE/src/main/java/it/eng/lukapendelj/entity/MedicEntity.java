@@ -22,6 +22,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 
 //Changed the name of this Entity from Practitioner to Medic for its clarity and length. UI Entity name will be as requested (Practitioner)
@@ -135,12 +136,15 @@ public class MedicEntity {
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
+	@JsonSetter(contentNulls = Nulls.AS_EMPTY )
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
 	public String getLastname() {
 		return lastname;
 	}
+	
+	@JsonSetter(contentNulls = Nulls.AS_EMPTY )
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}

@@ -91,6 +91,8 @@ public class MedicServiceImpl implements MedicService {
 		
 		helperService.setPatientMedicNull(medicDao.findById(id).get());
 		
+		System.out.println("deleteMedic Service called");
+		
 		medicDao.deleteById(id);
 
 	}

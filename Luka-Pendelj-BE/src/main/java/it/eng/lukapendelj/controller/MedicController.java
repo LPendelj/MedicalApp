@@ -131,10 +131,11 @@ public class MedicController {
 //			
 //		}
 			
+		System.out.println("Broj zaposlenih je " + medicService.findByOrganization(id).size());
 			return ResponseEntity.ok(medicService.findByOrganization(id));
 		
-	}
 	
+	}
 	
 
 }

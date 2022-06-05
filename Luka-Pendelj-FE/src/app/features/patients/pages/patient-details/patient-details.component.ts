@@ -10,7 +10,7 @@ import { HttpPatientsService } from 'src/app/core/services/http-patients.service
 })
 export class PatientDetailsComponent implements OnInit {
 
-  patient?: Patient;
+  patient!: Patient;
 
   constructor(private activeRoute: ActivatedRoute,
     private httpPatients: HttpPatientsService,
@@ -26,4 +26,15 @@ export class PatientDetailsComponent implements OnInit {
 
   }
 
+  editPatient(pat: Patient){
+    this.router.navigate(['patients/patient-edit', pat.patientId]);
+  }
+
+  deletePatient(pat: Patient){
+    var answer = window.confirm(`Are you sure that you want to delete entity with Id ${pat.patientId}?`);
+    if(answer){
+      this.httpPatients.deletePatient(pat.patientId).subscribe();
+      this.router.navigate(['patients/patients']);
+    }
+  }
 }

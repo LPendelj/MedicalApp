@@ -1,17 +1,29 @@
-EXAMINATIONS
+<div class="headline"><h4>EXAMINATIONS</h4></div>
+<aside class="sidenav">
+  <div>
+    <div>
+    <!-- routerLink="add" -->
+    <button routerLink="./../examination-add">Add new</button>
+    </div>
+    <div *ngIf="filterExaminations">
+      <form action="" [formGroup]="filterExaminations">
+        <label for="filter">Filter by: </label>
+        <br>
+        <select name="filterSelect" id="filterSelect" formControlName="filterSelect" >
+          <option value="organization">Organization</option>
+          <option value="patient">Patient</option>
+          <option value="status">Status</option>
+          <option value="priority">Priority</option>
+          <option value="serviceType">Service type</option>
+        </select>
+        <input  type="text" id="filter" name="filter" formControlName="filterText">
+        <button class="btn btn-secondary btn-sm" (click)="filterExaminationsByFilter(filterExaminations.get('filterSelect')?.value)" >Search</button>
+      </form>
+      </div>
+  </div>
+</aside>
+<main class="main">
 
-<div>
-  <!-- routerLink="add" -->
-  Header: <a routerLink="./../examination-add">Add new</a>
-</div>
-<main>
-<div>
-  <label for="filter">Filter</label>
-  <select name="idk" id=""></select>
-  <input class="input-group mb-3" type="text" id="filter" name="filter">
-  <button class="btn btn-secondary">Search</button>
-
-</div>
   <table class="table">
         <thead class="thead-dark">
           <th>Code</th>

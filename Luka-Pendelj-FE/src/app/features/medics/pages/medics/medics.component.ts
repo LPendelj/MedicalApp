@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Medic } from 'src/app/core/model/models';
 import { HttpMedicsService } from 'src/app/core/services/http-medics.service';
+
 
 @Component({
   selector: 'app-medics',
@@ -13,12 +15,12 @@ export class MedicsComponent implements OnInit {
   medicsList?: Medic[];
   //httpMedic, Router
 
-  pageNo = 0;
+  pageNo = 1;
   pageSize = 5;
 
   totalItems = 20;
 
-
+  filterMedics?: FormGroup;
 
 
   constructor(private httpMedic: HttpMedicsService,
@@ -26,11 +28,20 @@ export class MedicsComponent implements OnInit {
 
   ngOnInit(): void {
     //method call
+    this.createFormGroup();
+
     this.loadMedics()
   }
 
   onPageChange(pageNo: number){
     this.loadMedics();
+  }
+
+  createFormGroup(){
+    this.filterMedics=new FormGroup({
+      filterSelect: new FormControl(''),
+      filterText: new FormControl('')
+    });
   }
 
   //httpS | method: list | subscribe()  (arrowF with userDefined varname for return value of getAll method)
@@ -41,11 +52,18 @@ export class MedicsComponent implements OnInit {
       this.medicsList = medicPage.content;
       this.totalItems = medicPage.totalElements;
       this.pageSize = medicPage.size;
-      }
-  )
+         }
+      )
+    }
 
 
-  }
+    filterMedicsByFilter(filter: any){
+
+    }
+
+
+
+
 
   medicDetails(medic: Medic){
     this.router.navigate(['practitioners/practitioner-details', medic.medicId]);
@@ -56,7 +74,7 @@ export class MedicsComponent implements OnInit {
     var answer = window.confirm(`Are you sure that you want to delete entity with Id ${medic.medicId}?`);
     if(answer){
     this.httpMedic.deleteMedic(medic.medicId).subscribe();
-    //location.reload();
+    location.reload();
     }
   }
 
@@ -64,3 +82,7 @@ export class MedicsComponent implements OnInit {
     this.router.navigate(['practitioners/practitioner-edit', medic.medicId]);
   }
 }
+function filterMedicsByFilter(filter: any, any: any) {
+  throw new Error('Function not implemented.');
+}
+

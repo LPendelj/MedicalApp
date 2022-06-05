@@ -8,9 +8,10 @@
       <tr><th>Address</th>  <td>{{organization?.address}}</td></tr>
       <tr><th>Phone</th> <td>{{organization?.phone}}</td></tr>
       <tr><th>E-mail</th>  <td>{{organization?.email}}</td></tr>
-      <tr><th>Actions</th> <td><button class="btn btn-primary">Edit</button><button class="btn btn-danger">Delete</button></td></tr>
-      <tr><th>Practitioners</th> <td><button class="btn btn-primary">Practitioners</button></td></tr>
-      <tr><th>Examinations</th> <td><button class="btn btn-primary">Examinations</button></td></tr>
+      <tr><th>Actions</th> <td><button class="btn btn-primary" (click)="editOrganization(organization)">Edit</button>
+        <button class="btn btn-danger" (click)="deleteOrganization(organization.organizationId)">Delete</button></td></tr>
+      <tr><th>Practitioners</th> <td>{{numberOfMedics}}</td></tr>
+      <!-- <tr><th>Examinations</th> <td></td></tr> -->
 
     <tr>
     </tr>

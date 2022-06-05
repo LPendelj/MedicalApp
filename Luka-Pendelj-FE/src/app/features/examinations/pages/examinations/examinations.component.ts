@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Examination } from 'src/app/core/model/models';
 import { HttpExaminationsService } from 'src/app/core/services/http-examinations.service';
@@ -12,8 +13,9 @@ export class ExaminationsComponent implements OnInit {
 
   examinationsList?: Examination[];
 
+  filterExaminations?: FormGroup;
 
-  pageNo = 0;
+  pageNo = 1;
   pageSize = 5;
 
   totalItems = 20;
@@ -23,6 +25,7 @@ export class ExaminationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadExaminations();
+    this.createFormGroup();
   }
 
   onPageChange(pageNo: number){
@@ -30,6 +33,12 @@ export class ExaminationsComponent implements OnInit {
   }
 
 
+  createFormGroup(){
+    this.filterExaminations=new FormGroup({
+      filterSelect: new FormControl(''),
+      filterText: new FormControl('')
+    });
+  }
 
 
 
@@ -43,6 +52,10 @@ export class ExaminationsComponent implements OnInit {
       this.pageSize = examinationPage.size;
       }
   )
+
+  }
+
+  filterExaminationsByFilter(filter: any){
 
   }
 

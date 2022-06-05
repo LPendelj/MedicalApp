@@ -156,6 +156,9 @@ export class PatientAddComponent implements OnInit, OnChanges {
     resetForm() {
     this.addPatientForm.reset();
   }
+
+
+ 
 }
 
 

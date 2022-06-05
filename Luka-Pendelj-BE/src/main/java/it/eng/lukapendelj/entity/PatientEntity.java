@@ -24,6 +24,8 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.lang.Nullable;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 
@@ -59,6 +61,7 @@ public class PatientEntity {
 	
 	@JoinColumn(name="medicId", nullable = true)
 	@ManyToOne
+	@Nullable
 	private MedicEntity mainMedic;
 	
 	@JoinColumn(name="organizationId")
@@ -104,7 +107,8 @@ public class PatientEntity {
 	public Boolean getActive() {
 		return active;
 	}
-
+	
+	
 	public MedicEntity getMainMedic() {
 		return mainMedic;
 	}

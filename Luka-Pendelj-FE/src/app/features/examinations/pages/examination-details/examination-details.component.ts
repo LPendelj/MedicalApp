@@ -10,7 +10,9 @@ import { HttpExaminationsService } from 'src/app/core/services/http-examinations
 })
 export class ExaminationDetailsComponent implements OnInit {
 
-  exam?: Examination;
+  exam!: Examination;
+
+  visible = false;
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -27,6 +29,18 @@ export class ExaminationDetailsComponent implements OnInit {
     this.httpExam.getExamination(examId).subscribe(exam=>this.exam = exam);
 
     //this.
+  }
+
+  editExamination(examination: Examination){
+    this.router.navigate(['examinations/examination-edit', examination.examinationId]);
+  }
+
+  deleteExamination(examinationId: number){
+    var answer = window.confirm(`Are you sure that you want to delete entity with Id ${examinationId}?`);
+    if(answer){
+    this.httpExam.deleteExamination(examinationId).subscribe();
+    this.router.navigate(['examinations/examinations']);
+    }
   }
 
 }

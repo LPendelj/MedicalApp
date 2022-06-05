@@ -4,16 +4,22 @@
   <table class="table-responsive-lg">
 
       <tr><th>Code</th> <td>{{exam?.examinationCode}}</td></tr>
-      <tr><th>Name</th> <td>{{exam?.organization?.name}}</td></tr>
+      <tr><th>Organization name</th> <td>{{exam?.organization?.name}}</td></tr>
+      <tr><th>Patient name</th> <td>{{exam?.patient?.firstname}} {{exam?.patient?.lastname}}</td></tr>
       <tr><th>Start date</th>  <td>{{exam?.startDate | date:'short'}} </td></tr>
       <tr><th>End date</th> <td>{{exam?.endDate | date:'short'}}</td></tr>
       <tr><th>Service type</th>  <td>{{exam?.serviceType?.serviceName}}</td></tr>
       <tr *ngIf="exam?.diagnosis"><th>Diagnosis</th>  <td>{{exam?.diagnosis}}</td></tr>
-      <tr><th>Actions</th> <td><button class="btn btn-primary">Edit</button><button class="btn btn-danger">Delete</button></td></tr>
-      <tr><th>Practitioners List</th> <td><button class="btn btn-primary">Practitioners</button></td></tr>
+      <tr><th>Actions</th> <td><button class="btn btn-primary"  (click)="editExamination(exam)">Edit</button>
+        <button class="btn btn-danger" (click)="deleteExamination(exam.examinationId)" >Delete</button></td></tr>
+      <tr><th>Practitioners List</th> <td><button  [disabled]="exam.medicList?.length==0" (click)="visible = !visible" class="btn btn-primary">Practitioners</button></td></tr>
+  </table>
 
 
-    <tr>
-    </tr>
+</div>
+
+<div class="table" *ngIf="exam?.medicList" [hidden]="!visible">
+  <table class="table-responsive-lg">
+    <tr *ngFor="let med of exam?.medicList"><th>Practitioner Name</th>  <td>{{med?.firstname}} {{med?.lastname}}</td></tr>
   </table>
 </div>
