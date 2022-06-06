@@ -24,7 +24,7 @@ public class ServiceTypeEntity {
 	}
 	
 	public ServiceTypeEntity() {
-		super();
+		
 	
 	}
 

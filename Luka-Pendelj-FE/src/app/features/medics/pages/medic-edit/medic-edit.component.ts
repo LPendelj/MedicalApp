@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -49,35 +50,46 @@ export class MedicEditComponent implements OnInit {
 
   ngOnInit(): void {
       this.loadOrganizations();
-      this.createFormGroup();
+      this.loadMedic();
+
   }
 
 
   createFormGroup() {
     this.editMedicForm = new FormGroup({
-      firstname: new FormControl('', Validators.required),
-      lastname: new FormControl(''),
-      medicCode: new FormControl(''),
-      gender: new FormControl(''),
-      birthDate: new FormControl('', Validators.required),
-      qualification: new FormControl(''),
-      address: new FormControl(''),
-      email: new FormControl('', Validators.email),
-      phone: new FormControl(''),
-      organization: new FormControl('')
+      firstname: new FormControl(this.medic.firstname, Validators.required),
+      lastname: new FormControl(this.medic.lastname),
+      medicCode: new FormControl(this.medic.medicCode),
+      gender: new FormControl(this.gender?.find(code=>this.medic.gender!.genderCode == code.genderCode)),
+      birthDate: new FormControl(this.medic.birthDate, Validators.required),
+      qualification: new FormControl(this.medic.qualification),
+      address: new FormControl(this.medic.address),
+      email: new FormControl(this.medic.email, Validators.email),
+      phone: new FormControl(this.medic.phone),
+      organization: new FormControl(this.organizations?.find(org=>org.organizationId==this.medic?.organization!.organizationId))
     });
+    let pipe = new DatePipe('en_US');
+    let changedFormat = pipe.transform(this.medic.birthDate, 'YYYY-MM-dd');
+    this.editMedicForm.get('birthDate')?.setValue(changedFormat);
   }
 
   loadOrganizations(){
     this.httpOrganization.getAll().subscribe(organizations => this.organizations = organizations);
   }
 
+  loadMedic(){
+    const medicId = Number(this.activeRoute.snapshot.paramMap.get('medicId'));
+    console.log(this.medic);
+
+    this.httpMedic.getMedic(medicId).subscribe(med=>{
+      this.medic = med;
+      this.createFormGroup();
+    })
+  }
+
+
   updateMedic(){
     this.medic = this.editMedicForm?.getRawValue();
-
-
-
-
     this.medic.medicId = Number(this.activeRoute.snapshot.paramMap.get('medicId'));
     console.log(this.medic);
 

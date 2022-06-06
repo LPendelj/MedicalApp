@@ -65,31 +65,6 @@ public class OrganizationEntity {
 		
 	}
 	
-//	@PreRemove
-//	@Query("UPDATE medic JOIN ORGANIZATION ON medic.organization_id = organization.organization_id SET medic.organization_id=NULL WHERE organization.active = FALSE")
-//	public void checkEmployees() {
-//		System.out.println("Check employees called!");
-//	}
-	
-	
-//	@PrePersist
-//	public void check() throws Exception {
-//		System.out.println("prepersist called");
-//		
-//		System.out.println(this.organizationType.getId());
-//		//System.out.println(this.med);
-//		
-//		/*
-//		 * if(this.name.equals("Bolnica3")) { throw new Exception(); }
-//		 */
-//	}
-	
-//	@PostUpdate
-//	public void setEmplyeesOrgToNull() {
-//		if(this.active==false) {
-//			
-//		}
-//	}
 
 	public Long getOrganizationId() {
 		return organizationId;

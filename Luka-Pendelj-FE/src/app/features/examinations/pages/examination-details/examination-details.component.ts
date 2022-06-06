@@ -22,6 +22,8 @@ export class ExaminationDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadExamination();
+
+    //console.log(this.exam.organization);
   }
 
   loadExamination(){

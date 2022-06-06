@@ -11,7 +11,7 @@ import javax.persistence.Id;
 public class Gender {
 	
 	@Id
-	private char genderCode;
+	private Character genderCode;
 	private String genderName;
 	
 	

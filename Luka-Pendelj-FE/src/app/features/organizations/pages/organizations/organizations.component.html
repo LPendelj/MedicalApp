@@ -3,19 +3,23 @@
 <aside class="sidenav">
   <div>
     <!-- routerLink="add" -->
-    <button routerLink="./../organization-add">Add new</button>
+    <button class="btn btn-primary btn-sm" routerLink="./../organization-add">Add new</button>
   </div>
+  <br>
   <div *ngIf="filterOrganizations">
     <form action="" [formGroup]="filterOrganizations">
       <label for="filter">Filter by: </label>
       <br>
-      <select name="filterSelect" id="filterSelect" formControlName="filterSelect" >
+      <select name="filterSelect" class="form-select" id="filterSelect" formControlName="filterSelect" >
         <option value="name">Name</option>
         <option value="type">Organization type</option>
         <option value="address">Address</option>
       </select>
-      <input  type="text" id="filter" name="filter" formControlName="filterText">
-      <button class="btn btn-secondary btn-sm" (click)="filterOrganizationsByFilter(filterOrganizations.get('filterSelect')?.value)" >Search</button>
+      <br>
+      <input class="form-control" type="text" id="filter" name="filter" formControlName="filterText">
+      <br>
+      <button class="btn btn-primary btn-sm" (click)="filterOrganizationsByFilter(filterOrganizations.get('filterSelect')?.value)" >Search</button>
+      <button class="btn btn-secondary btn-sm" >Reset</button>
     </form>
 </div>
 </aside>

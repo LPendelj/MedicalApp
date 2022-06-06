@@ -12,7 +12,7 @@
       <tr *ngIf="exam?.diagnosis"><th>Diagnosis</th>  <td>{{exam?.diagnosis}}</td></tr>
       <tr><th>Actions</th> <td><button class="btn btn-primary"  (click)="editExamination(exam)">Edit</button>
         <button class="btn btn-danger" (click)="deleteExamination(exam.examinationId)" >Delete</button></td></tr>
-      <tr><th>Practitioners List</th> <td><button  [disabled]="exam.medicList?.length==0" (click)="visible = !visible" class="btn btn-primary">Practitioners</button></td></tr>
+      <tr><th>Practitioners List</th> <td><button  [disabled]="exam?.medicList?.length==0" (click)="visible = !visible" class="btn btn-primary">Practitioners</button></td></tr>
   </table>
 
 

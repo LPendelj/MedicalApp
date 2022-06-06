@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,13 +22,13 @@ export class ExaminationEditComponent implements OnInit {
 
   patients?: Patient[];
 
-  organizations?: Organization[];
+  organizations!: Organization[];
 
   medics?: Medic[];
 
   status?: string[] = ['planned', 'triaged', 'in-progress', 'suspended', 'finished', 'cancelled', 'entered-in-error'];
 
-  serviceTypes?: ServiceType[] = [
+  serviceTypes: ServiceType[] = [
     {serviceId: 1, serviceName:'Aged Residential Care'},
     {serviceId: 2, serviceName:'Acupuncture'},
     {serviceId: 3, serviceName:'Bowen Therapy'},
@@ -65,50 +66,106 @@ export class ExaminationEditComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    const examId=Number(this.activeRoute.snapshot.paramMap.get('examinationId'));
 
     this.loadOrganizations();
 
 
-    this.createFormGroup();
 
+    this.loadExamination(examId);
+
+
+
+
+  //   setTimeout(() =>
+  // {
+  //   console.log(this.examination!.organization);
+  // },
+  // 3000);
+
+
+
+
+  }
+
+
+
+
+  loadExamination(examId: number){
+
+
+    this.httpExamination.getExamination(examId).subscribe(exam=>{
+     // this.loadOrganizations();
+      this.examination = exam;
+
+      this.createFormGroup();
+      this.getInitialValues();
+      }
+    );
+
+    //console.log(this.examination);
+
+    //this.editExaminationForm?.get('patient')?.setValue(this.examination.patient);
 
   }
 
   createFormGroup() {
     this.editExaminationForm = new FormGroup({
-      examinationCode: new FormControl(''),
-      status: new FormControl('', Validators.required),
-      serviceType: new FormControl(''),
-      priority: new FormControl(''),
-      startDate: new FormControl('', Validators.required),
-      endDate: new FormControl('', Validators.required),
-      diagnosis: new FormControl(''),
-      organization: new FormControl(''),
-      patient: new FormControl(''),
-      medicList: new FormControl('')
+      examinationCode: new FormControl(this.examination?.examinationCode),
+      status: new FormControl(this.examination?.status, Validators.required),
+      serviceType: new FormControl(this.serviceTypes[this.examination?.serviceType.serviceId -1]),
+      priority: new FormControl(this.examination?.priority),
+      startDate: new FormControl(this.examination?.startDate, Validators.required),
+      endDate: new FormControl(this.examination?.endDate, Validators.required),
+      diagnosis: new FormControl(this.examination?.diagnosis),
+      organization: new FormControl(this.organizations.find(org=>org.organizationId==this.examination?.organization!.organizationId)),
+      patient: new FormControl(this.examination?.patient?.firstname + " " + this.examination?.patient?.lastname),
+      medicList: new FormControl(this.examination?.medicList)
     });
   }
 
+  loadOrganizations(){
+    this.httpOrganization.getAll().subscribe(org=>{
+        this.organizations=org });
+        console.log(this.organizations);
+
+  }
+
+  getInitialValues(){
+    this.loadPatients();
+    this.loadMedics();
+
+  }
 
   getValue(){
     const orgId= this.editExaminationForm?.get('organization')?.value.organizationId;
-    this.loadMedics(orgId);
-    this.loadPatients(orgId);
+
+    this.changeMedics(orgId);
+    this.changePatients(orgId);
+
+    console.log(orgId);
+
   }
 
-  loadMedics(orgId: number){
+  loadMedics(){
+    this.httpMedic.getMedicsByOrganization(this.examination!.organization!.organizationId).subscribe(medics=>this.medics=medics);
+  }
+
+  changeMedics(orgId: number){
     this.httpMedic.getMedicsByOrganization(orgId).subscribe(medics=>this.medics=medics);
   }
 
-  loadPatients(orgId: number){
+  loadPatients(){
+    this.httpPatient.getPatientsByOrganization(this.examination!.organization!.organizationId).subscribe(patients=>this.patients=patients);
+  }
+
+  changePatients(orgId: number){
     this.httpPatient.getPatientsByOrganization(orgId).subscribe(patients=>this.patients=patients);
   }
 
-  loadOrganizations(){
-    this.httpOrganization.getAll().subscribe(org=>this.organizations=org);
 
-  }
+
+
 
 
   editExamination(){

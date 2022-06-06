@@ -2,20 +2,24 @@
 <aside class="sidenav">
   <div>
   <!-- routerLink="add" -->
-   <button routerLink="./../patient-add">Add new</button>
+   <button class="btn btn-primary btn-sm" routerLink="./../patient-add">Add new</button>
   </div>
+  <br>
   <div *ngIf="filterPatients">
     <form action="" [formGroup]="filterPatients">
       <label for="filter">Filter by: </label>
       <br>
-      <select name="filterSelect" id="filterSelect" formControlName="filterSelect" >
+      <select class="form-select" name="filterSelect" id="filterSelect" formControlName="filterSelect" >
         <option value="firstname">First name</option>
         <option value="lastname">Last name</option>
         <option value="organization">Company</option>
         <option value="mainMedic">Main practitioner</option>
       </select>
-      <input  type="text" id="filter" name="filter" formControlName="filterText">
-      <button class="btn btn-secondary btn-sm" (click)="filterPatientsByFilter(filterPatients.get('filterSelect')?.value)" >Search</button>
+      <br>
+      <input class="form-control" type="text" id="filter" name="filter" formControlName="filterText">
+      <br>
+      <button class="btn btn-primary btn-sm" (click)="filterPatientsByFilter(filterPatients.get('filterSelect')?.value)" >Search</button>
+      <button class="btn btn-secondary btn-sm" >Reset</button>
     </form>
 </div>
 

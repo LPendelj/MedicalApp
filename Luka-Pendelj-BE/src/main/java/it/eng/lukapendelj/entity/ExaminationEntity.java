@@ -119,6 +119,7 @@ public class ExaminationEntity {
 		this.examinationId = examinationId;
 		this.examinationCode = examinationCode;
 		this.status = status;
+		
 		this.serviceType = serviceType;
 		this.priority = priority;
 		this.startDate = startDate;

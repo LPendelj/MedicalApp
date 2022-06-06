@@ -2,20 +2,24 @@
 <aside class="sidenav">
 <div>
   <!-- routerLink="add" -->
-  <button routerLink="./../practitioner-add">Add new</button>
+  <button class="btn btn-primary btn-sm" routerLink="./../practitioner-add">Add new</button>
 </div>
+<br>
 <div *ngIf="filterMedics">
 <form action="" [formGroup]="filterMedics">
   <label for="filter">Filter by: </label>
   <br>
-  <select name="filterSelect" id="filterSelect" formControlName="filterSelect" >
+  <select name="filterSelect" class="form-select" id="filterSelect" formControlName="filterSelect" >
     <option value="firstname">First name</option>
     <option value="lastname">Last name</option>
     <option value="organization">Organization</option>
     <option value="title">Title</option>
   </select>
-  <input  type="text" id="filter" name="filter" formControlName="filterText">
-  <button class="btn btn-secondary btn-sm" (click)="filterMedicsByFilter(filterMedics.get('filterSelect')?.value)" >Search</button>
+  <br>
+  <input class="form-control" type="text" id="filter" name="filter" formControlName="filterText">
+  <br>
+  <button class="btn btn-primary btn-sm" (click)="filterMedicsByFilter(filterMedics.get('filterSelect')?.value)" >Search</button>
+  <button class="btn btn-secondary btn-sm" >Reset</button>
 </form>
 </div>
 </aside>
@@ -27,7 +31,7 @@
           <th>Title</th>
           <th>Contact</th>
           <th>Organization</th>
-          <th>Actions</th>
+          <th id="th_center">Actions</th>
         </thead>
     <tbody>
         <tr div *ngFor="let med of medicsList">
@@ -36,7 +40,7 @@
           <td>{{med.qualification}}</td>
           <td>{{med.email}}</td>
           <td>{{med.organization?.name}}</td>
-          <td>
+          <td id="td_center">
             <button class="btn btn-primary" (click)="medicDetails(med)">Details</button>
             <button class="btn btn-secondary" (click)="editMedic(med)">Edit</button>
             <button class="btn btn-danger" (click)="deleteMedic(med)">Delete</button>

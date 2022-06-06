@@ -27,7 +27,7 @@
         </div>
         <div class="form-group row">
           <label for="birthDate">Select date of birth:</label>
-          <input type="date" name="birthDate" formControlName="birthDate">
+          <input type="date" [ngModel] ="this.patient.birthDate | date:'yyyy-MM-dd'" name="birthDate" formControlName="birthDate">
         </div>
 
         <!-- ‘Doctor’, ‘’, ‘’, ‘’,  -->

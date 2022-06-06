@@ -47,24 +47,29 @@ export class OrganizationEditComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.createFormGroup();
     this.loadOrganization();
+
+
+
   }
 
 
 
   loadOrganization(){
     const organizationId = Number(this.activeRoute.snapshot.paramMap.get('organizationId'));
-    this.httpOrganization.getOrganization(organizationId).subscribe(org => this.organization = org);
+    this.httpOrganization.getOrganization(organizationId).subscribe(org =>{
+       this.organization = org;
+       this.createFormGroup();
+    });
   }
   createFormGroup() {
     this.editOrganizationForm = new FormGroup({
-      name: new FormControl('', Validators.required),
-      organizationCode: new FormControl(''),
-      organizationType: new FormControl(''),
-      address: new FormControl(''),
-      email: new FormControl(''),
-      phone: new FormControl(''),
+      name: new FormControl(this.organization.name, Validators.required),
+      organizationCode: new FormControl(this.organization.organizationCode),
+      organizationType: new FormControl(this.organizationType.find(type=>this.organization.organizationType.name==type.name)),
+      address: new FormControl(this.organization.address),
+      email: new FormControl(this.organization.email),
+      phone: new FormControl(this.organization.phone),
     });
   }
 

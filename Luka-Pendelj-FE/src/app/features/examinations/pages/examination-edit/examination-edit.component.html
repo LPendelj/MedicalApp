@@ -21,9 +21,10 @@
 
         <div class="form-group row">
           <label for="serviceType">Service type: <span>*</span></label>
-          <select name="serviceType" id="serviceType" formControlName="serviceType" >
+          <select name="serviceType" id="serviceType" formControlName="serviceType"  >
             <!-- *ngFor list of Specs -->
-            <option  *ngFor="let item of serviceTypes" [ngValue]="item">{{item.serviceName}}</option>
+            <!-- <option selected >{{this.examination?.serviceType}}</option> -->
+            <option  *ngFor="let item of serviceTypes"  [ngValue]="item">{{item.serviceName}}</option>
 
           </select>
         </div>
@@ -41,12 +42,12 @@
 
         <div class="form-group row">
           <label for="startDate">Select start date:</label>
-          <input type="date" name="startDate" formControlName="startDate">
+          <input type="date" [ngModel] ="this.examination.startDate | date:'yyyy-MM-dd'" name="startDate" formControlName="startDate">
         </div>
 
         <div class="form-group row">
           <label for="endDate">Select end date:</label>
-          <input type="date" name="endDate" formControlName="endDate">
+          <input type="date" [ngModel] ="this.examination.endDate | date:'yyyy-MM-dd'" name="endDate" formControlName="endDate">
         </div>
 
         <!-- ‘Doctor’, ‘’, ‘’, ‘’,  -->
@@ -62,6 +63,8 @@
           <label for="organization">Select Organization:</label>
           <select name="organization" formControlName="organization" (change)="getValue()">
             <!-- *ngFor list of Specs -->
+           <!-- <option selected >{{this.examination?.organization?.name}}</option> -->
+
             <option  *ngFor="let item of organizations" [ngValue]="item">{{item.name}}</option>
 
           </select>
@@ -71,6 +74,7 @@
           <label for="patient">Select Patient: <span>*</span></label>
           <select name="patient" id="patient" formControlName="patient" >
             <!-- *ngFor list of Specs -->
+            <option *ngIf="!editExaminationForm.get('organization')?.touched" selected >{{this.examination?.patient?.firstname}} {{this.examination?.patient?.lastname}}</option>
             <option  *ngFor="let item of patients" [ngValue]="item">{{item.firstname}} {{item.lastname}}</option>
 
           </select>

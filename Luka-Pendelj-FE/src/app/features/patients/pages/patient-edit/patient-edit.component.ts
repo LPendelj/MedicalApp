@@ -19,11 +19,11 @@ export class PatientEditComponent implements OnInit {
 
   //organizationCheck?: Organization;
 
-  organizations?: Organization[];
+  organizations!: Organization[];
 
   medics?: Medic[];
 
-  gender?: Gender[] = [
+  gender: Gender[] = [
     {genderCode: 'm', genderName: 'male'},
     {genderCode: 'f', genderName: 'female'},
     {genderCode: 'o', genderName: 'other'},
@@ -47,10 +47,24 @@ export class PatientEditComponent implements OnInit {
               private activeRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+
     this.loadOrganizations();
-    //this.loadMedics();
-    this.createPatientForm();
-    this.loadPatient();
+
+
+
+  }
+
+  loadPatient(){
+    const patientId = Number(this.activeRoute.snapshot.paramMap.get('patientId'));
+    this.httpPatient.getPatient(patientId).subscribe(pat => {
+      this.patient = pat
+
+      this.loadInitMedic();
+     // this.medics = this.medics?.filter((medic)=>medic.organization?.organizationId===this.patient?.organization?.organizationId);
+
+      this.createPatientForm();
+    });
+
   }
 
 
@@ -58,28 +72,34 @@ export class PatientEditComponent implements OnInit {
   createPatientForm(){
     this.editPatientForm = new FormGroup({
       firstname: new FormControl(this.patient?.firstname, Validators.required),
-      lastname: new FormControl(''),
-      patientCode: new FormControl(''),
-      gender: new FormControl(''),
-      birthDate: new FormControl('', Validators.required),
-      address: new FormControl(''),
-      email: new FormControl('', Validators.email),
-      phone: new FormControl(''),
-      deceased: new FormControl(''),
-      maritalStatus: new FormControl(''),
-      organization: new FormControl(''),
-      mainMedic: new FormControl('')
+      lastname: new FormControl(this.patient?.lastname),
+      patientCode: new FormControl(this.patient.patientCode),
+      gender: new FormControl(this.gender.find(code=>this.patient.gender!.genderCode == code.genderCode)),
+      birthDate: new FormControl(this.patient?.birthDate, Validators.required),
+      address: new FormControl(this.patient?.address),
+      email: new FormControl(this.patient?.email, Validators.email),
+      phone: new FormControl(this.patient?.phone),
+      deceased: new FormControl(this.patient?.deceased),
+      maritalStatus: new FormControl(this.patient?.maritalStatus),
+      organization: new FormControl(this.organizations.find(org=>org.organizationId==this.patient?.organization!.organizationId)),
+      mainMedic: new FormControl(this.medics?.find(med=>med.medicId==this.patient?.mainMedic!.medicId))
     });
   }
 
   loadOrganizations(){
-    this.httpOrganization.getAll().subscribe(organizations => this.organizations = organizations);
+    this.httpOrganization.getAll().subscribe(organizations => {
+      this.organizations = organizations;
+      this.loadPatient();
+    })
   }
 
-  // loadMedics(){
-  //   this.httpMedic.getAll().subscribe(medics =>this.medics = medics);
-  //   //this.medics = this.medics?.filter((medic, organization)=>medic.organization===this.organizationCheck?.organizationId)
-  // }
+  loadInitMedic(){
+    this.httpMedic.getAll().subscribe(medics =>{
+      this.medics = medics?.filter(medic=>medic.qualification==='Doctor of Medicine' &&
+       medic.organization?.organizationId===this.patient.organization?.organizationId);
+    });
+
+   }
 
   getValue(){
     // let val = event.
@@ -90,26 +110,24 @@ export class PatientEditComponent implements OnInit {
 
      this.loadMedics(orgId);
 
+     this.medics = this.medics?.filter(medic=>medic.qualification==='Doctor of Medicine');
    }
 
    loadMedics(orgId: number){
 
      this.httpMedic.getMedicsByOrganization(orgId).subscribe(medics=>this.medics=medics);
-     //this.medics = this.medics?.filter((medic, organization)=>medic.organization===this.organizationCheck?.organizationId)
+    // this.medics = this.medics?.filter((medic)=>medic.organization?.organizationId===this.patient?.organization?.organizationId);
+    this.medics = this.medics?.filter(medic=>medic.qualification==='Doctor of Medicine');
    }
 
-  loadPatient(){
-    const patientId = Number(this.activeRoute.snapshot.paramMap.get('patientId'));
-    this.httpPatient.getPatient(patientId).subscribe(pat => this.patient = pat);
 
-  }
 
   editPatient(){
       this.patient = this.editPatientForm?.getRawValue();
       console.log(this.patient?.patientId);
 
       const patientId = Number(this.activeRoute.snapshot.paramMap.get('patientId'));
-      
+
       this.patient.patientId = patientId;
       console.log(this.patient);
 
