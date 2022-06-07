@@ -15,7 +15,7 @@ import it.eng.lukapendelj.entity.ServiceTypeEntity;
 public interface ExaminationDAO extends JpaRepository<ExaminationEntity, Long> {
 		
 	
-	ExaminationEntity findByExaminationCode(String code);
+	
 	
 	List<ExaminationEntity> findExaminationByPatient(Long id);
 	
@@ -33,11 +33,21 @@ public interface ExaminationDAO extends JpaRepository<ExaminationEntity, Long> {
 	
 	List<ExaminationEntity> findByServiceType(ServiceTypeEntity serviceType);
 	
-	List<ExaminationEntity> findByStatus(String status);
+	
 	
 	//CHECK method arguments!!
 	
 	void deleteByOrganization(OrganizationEntity organizationEntity);
 	
+//	 <option value="organization">Organization</option>
+//     <option value="code">Exmination code</option>
+//     <option value="status">Status</option>
+//     <option value="priority">Priority</option>
+	
+	List<ExaminationEntity> findByExaminationCodeContaining(String code);
+	
+	List<ExaminationEntity> findByStatusContaining(String status);
+	
+	List<ExaminationEntity> findByPriorityContaining(String priority);
 	
 }

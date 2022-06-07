@@ -29,6 +29,10 @@ public interface OrganizationService {
 	
 	void delete(OrganizationEntity organization);
 	
+	List<OrganizationEntity> findByOrganizationType(String type);
 	
+	List<OrganizationEntity> findByOrganizationCode(String code);
+	
+	List<OrganizationEntity> findByAddress(String address);
 	
 }

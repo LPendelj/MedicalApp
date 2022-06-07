@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.eng.lukapendelj.entity.ExaminationEntity;
 import it.eng.lukapendelj.entity.MedicEntity;
+import it.eng.lukapendelj.entity.OrganizationEntity;
 import it.eng.lukapendelj.service.ExaminationService;
 
 //@CrossOrigin(origins = "*")
@@ -118,7 +119,32 @@ public class ExaminationController {
 		}
 	}
 	
-	
+	@PostMapping("filter")
+	public ResponseEntity<Object> findByFilter(@RequestBody String[] values){
+		//List<PatientEntity> patientsList = patientService.findByOrganizationName(term);
+			System.out.println(values[0]+ " " + values[1]);
+			try {
+			List<ExaminationEntity> examinationsList = null;
+			
+			switch(values[0]) {
+			case "organization":  examinationsList = examinationService.findByOrganizationName(values[1]);
+			break;
+			case "priority":  examinationsList = examinationService.findByPriority(values[1]);
+			break;
+			case "status": examinationsList = examinationService.findByStatus(values[1]);
+			break;
+			case "code": examinationsList = examinationService.findByExaminationCode(values[1]);
+			break;
+			default:
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+				}
+			return ResponseEntity.status(HttpStatus.OK).body(examinationsList);
+			} catch(Exception ex){
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+			}
+		
+		
+	}
 	
 	
 

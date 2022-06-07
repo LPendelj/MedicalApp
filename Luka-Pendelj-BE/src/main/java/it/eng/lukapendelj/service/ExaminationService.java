@@ -35,4 +35,23 @@ public interface ExaminationService {
 	void delete(ExaminationEntity examination);
 	
 	void deleteByOrganization(OrganizationEntity organizationEntity);
+
+
+
+	List<ExaminationEntity> findByOrganizationName(String string);
+
+
+
+	List<ExaminationEntity> findByPriority(String string);
+
+
+
+	List<ExaminationEntity> findByStatus(String string);
+
+
+
+	List<ExaminationEntity> findByExaminationCode(String string);
+	
+	
+	
 }

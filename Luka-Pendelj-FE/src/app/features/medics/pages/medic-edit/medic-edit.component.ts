@@ -52,17 +52,21 @@ export class MedicEditComponent implements OnInit {
       this.loadOrganizations();
       this.loadMedic();
 
+
+      console.log(this.editMedicForm?.get('qualification'));
+
+
   }
 
 
   createFormGroup() {
     this.editMedicForm = new FormGroup({
-      firstname: new FormControl(this.medic.firstname, Validators.required),
-      lastname: new FormControl(this.medic.lastname),
-      medicCode: new FormControl(this.medic.medicCode),
+      firstname: new FormControl(this.medic.firstname, [Validators.required, Validators.minLength(2)]),
+      lastname: new FormControl(this.medic.lastname, [Validators.required, Validators.minLength(2)]),
+      medicCode: new FormControl(this.medic.medicCode, [Validators.minLength(6), Validators.maxLength(12)]),
       gender: new FormControl(this.gender?.find(code=>this.medic.gender!.genderCode == code.genderCode)),
       birthDate: new FormControl(this.medic.birthDate, Validators.required),
-      qualification: new FormControl(this.medic.qualification),
+      qualification: new FormControl({value: this.medic.qualification, disabled: true}, [Validators.required]),
       address: new FormControl(this.medic.address),
       email: new FormControl(this.medic.email, Validators.email),
       phone: new FormControl(this.medic.phone),
@@ -96,5 +100,14 @@ export class MedicEditComponent implements OnInit {
     this.httpMedic.updateMedic(this.medic).subscribe();
   }
 
+  //Checking if date is invalid
+  isInTheFuture(date?: Date) {
+    const today = new Date();
+   let pipe = new DatePipe('en_US');
+    let changedFormat = pipe.transform(today, 'YYYY-MM-dd');
+
+
+    return this.editMedicForm?.get('birthDate')?.value > changedFormat!;
+  }
 
 }

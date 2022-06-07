@@ -64,11 +64,11 @@ export class OrganizationEditComponent implements OnInit {
   }
   createFormGroup() {
     this.editOrganizationForm = new FormGroup({
-      name: new FormControl(this.organization.name, Validators.required),
-      organizationCode: new FormControl(this.organization.organizationCode),
-      organizationType: new FormControl(this.organizationType.find(type=>this.organization.organizationType.name==type.name)),
+      name: new FormControl(this.organization.name, [Validators.required, Validators.minLength(5)]),
+      organizationCode: new FormControl(this.organization.organizationCode, [Validators.minLength(6), Validators.maxLength(12)]),
+      organizationType: new FormControl(this.organizationType.find(type=>this.organization.organizationType.name==type.name), Validators.required),
       address: new FormControl(this.organization.address),
-      email: new FormControl(this.organization.email),
+      email: new FormControl(this.organization.email, Validators.email),
       phone: new FormControl(this.organization.phone),
     });
   }

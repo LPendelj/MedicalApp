@@ -14,13 +14,14 @@ import org.springframework.data.repository.query.Param;
 
 import it.eng.lukapendelj.entity.MedicEntity;
 import it.eng.lukapendelj.entity.OrganizationEntity;
+import it.eng.lukapendelj.entity.PatientEntity;
 
 
 
 @Transactional
 public interface MedicDAO extends JpaRepository<MedicEntity, Long> {
 	
-	List<MedicEntity> findByFirstnameAndLastname(String firstname, String lastname);
+	List<MedicEntity> findByFirstnameOrLastnameContaining(String firstname, String lastname);
 	
 	List<MedicEntity> findByOrganization(OrganizationEntity organization);
 	
@@ -30,12 +31,20 @@ public interface MedicDAO extends JpaRepository<MedicEntity, Long> {
 	
 	Page<MedicEntity> findByOrganizationContaining(String name, Pageable p);
 
+	//List<MedicEntity> findAllByFirstnameContainingIgnoreCaseOrLastnameContainingIgnoreCase(String name);
 	
 	//void setOrganizationToNull();
 //	@Modifying
 //	@Query("update medic m where m.organization =  ?1")
 //	int updateMedicSetOrganizationForOrganization(@Param("organization") Long organization);
 	
+	 List<MedicEntity> findByOrganizationContaining(String name);
+
+	 List<MedicEntity> findByGenderContaining(Character gender);
+
+	 List<MedicEntity> findByMedicCodeContaining(String code);
+	 
+	 List<MedicEntity> findByQualification(String qualification);
 	
 	
 	

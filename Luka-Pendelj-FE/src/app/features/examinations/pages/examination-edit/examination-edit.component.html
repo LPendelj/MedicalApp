@@ -8,6 +8,8 @@
           <label for="code">Code:</label>
           <!-- VALIDATION(min5) -->
           <input type="text" name="code" formControlName="examinationCode"/>
+          <p class="alert alert-danger"
+          *ngIf="editExaminationForm.get('examinationCode')?.hasError('minlength') || editExaminationForm.get('examinationCode')?.hasError('maxlength')">Please enter between 3 and 12 characters</p>
         </div>
 
         <div class="form-group row">
@@ -36,6 +38,7 @@
             <option  *ngFor="let item of priorities" [ngValue]="item">{{item}}</option>
 
           </select>
+          <p class="alert alert-danger" *ngIf="editExaminationForm.get('serviceType')?.hasError('required')">Please choose Service type status</p>
         </div>
 
 
@@ -48,6 +51,7 @@
         <div class="form-group row">
           <label for="endDate">Select end date:</label>
           <input type="date" [ngModel] ="this.examination.endDate | date:'yyyy-MM-dd'" name="endDate" formControlName="endDate">
+          <p class="alert alert-danger" *ngIf="!isValidDate()  && editExaminationForm.get('endDate')?.touched">Please enter valid end date</p>
         </div>
 
         <!-- ‘Doctor’, ‘’, ‘’, ‘’,  -->
@@ -91,7 +95,7 @@
 
 
         <br/>
-        <button class="btn btn-secondary btn-sm" type="submit" (click)="editExamination()">Save</button>
+        <button class="btn btn-success btn-sm" type="submit" [disabled]="!isValidDate() || !editExaminationForm.valid" (click)="editExamination()">Save</button>
 
          <!-- <div class="form-group row">
           <submit Spec="save" ngForm="MedicAdd">Submit</submit>

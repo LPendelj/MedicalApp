@@ -56,7 +56,7 @@ export class MedicAddComponent implements OnInit {
     this.addMedicForm = new FormGroup({
       firstname: new FormControl('', [Validators.required, Validators.minLength(2)]),
       lastname: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      medicCode: new FormControl('', [Validators.minLength(3), Validators.maxLength(12)]),
+      medicCode: new FormControl('MED-', [Validators.minLength(6), Validators.maxLength(12)]),
       gender: new FormControl(''),
       birthDate: new FormControl('', Validators.required),
       qualification: new FormControl('', Validators.required),

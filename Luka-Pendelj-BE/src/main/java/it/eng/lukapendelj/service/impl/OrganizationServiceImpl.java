@@ -76,7 +76,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 	@Override
 	public List<OrganizationEntity> findByName(String name) {
 		System.out.println("Pozvan findByName metod");
-		return organizationDao.findByName(name);
+		return organizationDao.findByNameContaining(name);
 	}
 
 	@Override
@@ -140,6 +140,27 @@ public class OrganizationServiceImpl implements OrganizationService {
 		organizationDao.delete(organization);
 		
 		
+	}
+
+
+	@Override
+	public List<OrganizationEntity> findByOrganizationType(String type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<OrganizationEntity> findByAddress(String address) {
+		// TODO Auto-generated method stub
+		return organizationDao.findByAddressContaining(address);
+	}
+
+
+	@Override
+	public List<OrganizationEntity> findByOrganizationCode(String code) {
+		// TODO Auto-generated method stub
+		return organizationDao.findByOrganizationCodeContaining(code);
 	}
 
 

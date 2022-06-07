@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,7 +22,7 @@ export class PatientEditComponent implements OnInit {
 
   organizations!: Organization[];
 
-  medics?: Medic[];
+  medics!: Medic[];
 
   gender: Gender[] = [
     {genderCode: 'm', genderName: 'male'},
@@ -57,12 +58,12 @@ export class PatientEditComponent implements OnInit {
   loadPatient(){
     const patientId = Number(this.activeRoute.snapshot.paramMap.get('patientId'));
     this.httpPatient.getPatient(patientId).subscribe(pat => {
-      this.patient = pat
+      this.patient = pat;
 
       this.loadInitMedic();
      // this.medics = this.medics?.filter((medic)=>medic.organization?.organizationId===this.patient?.organization?.organizationId);
 
-      this.createPatientForm();
+
     });
 
   }
@@ -71,9 +72,9 @@ export class PatientEditComponent implements OnInit {
 
   createPatientForm(){
     this.editPatientForm = new FormGroup({
-      firstname: new FormControl(this.patient?.firstname, Validators.required),
-      lastname: new FormControl(this.patient?.lastname),
-      patientCode: new FormControl(this.patient.patientCode),
+      firstname: new FormControl(this.patient?.firstname, [Validators.required, Validators.minLength(2)]),
+      lastname: new FormControl(this.patient?.lastname, [Validators.required, Validators.minLength(2)]),
+      patientCode: new FormControl(this.patient.patientCode, [Validators.minLength(6), Validators.maxLength(12)]),
       gender: new FormControl(this.gender.find(code=>this.patient.gender!.genderCode == code.genderCode)),
       birthDate: new FormControl(this.patient?.birthDate, Validators.required),
       address: new FormControl(this.patient?.address),
@@ -82,7 +83,7 @@ export class PatientEditComponent implements OnInit {
       deceased: new FormControl(this.patient?.deceased),
       maritalStatus: new FormControl(this.patient?.maritalStatus),
       organization: new FormControl(this.organizations.find(org=>org.organizationId==this.patient?.organization!.organizationId)),
-      mainMedic: new FormControl(this.medics?.find(med=>med.medicId==this.patient?.mainMedic!.medicId))
+      mainMedic: new FormControl(this.medics.find(med=>med.medicId==this.patient?.mainMedic!.medicId))
     });
   }
 
@@ -95,11 +96,22 @@ export class PatientEditComponent implements OnInit {
 
   loadInitMedic(){
     this.httpMedic.getAll().subscribe(medics =>{
-      this.medics = medics?.filter(medic=>medic.qualification==='Doctor of Medicine' &&
-       medic.organization?.organizationId===this.patient.organization?.organizationId);
-    });
+      this.medics = medics;
 
-   }
+     this.medics = this.medics.filter(med => med.organization?.organizationId == this.patient?.mainMedic?.organization?.organizationId
+         && med.qualification=='Doctor of Medicine' );
+      this.createPatientForm();
+        })
+
+
+      //console.log(this.medics?.find(med=>med.medicId==this.patient?.mainMedic!.medicId));
+
+    }
+
+
+    //console.log(this.patient?.mainMedic!.qualification);
+
+
 
   getValue(){
     // let val = event.
@@ -118,6 +130,9 @@ export class PatientEditComponent implements OnInit {
      this.httpMedic.getMedicsByOrganization(orgId).subscribe(medics=>this.medics=medics);
     // this.medics = this.medics?.filter((medic)=>medic.organization?.organizationId===this.patient?.organization?.organizationId);
     this.medics = this.medics?.filter(medic=>medic.qualification==='Doctor of Medicine');
+
+
+
    }
 
 
@@ -132,6 +147,15 @@ export class PatientEditComponent implements OnInit {
       console.log(this.patient);
 
       this.httpPatient.updatePatient(this.patient).subscribe();
+  }
+
+  isInTheFuture(date: Date) {
+    const today = new Date();
+   let pipe = new DatePipe('en_US');
+    let changedFormat = pipe.transform(today, 'YYYY-MM-dd');
+
+
+    return this.editPatientForm.get('birthDate')?.value > changedFormat!;
   }
 
 }

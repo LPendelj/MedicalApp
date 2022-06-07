@@ -12,16 +12,16 @@
         <br>
         <select class="form-select" name="filterSelect" id="filterSelect" formControlName="filterSelect" >
           <option value="organization">Organization</option>
-          <option value="patient">Patient</option>
+          <option value="code">Exmination code</option>
           <option value="status">Status</option>
           <option value="priority">Priority</option>
-          <option value="serviceType">Service type</option>
+          <option value="serviceType" [disabled]="true">Service type</option>
         </select>
         <br>
         <input class="form-control" type="text" id="filter" name="filter" formControlName="filterText">
         <br>
         <button class="btn btn-primary btn-sm" (click)="filterExaminationsByFilter(filterExaminations.get('filterSelect')?.value)" >Search</button>
-        <button class="btn btn-secondary btn-sm">Reset</button>
+        <button class="btn btn-secondary btn-sm" (click)="loadTable()">Reset</button>
       </form>
       </div>
   </div>

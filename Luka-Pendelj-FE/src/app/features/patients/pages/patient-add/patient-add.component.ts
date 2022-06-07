@@ -73,7 +73,7 @@ export class PatientAddComponent implements OnInit, OnChanges {
     this.addPatientForm = new FormGroup({
       firstname: new FormControl('', [Validators.required, Validators.minLength(2)]),
       lastname: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      patientCode: new FormControl('', [Validators.minLength(3), Validators.maxLength(12)]),
+      patientCode: new FormControl('PAT-', [Validators.minLength(3), Validators.maxLength(12)]),
       gender: new FormControl(''),
       birthDate: new FormControl('', [Validators.required]),
       address: new FormControl(''),
@@ -134,14 +134,24 @@ export class PatientAddComponent implements OnInit, OnChanges {
 
     this.loadMedics(orgId);
 
+
   }
 
   loadMedics(orgId: number){
 
-    this.httpMedic.getMedicsByOrganization(orgId).subscribe(medics=>this.medics=medics);
-    this.medics = this.medics?.filter(medic=>medic.qualification==='Doctor of Medicine');
-    //this.medics = this.medics?.filter((medic, organization)=>medic.organization===this.organizationCheck?.organizationId)
+    this.httpMedic.getMedicsByOrganization(orgId).subscribe(medics=>
+      {this.medics=medics.filter(medic => medic.qualification=='Doctor of Medicine');
+      //this.addPatientForm.get('mainMedic')?.setValue(this.medics?.filter(medic => medic.qualification=='Doctor of Medicine'));
+
+
+    })
   }
+
+
+
+
+    //this.medics = this.medics?.filter((medic, organization)=>medic.organization===this.organizationCheck?.organizationId)
+
 
 
 
@@ -158,7 +168,7 @@ export class PatientAddComponent implements OnInit, OnChanges {
   }
 
 
- 
+
 }
 
 

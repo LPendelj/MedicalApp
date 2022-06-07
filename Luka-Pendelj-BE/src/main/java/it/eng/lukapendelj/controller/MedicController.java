@@ -137,7 +137,34 @@ public class MedicController {
 	
 	}
 	
+	
+	/////////////////////////////////// FILTER ////////////////
+	
+	@PostMapping("filter")
+	public ResponseEntity<Object> findByFilter(@RequestBody String[] values){
+		//List<PatientEntity> patientsList = patientService.findByOrganizationName(term);
+			System.out.println(values[0]+ " " + values[1]);
+			try {
+			List<MedicEntity> medicsList = null;
+			
+			switch(values[0]) {
+			case "organization":  medicsList = medicService.findByOrganizationName(values[1]);
+			break;
+			case "title": medicsList = medicService.findByQualification(values[1]);
+			break;
+			case "code": medicsList = medicService.findByMedicCode(values[1]);
+			break;
+			default:
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+				}
+			return ResponseEntity.status(HttpStatus.OK).body(medicsList);
+			} catch(Exception ex){
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+			}
+			
 
+	}
+	
 }
 
 

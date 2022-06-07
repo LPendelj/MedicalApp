@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -61,11 +62,7 @@ public class PatientServiceImpl implements PatientService {
 		return patientDao.findById(id);
 	}
 
-	@Override
-	public List<PatientEntity> findByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public PatientEntity update(PatientEntity patient) throws RuntimeException {
@@ -143,14 +140,16 @@ public class PatientServiceImpl implements PatientService {
 
 	
 	
-	///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////// FILTERING METHODS //////////////////////////////////////
 	
 	@Override
 	public List<PatientEntity> findByOrganizationName(String name) {
 			
+			//Pageable pageable = PageRequest.of(pageNo, pageSize);
+			
 			List<OrganizationEntity> listOrganization = helperService.getOrganizationDao().findByNameContaining(name);
 			
-			List<PatientEntity> patientList = new ArrayList<PatientEntity>();
+			List<PatientEntity> patientList = new ArrayList<>();
 			
 			System.out.println("listOrganization is " + listOrganization );
 			
@@ -159,10 +158,55 @@ public class PatientServiceImpl implements PatientService {
 				patientList.addAll(patientDao.findByOrganization(org));
 			}
 			
+			//Page<PatientEntity> pagePatients = new PageImpl<PatientEntity>(patientList);
+			
+			
 		
 			//System.out.println("From service " + patientList);
 		return patientList;
 	}
+	
+	@Override
+	public List<PatientEntity> findByGender(Character gender) {
+		// TODO Auto-generated method stub
+		//Pageable pageable = PageRequest.of(pageNo, pageSize);
+		
+		return patientDao.findByGenderContaining(gender);
+	}
+	
+	@Override
+	public List<PatientEntity> findByName(String name) {
+		// TODO Auto-generated method stub
+		//Pageable pageable = PageRequest.of(pageNo, pageSize);
+		//return patientDao.findByFirstnameContainingOrLastnameContaining(name);
+		return null;
+	}
+	
+
+	
+
+//	@Override
+//	public Page<PatientEntity> findByName() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
+	@Override
+	public Page<PatientEntity> findByMedicName(String string, int parseInt, int parseInt2) {
+		
+		
+		
+		return null;
+	}
+
+	@Override
+	public List<PatientEntity> findByPatientCode(String code) {
+		// TODO Auto-generated method stub
+		return patientDao.findByPatientCodeContaining(code);
+	}
+
+	
+	
 
 	
 

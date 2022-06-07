@@ -46,7 +46,10 @@ export class HttpOrganizationsService {
 
   ///////////////////////////////////////////////////////////
 
+  getOrganizationsByFilter(filter: string, term: string){
 
+    return this.httpOrganizations.post<Organization[]>(`http://localhost:8080/organizations/filter`, [filter, term]);
+  }
 
 }
 

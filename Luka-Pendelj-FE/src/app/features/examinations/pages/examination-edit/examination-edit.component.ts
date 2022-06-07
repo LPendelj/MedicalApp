@@ -111,9 +111,9 @@ export class ExaminationEditComponent implements OnInit {
 
   createFormGroup() {
     this.editExaminationForm = new FormGroup({
-      examinationCode: new FormControl(this.examination?.examinationCode),
+      examinationCode: new FormControl(this.examination?.examinationCode,[Validators.minLength(7), Validators.maxLength(12)]),
       status: new FormControl(this.examination?.status, Validators.required),
-      serviceType: new FormControl(this.serviceTypes[this.examination?.serviceType.serviceId -1]),
+      serviceType: new FormControl(this.serviceTypes[this.examination?.serviceType.serviceId -1], ),
       priority: new FormControl(this.examination?.priority),
       startDate: new FormControl(this.examination?.startDate, Validators.required),
       endDate: new FormControl(this.examination?.endDate, Validators.required),
@@ -147,6 +147,8 @@ export class ExaminationEditComponent implements OnInit {
 
   }
 
+ 
+
   loadMedics(){
     this.httpMedic.getMedicsByOrganization(this.examination!.organization!.organizationId).subscribe(medics=>this.medics=medics);
   }
@@ -163,8 +165,15 @@ export class ExaminationEditComponent implements OnInit {
     this.httpPatient.getPatientsByOrganization(orgId).subscribe(patients=>this.patients=patients);
   }
 
+  //Checking if end date is after the start date
+  isValidDate() {
+
+    console.log(this.editExaminationForm?.get('startDate')?.value );
+      console.log(this.editExaminationForm?.get('endDate')?.value );
 
 
+      return this.editExaminationForm?.get('endDate')?.value > this.editExaminationForm?.get('startDate')?.value;
+    }
 
 
 

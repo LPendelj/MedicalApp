@@ -76,14 +76,14 @@ export class ExaminationAddComponent implements OnInit {
 
   createFormGroup() {
     this.addExaminationForm = new FormGroup({
-      examinationCode: new FormControl('', [Validators.minLength(3), Validators.maxLength(12)]),
+      examinationCode: new FormControl('EXA-', [Validators.minLength(7), Validators.maxLength(12)]),
       status: new FormControl('', Validators.required),
       serviceType: new FormControl('', Validators.required),
       priority: new FormControl(''),
       startDate: new FormControl('' ),
       endDate: new FormControl(''),
       diagnosis: new FormControl(''),
-      organization: new FormControl(''),
+      organization: new FormControl('', Validators.required),
       patient: new FormControl(''),
       medicList: new FormControl('')
     });

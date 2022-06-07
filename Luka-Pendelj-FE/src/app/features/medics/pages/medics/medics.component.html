@@ -10,10 +10,10 @@
   <label for="filter">Filter by: </label>
   <br>
   <select name="filterSelect" class="form-select" id="filterSelect" formControlName="filterSelect" >
-    <option value="firstname">First name</option>
-    <option value="lastname">Last name</option>
+    <option value="name" [disabled]="true">Name</option>
     <option value="organization">Organization</option>
-    <option value="title">Title</option>
+    <option value="code">Practitioner code</option>
+    <option value="title" [disabled]="true">Title</option>
   </select>
   <br>
   <input class="form-control" type="text" id="filter" name="filter" formControlName="filterText">

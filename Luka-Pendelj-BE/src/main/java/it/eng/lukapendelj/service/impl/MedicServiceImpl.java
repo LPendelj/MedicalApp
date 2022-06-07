@@ -1,6 +1,7 @@
 package it.eng.lukapendelj.service.impl;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +15,7 @@ import it.eng.lukapendelj.dao.MedicDAO;
 import it.eng.lukapendelj.dao.OrganizationDAO;
 import it.eng.lukapendelj.entity.MedicEntity;
 import it.eng.lukapendelj.entity.OrganizationEntity;
+import it.eng.lukapendelj.entity.PatientEntity;
 import it.eng.lukapendelj.service.MedicService;
 import it.eng.lukapendelj.service.OrganizationService;
 import it.eng.lukapendelj.service.PatientService;
@@ -64,7 +66,7 @@ public class MedicServiceImpl implements MedicService {
 	@Override
 	public List<MedicEntity> findByName(String firstname, String lastname) {
 		// TODO Auto-generated method stub
-		return medicDao.findByFirstnameAndLastname(firstname, lastname);
+		return medicDao.findByFirstnameOrLastnameContaining(firstname, lastname);
 	}
 
 	@Override
@@ -122,6 +124,37 @@ public class MedicServiceImpl implements MedicService {
 		//System.out.println(medicDao.findByOrganization(organizationService.findById(id).get()));
 	
 		return medicDao.findByOrganization(helperService.getOrganizationDao().findById(id).get());
+	}
+
+	@Override
+	public List<MedicEntity> findByOrganizationName(String name) {
+		// TODO Auto-generated method stub
+		List<OrganizationEntity> listOrganization = helperService.getOrganizationDao().findByNameContaining(name);
+		
+		List<MedicEntity> medicList = new ArrayList<>();
+		
+		System.out.println("listOrganization is " + listOrganization );
+		
+		for(OrganizationEntity org: listOrganization) {
+			System.out.print(org.getOrganizationId() + ": ");
+			medicList.addAll(medicDao.findByOrganization(org));
+		}
+		
+		
+		
+		return medicList;
+	}
+
+	@Override
+	public List<MedicEntity> findByQualification(String qualification) {
+		// TODO Auto-generated method stub
+		return medicDao.findByQualification(qualification);
+	}
+
+	@Override
+	public List<MedicEntity> findByMedicCode(String code) {
+		// TODO Auto-generated method stub
+		return medicDao.findByMedicCodeContaining(code);
 	}
 
 	

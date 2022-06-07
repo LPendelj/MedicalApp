@@ -24,12 +24,17 @@ export class ExaminationsComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.loadExaminations();
+    //this.loadExaminations();
+    this.loadTable();
     this.createFormGroup();
   }
 
   onPageChange(pageNo: number){
-    this.loadExaminations();
+    this.loadTable();
+  }
+
+  loadTable(){
+    this.examinationsList = [];
   }
 
 
@@ -55,9 +60,13 @@ export class ExaminationsComponent implements OnInit {
 
   }
 
-  filterExaminationsByFilter(filter: any){
+  filterExaminationsByFilter(term: string){
 
-  }
+      const filter = this.filterExaminations?.get('filterText')?.value;
+
+      this.httpExamination.getExaminationsByFilter(term, filter).subscribe(exams => this.examinationsList=exams);
+   }
+
 
   examDetails(examination: Examination){
     this.router.navigate(['examinations/examination-details', examination.examinationId]);
@@ -73,6 +82,10 @@ export class ExaminationsComponent implements OnInit {
 
   editExamination(examination: Examination){
     this.router.navigate(['examinations/examination-edit', examination.examinationId]);
+  }
+
+  clearFilter(){
+    this.loadExaminations();
   }
 
 

@@ -60,8 +60,10 @@ export class OrganizationsComponent implements OnInit {
   }
 
 
-  filterOrganizationsByFilter(filter: any){
+  filterOrganizationsByFilter(term: string){
+    const filter = this.filterOrganizations?.get('filterText')?.value;
 
+    this.httpOrganization.getOrganizationsByFilter(term, filter).subscribe(orgs => this.organizationsList=orgs);
   }
 
   organizationDetails(org: Organization){
@@ -91,4 +93,7 @@ export class OrganizationsComponent implements OnInit {
     this.router.navigate(['organizations/organization-edit', organization.organizationId]);
   }
 
+  clearFilter(){
+    this.loadOrganizations();
+  }
 }

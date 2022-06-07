@@ -57,9 +57,13 @@ export class MedicsComponent implements OnInit {
     }
 
 
-    filterMedicsByFilter(filter: any){
+    filterMedicsByFilter(term: string){
 
-    }
+        const filter = this.filterMedics?.get('filterText')?.value;
+
+        this.httpMedic.getMedicsByFilter(term, filter).subscribe(meds => this.medicsList=meds);
+     }
+
 
 
 
@@ -82,7 +86,7 @@ export class MedicsComponent implements OnInit {
     this.router.navigate(['practitioners/practitioner-edit', medic.medicId]);
   }
 }
-function filterMedicsByFilter(filter: any, any: any) {
-  throw new Error('Function not implemented.');
-}
+// function filterMedicsByFilter(filter: any, any: any) {
+//   throw new Error('Function not implemented.');
+// }
 

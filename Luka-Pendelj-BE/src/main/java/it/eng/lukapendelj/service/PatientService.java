@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import it.eng.lukapendelj.entity.MedicEntity;
 import it.eng.lukapendelj.entity.OrganizationEntity;
@@ -22,9 +23,19 @@ public interface PatientService {
 	
 	List<PatientEntity> findByName(String name);
 	
+	//Page<PatientEntity> findByName(String name, Integer pageNo, Integer pageSize);
+	
+	//Page<PatientEntity> findByName(String name);
+	
 	List<PatientEntity> findByOrganization(Long id);
 	
+	//Page<PatientEntity> findByOrganizationName(String name, Integer pageNo, Integer pageSize);
+	
 	List<PatientEntity> findByOrganizationName(String name);
+	
+	//Page<PatientEntity> findByGender(Character gender, Pageable p);
+	
+	List<PatientEntity> findByGender(Character gender);
 	
 	PatientEntity update(PatientEntity patient) throws RuntimeException;
 
@@ -37,4 +48,8 @@ public interface PatientService {
 	void setOrganizationNull(OrganizationEntity organizationInactive);
 	
 	void setMedicNull(MedicEntity medicEntity);
+
+	Page<PatientEntity> findByMedicName(String string,  int parseInt, int parseInt2);
+
+	List<PatientEntity> findByPatientCode(String string);
 }

@@ -119,6 +119,32 @@ public class OrganizationController {
 		}
 	}
 	
+	///////////////////// FILTER REQUEST ////////////////
+	
+	@PostMapping("filter")
+	public ResponseEntity<Object> findByFilter(@RequestBody String[] values){
+		//List<PatientEntity> patientsList = patientService.findByOrganizationName(term);
+			System.out.println(values[0]+ " " + values[1]);
+			try {
+			List<OrganizationEntity> organizationsList = null;
+			
+			switch(values[0]) {
+			case "name":  organizationsList = organizationService.findByName(values[1]);
+			break;
+			case "address": organizationsList = organizationService.findByAddress(values[1]);
+			break;
+			case "code": organizationsList = organizationService.findByOrganizationCode(values[1]);
+			break;
+			default:
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+				}
+			return ResponseEntity.status(HttpStatus.OK).body(organizationsList);
+			} catch(Exception ex){
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+			}
+		
+		
+	}
 	
 
 }

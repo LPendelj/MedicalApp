@@ -1,5 +1,6 @@
 package it.eng.lukapendelj.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import it.eng.lukapendelj.dao.ExaminationDAO;
 import it.eng.lukapendelj.entity.ExaminationEntity;
 import it.eng.lukapendelj.entity.OrganizationEntity;
+import it.eng.lukapendelj.entity.PatientEntity;
 import it.eng.lukapendelj.service.ExaminationService;
 
 @Service
@@ -19,12 +21,14 @@ public class ExaminationServiceImpl implements ExaminationService {
 	
 	ExaminationDAO examinationDao;
 	
+	HelperServiceClass helperService;
 
 	
 	@Autowired
-	public ExaminationServiceImpl(ExaminationDAO examinationDao) {
+	public ExaminationServiceImpl(ExaminationDAO examinationDao, HelperServiceClass helperService) {
 		super();
 		this.examinationDao = examinationDao;
+		this.helperService = helperService;
 	}
 
 	@Override
@@ -98,6 +102,42 @@ public class ExaminationServiceImpl implements ExaminationService {
 		examinationList.forEach(exam -> examinationDao.delete(exam));
 // @formatter:on
 
+	}
+
+	@Override
+	public List<ExaminationEntity> findByOrganizationName(String name) {
+		// TODO Auto-generated method stub
+		List<OrganizationEntity> listOrganization = helperService.getOrganizationDao().findByNameContaining(name);
+		
+		List<ExaminationEntity> examinationList = new ArrayList<>();
+		
+		System.out.println("listOrganization is " + listOrganization );
+		
+		for(OrganizationEntity org: listOrganization) {
+			System.out.print(org.getOrganizationId() + ": ");
+			examinationList.addAll(examinationDao.findByOrganization(org));
+		}
+		
+		
+		return examinationList;
+	}
+
+	@Override
+	public List<ExaminationEntity> findByPriority(String priority) {
+		// TODO Auto-generated method stub
+		return examinationDao.findByPriorityContaining(priority);
+	}
+
+	@Override
+	public List<ExaminationEntity> findByStatus(String status) {
+		// TODO Auto-generated method stub
+		return examinationDao.findByStatusContaining(status);
+	}
+
+	@Override
+	public List<ExaminationEntity> findByExaminationCode(String code) {
+		// TODO Auto-generated method stub
+		return examinationDao.findByExaminationCodeContaining(code);
 	}
 
 	

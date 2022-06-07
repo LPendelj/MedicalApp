@@ -30,4 +30,8 @@ public interface MedicService {
 	void setOrganizationNull(OrganizationEntity organizationInactive);
 	
 	List<MedicEntity> findByOrganization(Long id);
+	
+	List<MedicEntity>  findByOrganizationName(String name);
+	List<MedicEntity>  findByQualification(String qualification);
+	List<MedicEntity>  findByMedicCode(String code);
 }

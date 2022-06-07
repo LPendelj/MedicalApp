@@ -35,4 +35,9 @@ export class HttpExaminationsService {
   }
 
   ///////////////////////////////////////////////////////////
+
+  getExaminationsByFilter(filter: string, term: string){
+
+    return this.httpExaminations.post<Examination[]>(`http://localhost:8080/examinations/filter`, [filter, term]);
+  }
 }

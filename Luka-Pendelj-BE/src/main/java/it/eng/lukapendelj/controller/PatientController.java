@@ -74,18 +74,7 @@ public class PatientController {
 			
 		}
 		
-		@GetMapping("name/{name}")
-		public ResponseEntity<Object> findByName(@PathVariable String name) {
-			Optional<PatientEntity> patientEntity = Optional.of(patientService.findByName(name).get(0));
-			
-			System.out.println("Pozvan findByName metod");
-
-			
-			if(patientEntity.isEmpty()) {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid patient name!");
-			} return ResponseEntity.status(HttpStatus.OK).body(patientEntity.get());
-			
-		}
+		
 		
 		@PostMapping("save")
 		public ResponseEntity<Object> save(@RequestBody PatientEntity patEntity) {
@@ -133,19 +122,31 @@ public class PatientController {
 			return ResponseEntity.status(HttpStatus.OK).body(patientsList);
 		}
 		
+		////////////////////////// FILTER //////////////////////////
+		
 		@PostMapping("filter")
 		public ResponseEntity<Object> findByFilter(@RequestBody String[] values){
 			//List<PatientEntity> patientsList = patientService.findByOrganizationName(term);
 				System.out.println(values[0]+ " " + values[1]);
-				
+				try {
 				List<PatientEntity> patientsList = null;
 				
 				switch(values[0]) {
 				case "organization":  patientsList = patientService.findByOrganizationName(values[1]);
 				break;
+				case "name": patientsList = patientService.findByName(values[1]);
+				break;
+				case "code": patientsList = patientService.findByPatientCode(values[1]);
+				break;
+				default:
+					return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+					}
+				return ResponseEntity.status(HttpStatus.OK).body(patientsList);
+				} catch(Exception ex){
+					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
 				}
 			
-			return ResponseEntity.status(HttpStatus.OK).body(patientsList);
+			
 		}
 	
 	

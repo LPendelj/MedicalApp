@@ -12,14 +12,14 @@
       <br>
       <select name="filterSelect" class="form-select" id="filterSelect" formControlName="filterSelect" >
         <option value="name">Name</option>
-        <option value="type">Organization type</option>
+        <option value="code">Organization code</option>
         <option value="address">Address</option>
       </select>
       <br>
       <input class="form-control" type="text" id="filter" name="filter" formControlName="filterText">
       <br>
       <button class="btn btn-primary btn-sm" (click)="filterOrganizationsByFilter(filterOrganizations.get('filterSelect')?.value)" >Search</button>
-      <button class="btn btn-secondary btn-sm" >Reset</button>
+      <button class="btn btn-secondary btn-sm" (click)="clearFilter()" >Reset</button>
     </form>
 </div>
 </aside>

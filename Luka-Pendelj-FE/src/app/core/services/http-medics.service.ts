@@ -46,4 +46,9 @@ export class HttpMedicsService {
     return this.httpMedics.get<Medic[]>(`http://localhost:8080/practitioners/organization/${organizationId}`);
   }
 
+  getMedicsByFilter(filter: string, term: string){
+
+    return this.httpMedics.post<Medic[]>(`http://localhost:8080/practitioners/filter`, [filter, term]);
+  }
+
 }

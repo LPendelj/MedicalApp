@@ -10,16 +10,15 @@
       <label for="filter">Filter by: </label>
       <br>
       <select class="form-select" name="filterSelect" id="filterSelect" formControlName="filterSelect" >
-        <option value="firstname">First name</option>
-        <option value="lastname">Last name</option>
-        <option value="organization">Company</option>
-        <option value="mainMedic">Main practitioner</option>
+        <option value="name">Name</option>
+        <option value="organization">Organization</option>
+        <option value="code">Code</option>
       </select>
       <br>
-      <input class="form-control" type="text" id="filter" name="filter" formControlName="filterText">
+      <input class="form-control" type="text" id="filter" name="filter" formControlName="filterText" [disabled]="filterPatients.get('filterSelect')?.value=='gender'">
       <br>
       <button class="btn btn-primary btn-sm" (click)="filterPatientsByFilter(filterPatients.get('filterSelect')?.value)" >Search</button>
-      <button class="btn btn-secondary btn-sm" >Reset</button>
+      <button class="btn btn-secondary btn-sm" (click)="clearFilter()" >Reset</button>
     </form>
 </div>
 
@@ -53,7 +52,8 @@
     </tbody>
   </table>
 
-  <ngb-pagination
+  <ngb-pagination name="pagination" id="pagination"
+  [hidden]="false"
   [(page)]="pageNo"
   [pageSize]="pageSize"
   [boundaryLinks]="true"

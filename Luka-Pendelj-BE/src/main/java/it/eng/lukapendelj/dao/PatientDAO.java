@@ -19,9 +19,20 @@ public interface PatientDAO extends JpaRepository<PatientEntity, Long> {
 	 
 	 List<PatientEntity> findByMainMedic(MedicEntity medicEntity);
 	 
-	 Page<PatientEntity> findByFirstnameContaining(String name, Pageable p);
-		
+	// List<PatientEntity> findByFirstnameContainingOrLastnameContaining(String name);
+	 
+	// Page<PatientEntity> findByFirstnameContainingOrLastnameContaining(String name, Pageable p);
+	
+	 //////////////////////////////
+	 
 	 Page<PatientEntity> findByOrganizationContaining(String name, Pageable p);
+	 
+	 List<PatientEntity> findByOrganizationContaining(String name);
+
+	 List<PatientEntity> findByGenderContaining(Character gender);
+
+	List<PatientEntity> findByPatientCodeContaining(String code);
 	
 
 }
+ 

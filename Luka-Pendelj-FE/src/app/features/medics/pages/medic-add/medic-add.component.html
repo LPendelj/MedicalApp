@@ -21,7 +21,7 @@
           <!-- VALIDATION(min5) -->
           <input type="text" name="code" formControlName="medicCode"/>
           <p class="alert alert-danger" *ngIf="addMedicForm.get('medicCode')?.hasError('minlength') || addMedicForm.get('medicCode')?.hasError('maxlength')
-          && addMedicForm.get('medicCode')?.touched">Please enter between 3 and 12 characters.</p>
+          && addMedicForm.get('medicCode')?.touched">Please enter between 3 and 12 characters after the code.</p>
         </div>
         <div class="form-group row">
           <label for="phone">Gender: <span>*</span></label>
@@ -72,7 +72,7 @@
           </select>
         </div>
         <br/>
-        <button class="btn btn-secondary btn-sm" type="submit" [disabled]="!addMedicForm.valid" (click)="createMedic()" (click)="resetForm()">Save</button>
+        <button class="btn btn-success btn-sm" type="submit" [disabled]="!addMedicForm.valid" (click)="createMedic()" (click)="resetForm()">Save</button>
 
          <!-- <div class="form-group row">
           <submit Spec="save" ngForm="MedicAdd">Submit</submit>
