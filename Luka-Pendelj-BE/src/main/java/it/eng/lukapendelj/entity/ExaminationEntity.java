@@ -35,6 +35,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import it.eng.lukapendelj.securityConfig.CustomDeserializer;
 
 //CHECK SQLDELETE!!!
 
@@ -68,8 +71,8 @@ public class ExaminationEntity {
 	@JoinTable(name = "EXAMINATION_MEDIC", joinColumns = { @JoinColumn(name = "examination_id") }, inverseJoinColumns = { @JoinColumn(name = "medic_id") },
 	uniqueConstraints =  @UniqueConstraint(columnNames = { "examination_id", "medic_id" }))
 	@JsonProperty("medicList")
-	@NotNull
-	private List<MedicEntity> medicList;
+	@JsonDeserialize(using = CustomDeserializer.class)
+	private List<MedicEntity> medicList = null;
 	
 	
 	@ManyToOne
@@ -77,7 +80,8 @@ public class ExaminationEntity {
 	private OrganizationEntity organization;
 	@ManyToOne
 	@JoinColumn(name = "patientId")
-	private PatientEntity patient;
+	@JsonDeserialize(using = CustomDeserializer.class)
+	private PatientEntity patient = null;
 	
 	
 	

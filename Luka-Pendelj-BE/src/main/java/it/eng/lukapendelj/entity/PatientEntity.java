@@ -23,9 +23,9 @@ import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.lang.Nullable;
 
+import it.eng.lukapendelj.securityConfig.CustomDeserializer;
 
-import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.annotation.Nulls;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @Entity
 @Table(name="Patient")
@@ -68,7 +68,7 @@ public class PatientEntity {
 	
 	@JoinColumn(name="medicId", nullable = true)
 	@ManyToOne
-	@Nullable
+	@JsonDeserialize(using = CustomDeserializer.class)
 	private MedicEntity mainMedic = null;
 	
 	@JoinColumn(name="organizationId")

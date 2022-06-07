@@ -118,16 +118,18 @@ export class ExaminationEditComponent implements OnInit {
       startDate: new FormControl(this.examination?.startDate, Validators.required),
       endDate: new FormControl(this.examination?.endDate, Validators.required),
       diagnosis: new FormControl(this.examination?.diagnosis),
-      organization: new FormControl(this.organizations.find(org=>org.organizationId==this.examination?.organization!.organizationId)),
-      patient: new FormControl(this.examination?.patient?.firstname + " " + this.examination?.patient?.lastname),
+      organization!: new FormControl( (this.examination!.organization) ? this.organizations.find(org=>org.organizationId==this.examination?.organization!.organizationId) : ''),
+      patient: new FormControl(this.examination?.patient?.firstname + ' ' + this.examination?.patient?.lastname),
       medicList: new FormControl(this.examination?.medicList)
     });
   }
 
   loadOrganizations(){
     this.httpOrganization.getAll().subscribe(org=>{
-        this.organizations=org });
-        console.log(this.organizations);
+        this.organizations=org;
+
+      });
+
 
   }
 
@@ -147,7 +149,7 @@ export class ExaminationEditComponent implements OnInit {
 
   }
 
- 
+
 
   loadMedics(){
     this.httpMedic.getMedicsByOrganization(this.examination!.organization!.organizationId).subscribe(medics=>this.medics=medics);
@@ -168,9 +170,6 @@ export class ExaminationEditComponent implements OnInit {
   //Checking if end date is after the start date
   isValidDate() {
 
-    console.log(this.editExaminationForm?.get('startDate')?.value );
-      console.log(this.editExaminationForm?.get('endDate')?.value );
-
 
       return this.editExaminationForm?.get('endDate')?.value > this.editExaminationForm?.get('startDate')?.value;
     }
@@ -181,7 +180,7 @@ export class ExaminationEditComponent implements OnInit {
       console.log("update Ex called.");
       this.examination = this.editExaminationForm?.getRawValue();
       this.examination.examinationId = Number(this.activeRoute.snapshot.paramMap.get('examinationId'));
-      console.log(this.examination);
+     // console.log(this.examination);
       this.httpExamination.updateExamination(this.examination).subscribe();
   }
 

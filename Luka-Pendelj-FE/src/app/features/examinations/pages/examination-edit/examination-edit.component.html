@@ -78,7 +78,7 @@
           <label for="patient">Select Patient: <span>*</span></label>
           <select class="form-select" name="patient" id="patient" formControlName="patient" >
             <!-- *ngFor list of Specs -->
-            <option *ngIf="!editExaminationForm.get('organization')?.touched" selected >{{this.examination?.patient?.firstname}} {{this.examination?.patient?.lastname}}</option>
+
             <option  *ngFor="let item of patients" [ngValue]="item">{{item.firstname}} {{item.lastname}}</option>
 
           </select>

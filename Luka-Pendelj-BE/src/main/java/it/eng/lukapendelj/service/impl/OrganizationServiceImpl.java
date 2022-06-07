@@ -123,6 +123,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 		
 		System.out.println("Pozvan deleteOrgById");
 		
+		System.out.println(helperService.getExaminationDao().findByOrganization(organizationDao.findById(id).get()).isEmpty());
+		
 		if(!helperService.getExaminationDao().findByOrganization(organizationDao.findById(id).get()).isEmpty()) {
 			
 			System.out.println("organizacija ima aktivne preglede!");

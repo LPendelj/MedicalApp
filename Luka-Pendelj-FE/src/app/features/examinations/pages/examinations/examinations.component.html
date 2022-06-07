@@ -12,7 +12,7 @@
         <br>
         <select class="form-select" name="filterSelect" id="filterSelect" formControlName="filterSelect" >
           <option value="organization">Organization</option>
-          <option value="code">Exmination code</option>
+          <option value="code">Examination code</option>
           <option value="status">Status</option>
           <option value="priority">Priority</option>
           <option value="serviceType" [disabled]="true">Service type</option>
@@ -53,13 +53,13 @@
     </tbody>
   </table>
 
-  <ngb-pagination
+  <!-- NOT YET INCLUDED IN SEARCH RESULTS <ngb-pagination
   [(page)]="pageNo"
   [pageSize]="pageSize"
   [boundaryLinks]="true"
   [collectionSize]="totalItems"
   (pageChange)="onPageChange(pageNo)"
   >
-  </ngb-pagination>
+  </ngb-pagination> -->
 
 </main>

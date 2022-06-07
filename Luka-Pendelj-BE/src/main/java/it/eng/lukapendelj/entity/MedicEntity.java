@@ -29,6 +29,8 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import it.eng.lukapendelj.securityConfig.CustomDeserializer;
+
 //Changed the name of this Entity from Practitioner to Medic for its clarity and length. UI Entity name will be as requested (Practitioner)
 
 
@@ -70,7 +72,7 @@ public class MedicEntity {
 	
 	@JoinColumn(name="organizationId")
 	@ManyToOne
-	@Nullable
+	@JsonDeserialize(using = CustomDeserializer.class)
 	private OrganizationEntity organization = null;
 	
 	
