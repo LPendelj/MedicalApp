@@ -1,9 +1,8 @@
 package it.eng.lukapendelj.entity;
 
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.Objects;
-import java.util.UUID;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,21 +10,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 //import org.hibernate.annotations.Check;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.lang.Nullable;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 
@@ -39,22 +37,31 @@ public class PatientEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long patientId;
+	
+	@Length(min = 5)
+	@Column(unique=true)
 	private String patientCode; 
 	
 	@NotNull
 	private Boolean active = true; //req
+	
 	@NotNull
 	private String firstname; //req
+	
 	@NotNull
 	private String lastname; //req
+	
 	@ManyToOne
 	@JoinColumn(name="genderCode")
 	private Gender gender;
+	
 	@NotNull
 	@Temporal(TemporalType.DATE) 
 	private Date birthDate; //req
 	private String address;
 	private String phone;
+	
+	@Email
 	private String email;
 	private Boolean deceased;
 	private String maritalStatus;
@@ -62,29 +69,40 @@ public class PatientEntity {
 	@JoinColumn(name="medicId", nullable = true)
 	@ManyToOne
 	@Nullable
-	private MedicEntity mainMedic;
+	private MedicEntity mainMedic = null;
 	
 	@JoinColumn(name="organizationId")
 	@ManyToOne
 	private OrganizationEntity organization;
 	
+
 	
-	////String uniqueID = "PAT-"+UUID.randomUUID().toString();
 	
 	
-//	  @PrePersist public void prePersist() throws SQLException {
-//	  System.out.println("prepersist called");
-//	  
-//	  if(mainMedic.getOrganization().getOrganizationId()!=this.organization.
-//	  getOrganizationId()) {
-//	  
-//	  throw new SQLException(); }
-//	  
-//	  }
-	 
 	
 	
 	public PatientEntity(){	}
+
+	public PatientEntity(Long patientId, @Length(min = 5) String patientCode, @NotNull Boolean active,
+			@NotNull String firstname, @NotNull String lastname, Gender gender, @NotNull Date birthDate, String address,
+			String phone, @Email String email, Boolean deceased, String maritalStatus, @Nullable MedicEntity mainMedic,
+			@Nullable OrganizationEntity organization) {
+		super();
+		this.patientId = patientId;
+		this.patientCode = patientCode;
+		this.active = active;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.gender = gender;
+		this.birthDate = birthDate;
+		this.address = address;
+		this.phone = phone;
+		this.email = email;
+		this.deceased = deceased;
+		this.maritalStatus = maritalStatus;
+		this.mainMedic = mainMedic;
+		this.organization = organization;
+	}
 
 	public Long getPatientId() {
 		return patientId;
@@ -113,7 +131,7 @@ public class PatientEntity {
 		return mainMedic;
 	}
 	
-	@JsonSetter(contentNulls = Nulls.AS_EMPTY )
+	//@JsonSetter(contentNulls = Nulls.AS_EMPTY )
 	public void setMainMedic(MedicEntity mainMedic) {
 		this.mainMedic = mainMedic;
 	}

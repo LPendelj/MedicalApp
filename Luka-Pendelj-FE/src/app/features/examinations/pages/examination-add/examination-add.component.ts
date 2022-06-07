@@ -1,7 +1,10 @@
-import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+
+import { HttpErrorResponse } from '@angular/common/http';
+import { error } from '@angular/compiler/src/util';
+import { Component, ErrorHandler, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { catchError } from 'rxjs/operators';
 import { Examination, Medic, Organization, Patient, ServiceType } from 'src/app/core/model/models';
 import { HttpExaminationsService } from 'src/app/core/services/http-examinations.service';
 import { HttpMedicsService } from 'src/app/core/services/http-medics.service';
@@ -110,11 +113,7 @@ export class ExaminationAddComponent implements OnInit {
   }
 
   isValidDate() {
-  //   const today = new Date();
-  //  let pipe = new DatePipe('en_US');
-  //   let changedFormat = pipe.transform(today, 'YYYY-MM-dd');
-  console.log(this.addExaminationForm?.get('startDate')?.value );
-    console.log(this.addExaminationForm?.get('endDate')?.value );
+
 
 
     return this.addExaminationForm?.get('endDate')?.value > this.addExaminationForm?.get('startDate')?.value;
@@ -123,31 +122,31 @@ export class ExaminationAddComponent implements OnInit {
   createExamination(){
       console.log("create Ex called.");
       this.examination = this.addExaminationForm?.getRawValue();
-      console.log(this.examination);
-      this.httpExamination.createExamination(this.examination).subscribe();
+     // console.log(this.examination);
+
+      console.log(this.examination.patient);
+
+      this.httpExamination.createExamination(this.examination).subscribe({
+      
+      });
+
+
+
+
   }
-}
+
+  }
 
 
-// "examinationCode": "EXA-24324",
-// "status": "ended",
-// "serviceType": {
-//     "serviceId": 2
-// },
-// "priority": "high",
-// "startDate": 1637485932000,
-// "endDate": 1637665932000,
-// "diagnosis": "Epilepsy",
-// "organization": {
-//     "organizationId": 1
-// },
-// "patient": {
-//     "patientId": 1
-//     }
-// },
-// "medic": [
-//     {
-//         "medicId": 1
-//     }
-// ]
+
+
+
+
+  //error?: HttpErrorResponse;
+
+
+
+
+
+
 

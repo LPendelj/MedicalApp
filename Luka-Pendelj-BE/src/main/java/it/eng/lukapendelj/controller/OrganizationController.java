@@ -1,6 +1,8 @@
 package it.eng.lukapendelj.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -9,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,14 +26,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.eng.lukapendelj.entity.OrganizationEntity;
-import it.eng.lukapendelj.entity.PatientEntity;
-//import it.eng.lukapendelj.service.OrganizationService;
+
+
 import it.eng.lukapendelj.service.impl.OrganizationServiceImpl;
-//import it.engineering.app.dto.CityDto;
 
 
 
-//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("organizations")
 public class OrganizationController {
@@ -94,13 +96,16 @@ public class OrganizationController {
 		System.out.println(orgEntity);
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(organizationService.save(orgEntity));
-		} catch (Exception ex) {
+		} catch (RuntimeException rex) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(rex.getMessage());
+		} 
+		catch (Exception ex) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
-		}
+		} 
 	}
 	
 	@PutMapping("{id}")
-	public @ResponseBody ResponseEntity<Object> update(@PathVariable Long id,  @RequestBody OrganizationEntity orgEntity) {
+	public @ResponseBody ResponseEntity<Object> update(@PathVariable @Valid Long id,  @RequestBody OrganizationEntity orgEntity) {
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(organizationService.update(orgEntity));
 		} catch (RuntimeException ex) {
@@ -109,7 +114,7 @@ public class OrganizationController {
 	}
 	
 	@DeleteMapping("delete/{id}")
-	public ResponseEntity<Object> delete(@PathVariable Long id){
+	public ResponseEntity<Object> delete(@PathVariable @Valid Long id){
 		try {
 			System.out.println("Pozvan delete metod");
 			organizationService.deleteById(id);
@@ -146,6 +151,17 @@ public class OrganizationController {
 		
 	}
 	
+	//////////////////////////// Exception Handler ////////////////////////
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public Map<String, String> handleValidationErrors(MethodArgumentNotValidException ex) {
+		Map<String, String> errors = new HashMap<>();
+		ex.getBindingResult().getAllErrors().forEach((error) -> {
+		String fieldName = ((FieldError) error).getField();
+		String errorMessage = error.getDefaultMessage();
+		errors.put(fieldName, errorMessage);
+		});
+		return errors;
+	}
 
 }
 

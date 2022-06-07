@@ -1,3 +1,4 @@
+<main class="container">
 <h2>Practitioner {{medic?.firstname}} {{medic?.lastname}}</h2>
 
 <div class="table">
@@ -12,11 +13,7 @@
       <tr><th>Gender</th> <td>{{medic?.gender?.genderName}}</td></tr>
       <tr><th>Actions</th> <td><button class="btn btn-primary" (click)="editMedic(medic)">Edit</button>
         <button class="btn btn-danger" (click)="deleteMedic(medic)">Delete</button></td></tr>
-      <!-- <tr><th>Patients</th> <td><button class="btn btn-primary">Patients</button></td></tr> -->
-       <tr><th>Examinations</th> <td>No.</td></tr>
-      <!-- <button class="btn btn-primary">Examinations</button> -->
 
-    <tr>
-    </tr>
   </table>
 </div>
+</main>

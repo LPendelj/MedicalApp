@@ -27,4 +27,6 @@ public interface OrganizationDAO extends JpaRepository<OrganizationEntity, Long>
 
 	List<OrganizationEntity> findByOrganizationCodeContaining(String code); //3
 
+	List<OrganizationEntity> findByOrganizationCode(String organizationCode);
+
 }

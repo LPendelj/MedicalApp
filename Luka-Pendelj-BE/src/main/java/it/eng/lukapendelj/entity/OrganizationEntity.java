@@ -6,6 +6,7 @@ package it.eng.lukapendelj.entity;
 import java.util.Objects;
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +19,7 @@ import javax.persistence.PreRemove;
 //import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.SQLDelete;
@@ -37,7 +39,8 @@ public class OrganizationEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long organizationId;
 	
-	//@Length(min = 5)
+	@Length(min = 5)
+	@Column(unique=true)
 	private String organizationCode;
 	@NotNull
 	private Boolean active = true; //req
@@ -52,6 +55,8 @@ public class OrganizationEntity {
 	private String name; //req
 	private String address;
 	private String phone;
+	
+	@Email
 	private String email;
 	
 	//private List<ExaminationEntity> examList; ??

@@ -1,5 +1,6 @@
 package it.eng.lukapendelj.service.impl;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 import it.eng.lukapendelj.dao.ExaminationDAO;
 import it.eng.lukapendelj.entity.ExaminationEntity;
 import it.eng.lukapendelj.entity.OrganizationEntity;
-import it.eng.lukapendelj.entity.PatientEntity;
 import it.eng.lukapendelj.service.ExaminationService;
 
 @Service
@@ -67,18 +67,36 @@ public class ExaminationServiceImpl implements ExaminationService {
 		Optional<ExaminationEntity> optExam = examinationDao.findById(examination.getExaminationId());
 		
 		if(optExam.isEmpty()) {
-			throw new RuntimeException();
+			throw new RuntimeException("Examination does not exist!");
 		}
 		
-		//CHECK THIS!
+//		if(!examinationDao.findByExaminationCode(examination.getExaminationCode()).isEmpty()) {
+//			throw new RuntimeException("Examination code is not unique!");
+//		}
+//		
+	
 		
 		return examinationDao.save(examination);
 	}
 
 	@Override
 	public ExaminationEntity save(ExaminationEntity examination) {
-		// TODO Auto-generated method stub
-		return examinationDao.save(examination);
+		
+		//System.out.println(examination);
+		System.out.println("Pozvan examination-service");
+		
+		if(!examinationDao.findByExaminationCode(examination.getExaminationCode()).isEmpty()) {
+			System.err.println("Code duplicated!");
+			System.out.println(examination.getExaminationCode());
+			throw new RuntimeException();
+		}
+		
+		ExaminationEntity optExam = examinationDao.save(examination);
+		//System.out.println(optExam);
+		return optExam;
+		
+
+		 
 	}
 
 	@Override
@@ -97,10 +115,10 @@ public class ExaminationServiceImpl implements ExaminationService {
 	public void deleteByOrganization(OrganizationEntity organizationEntity) {
 		List<ExaminationEntity> examinationList = examinationDao.findByOrganization(organizationEntity);
 		
-		System.out.println("Delete Examination by organization called!");
+		
 		
 		examinationList.forEach(exam -> examinationDao.delete(exam));
-// @formatter:on
+
 
 	}
 
@@ -110,8 +128,7 @@ public class ExaminationServiceImpl implements ExaminationService {
 		List<OrganizationEntity> listOrganization = helperService.getOrganizationDao().findByNameContaining(name);
 		
 		List<ExaminationEntity> examinationList = new ArrayList<>();
-		
-		System.out.println("listOrganization is " + listOrganization );
+	
 		
 		for(OrganizationEntity org: listOrganization) {
 			System.out.print(org.getOrganizationId() + ": ");
@@ -121,19 +138,28 @@ public class ExaminationServiceImpl implements ExaminationService {
 		
 		return examinationList;
 	}
-
+	
+	/**
+	 * Filter examination method
+	 */
 	@Override
 	public List<ExaminationEntity> findByPriority(String priority) {
 		// TODO Auto-generated method stub
 		return examinationDao.findByPriorityContaining(priority);
 	}
-
+	
+	/**
+	 * Filter examination method
+	 */
 	@Override
 	public List<ExaminationEntity> findByStatus(String status) {
 		// TODO Auto-generated method stub
 		return examinationDao.findByStatusContaining(status);
 	}
 
+	/**
+	 * Filter examination method
+	 */
 	@Override
 	public List<ExaminationEntity> findByExaminationCode(String code) {
 		// TODO Auto-generated method stub

@@ -35,7 +35,7 @@
           <th>Service type</th>
           <th>Priority</th>
           <th>Organization</th>
-          <th>Actions</th>
+          <th id="th_center">Actions</th>
         </thead>
     <tbody>
         <tr div *ngFor="let exam of examinationsList">
@@ -44,7 +44,7 @@
           <td>{{exam.serviceType?.serviceName}}</td>
           <td>{{exam.priority}}</td>
           <td>{{exam.organization?.name}}</td>
-          <td>
+          <td id="td_center">
             <button class="btn btn-primary" (click)="examDetails(exam)">Details</button>
             <button class="btn btn-secondary" (click)="editExamination(exam)">Edit</button>
             <button class="btn btn-danger" (click)="deleteExamination(exam.examinationId)">Delete</button>

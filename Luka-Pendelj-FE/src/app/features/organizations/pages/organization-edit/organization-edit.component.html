@@ -5,20 +5,20 @@
     <form  [formGroup]="editOrganizationForm">
         <div class="form-group row" >
           <label for="name">Name: <span>*</span></label>
-          <input class="form-control" type="text" name="name" formControlName="name"/>
+          <input class="form-control" class="form-control" type="text" name="name" formControlName="name"/>
           <p class="alert alert-danger" *ngIf="editOrganizationForm.get('name')?.hasError('required') || editOrganizationForm.get('name')?.hasError('minlength')
           && editOrganizationForm.get('name')?.touched">Name is required</p>
         </div>
 
         <div class="form-group row">
           <label for="code">Code:</label>
-          <input class="form-control" type="text" name="code" formControlName="organizationCode"/>
+          <input class="form-control" class="form-control" type="text" name="code" formControlName="organizationCode"/>
           <p class="alert alert-danger" *ngIf="editOrganizationForm.get('organizationCode')?.hasError('minlength') && editOrganizationForm.get('organizationCode')?.touched">Please enter between 3 and 12 characters after the code.</p>
         </div>
 
         <div class="form-group row">
           <label for="selectType">Select type: <span>*</span></label>
-          <select class="form-select" name="organizationType" id="organizationType" formControlName="organizationType" >
+          <select class="form-control" class="form-select" name="organizationType" id="organizationType" formControlName="organizationType" >
             <!-- *ngFor list of types -->
             <option  *ngFor="let item of organizationType" [ngValue]="item">{{item.name}}</option>
 
@@ -27,16 +27,16 @@
 
         <div class="form-group row">
           <label for="address">Address:</label>
-          <input class="form-control" type="text" name="address" formControlName="address"/>
+          <input class="form-control" class="form-control" type="text" name="address" formControlName="address"/>
         </div>
         <div class="form-group row">
           <label for="email">E-mail:</label>
-          <input class="form-control" type="text" formControlName="email" />
+          <input class="form-control" class="form-control" type="text" formControlName="email" />
           <p class="alert alert-danger" *ngIf="editOrganizationForm.get('email')?.hasError('email') && editOrganizationForm.get('email')?.touched">Please enter valid e-mail.</p>
         </div>
         <div class="form-group row">
           <label for="phone">Phone:</label>
-          <input class="form-control" type="text" name="phone" formControlName="phone"/>
+          <input  class="form-control"class="form-control" type="text" name="phone" formControlName="phone"/>
         </div>
         <br>
         <button class="btn btn-success btn-sm" type="submit" [disabled]="!editOrganizationForm.valid" (click)="editOrganization()">Save</button>
@@ -47,30 +47,8 @@
 
     </form>
   </div>
-<!-- <div style="width:40vw">
-    <h2>Organization {{organization?.name}}</h2> -->
 
-<!-- <div class="table">
-  <table class="table-responsive-lg">
-
-      <tr><th>Code</th> <td>{{organization?.organizationCode}}</td></tr>
-      <tr><th>Type</th> <td>{{organization?.organizationType?.name}}</td></tr>
-      <tr><th>Address</th>  <td>{{organization?.address}}</td></tr>
-      <tr><th>Phone</th> <td>{{organization?.phone}}</td></tr>
-      <tr><th>E-mail</th>  <td>{{organization?.email}}</td></tr>
-
-
-    <tr>
-    </tr>
-  </table>
-</div> -->
 
 </main>
 
-<!-- organizationCode?: string;
-  active: boolean;
-  organizationType: OrganizationType;
-  name: string;
-  address?: string;
-  phone?: string;
-  email?: string; -->
+

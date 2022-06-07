@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,9 +28,13 @@ import org.hibernate.annotations.Cascade;
 //import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.lang.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 
 //CHECK SQLDELETE!!!
 
@@ -43,7 +48,8 @@ public class ExaminationEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long examinationId;
 	
-	
+	@Length(min = 5)
+	@Column(unique=true)
 	private String examinationCode;
 	@NotNull
 	private String status = "planned";
@@ -56,17 +62,13 @@ public class ExaminationEntity {
 	private Date startDate;
 	private Date endDate;
 	private String diagnosis;
-	
-	// Another possible solution for creating ManyToMany relation?
-	//	@JoinTable(name = "STUDENT_COURSE", joinColumns = { @JoinColumn(name = "STUDENT_ID") }, inverseJoinColumns = { @JoinColumn(name = "COURSE_ID") })
 
 	
-	
-	//ADD Cascading! CHECK JsonProperty!
 	@ManyToMany
 	@JoinTable(name = "EXAMINATION_MEDIC", joinColumns = { @JoinColumn(name = "examination_id") }, inverseJoinColumns = { @JoinColumn(name = "medic_id") },
 	uniqueConstraints =  @UniqueConstraint(columnNames = { "examination_id", "medic_id" }))
 	@JsonProperty("medicList")
+	@NotNull
 	private List<MedicEntity> medicList;
 	
 	
@@ -79,42 +81,12 @@ public class ExaminationEntity {
 	
 	
 	
-	
-	
-	
-	//SHOULD be CHECKED!!!
-	
-//	@PrePersist
-//	public void checkOrg()  {
-////		System.out.println("prepersist called");
-////		
-////		System.out.println("organizacija ID: " + this.organization.getOrganizationId());
-////		System.out.println("pacijent org ID: " + this.patient.getOrganization().getOrganizationId());
-////		System.out.println("medic org id: " +  this.medicList.get(0).getOrganization().getOrganizationId());
-//		
-////		
-////		if(this.patient.getOrganization().getOrganizationId() != this.organization.getOrganizationId()){
-////			//Patient must have Examination in the same place where he is staying
-////			throw new Exception();
-////		}
-//		
-//		
-//		//System.out.println(this.med);
-//		
-//		/*
-//		 * if(this.name.equals("Bolnica3")) { throw new Exception(); }
-//		 */
-//	}
-//	
-////	@PostPersist
-////	public void checkMedics() {
-////		medicList.forEach(medic -> System.out.println("LekarID: " + medic.getOrganization().getOrganizationId()));
-////	}
+
 	
 	
 	public ExaminationEntity(Long examinationId, String examinationCode, @NotNull String status,
 			@NotNull ServiceTypeEntity serviceType, String priority, Date startDate, Date endDate, String diagnosis,
-			List<MedicEntity> medicList, OrganizationEntity organization, PatientEntity patient) {
+			@NotNull List<MedicEntity> medicList, OrganizationEntity organization, @NotNull PatientEntity patient) {
 		super();
 		this.examinationId = examinationId;
 		this.examinationCode = examinationCode;
@@ -190,7 +162,7 @@ public class ExaminationEntity {
 		return medicList;
 	}
 	
-	
+	//@JsonSetter(contentNulls = Nulls.AS_EMPTY )
 	public void setMedicList(List<MedicEntity> medicList) {
 		this.medicList = medicList;
 	}
@@ -208,6 +180,9 @@ public class ExaminationEntity {
 	public PatientEntity getPatient() {
 		return patient;
 	}
+	
+	//@JsonSetter(contentNulls = Nulls.AS_EMPTY )
+	
 	public void setPatient(PatientEntity patient) {
 		this.patient = patient;
 	}

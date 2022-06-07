@@ -33,6 +33,10 @@ public interface PatientDAO extends JpaRepository<PatientEntity, Long> {
 
 	List<PatientEntity> findByPatientCodeContaining(String code);
 	
+	//List<PatientEntity>  findByPatientCode(String code);
+
+	List<PatientEntity> findByPatientCode(String patientCode);
+	
 
 }
  

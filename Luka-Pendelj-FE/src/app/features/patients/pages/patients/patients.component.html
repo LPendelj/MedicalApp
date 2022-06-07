@@ -10,7 +10,7 @@
       <label for="filter">Filter by: </label>
       <br>
       <select class="form-select" name="filterSelect" id="filterSelect" formControlName="filterSelect" >
-        <option value="name">Name</option>
+        <option value="name" [disabled]="true">Name</option>
         <option value="organization">Organization</option>
         <option value="code">Code</option>
       </select>
@@ -34,7 +34,7 @@
           <th>Contact</th>
           <th>Organization</th>
           <th>Gender</th>
-          <th>Actions</th>
+          <th id="th_center">Actions</th>
         </thead>
     <tbody>
         <tr div *ngFor="let pat of patientsList">
@@ -43,7 +43,7 @@
           <td>{{pat.email}}</td>
           <td>{{pat.organization?.name}}</td>
           <td>{{pat.gender.genderName}}</td>
-          <td>
+          <td id="td_center">
             <button class="btn btn-primary" (click)="patientDetails(pat)">Details</button>
             <button class="btn btn-secondary" (click)="editPatient(pat)">Edit</button>
             <button class="btn btn-danger" (click)="deletePatient(pat)">Delete</button>

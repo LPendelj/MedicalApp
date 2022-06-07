@@ -13,7 +13,11 @@ import it.eng.lukapendelj.entity.MedicEntity;
 import it.eng.lukapendelj.entity.OrganizationEntity;
 import it.eng.lukapendelj.entity.PatientEntity;
 
-//Utility class made to avoid circular bean references
+/**Helper class made to avoid circular bean references
+ * 
+ * @author Acer
+ *
+ */
 
 @Service
 public class HelperServiceClass {
@@ -74,7 +78,11 @@ public class HelperServiceClass {
 		this.patientDao = patientDao;
 	}
 
-	
+	/**
+	 * Method which is used before Organization removal.
+	 * It serves to set all medics' references of concerned organization to null
+	 * @param organizationInactive
+	 */
 	public void setMedicOrganizationNull(OrganizationEntity organizationInactive) {
 		List<MedicEntity> medicList = medicDao.findByOrganization(organizationInactive);
 		
@@ -89,7 +97,11 @@ public class HelperServiceClass {
 		
 	}
 	
-	
+	/**Method which is used before Organization removal.
+	 * It serves to set all patients' references of concerned organization to null
+	 * 
+	 * @param organizationInactive
+	 */
 	public void setPatientOrganizationNull(OrganizationEntity organizationInactive) {
 		List<PatientEntity> patientList = patientDao.findByOrganization(organizationInactive);
 		
@@ -102,7 +114,11 @@ public class HelperServiceClass {
 		
 	}
 
-	
+	/**
+	 * Method which is used before Medic removal
+	 * It sets all patients references of concerned medics to null
+	 * @param medicInactive
+	 */
 	public void setPatientMedicNull(MedicEntity medicInactive) {
 		List<PatientEntity> patientList = patientDao.findByMainMedic(medicInactive);
 		patientList.forEach(patient -> {

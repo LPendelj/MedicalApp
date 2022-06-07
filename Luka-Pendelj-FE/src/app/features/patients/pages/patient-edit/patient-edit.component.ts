@@ -83,7 +83,7 @@ export class PatientEditComponent implements OnInit {
       deceased: new FormControl(this.patient?.deceased),
       maritalStatus: new FormControl(this.patient?.maritalStatus),
       organization: new FormControl(this.organizations.find(org=>org.organizationId==this.patient?.organization!.organizationId)),
-      mainMedic: new FormControl(this.medics.find(med=>med.medicId==this.patient?.mainMedic!.medicId))
+      mainMedic!: new FormControl( (this.patient?.mainMedic!) ? this.medics?.find(med=>med.medicId==this.patient?.mainMedic!.medicId) : '' )
     });
   }
 
@@ -100,7 +100,7 @@ export class PatientEditComponent implements OnInit {
 
      this.medics = this.medics.filter(med => med.organization?.organizationId == this.patient?.mainMedic?.organization?.organizationId
          && med.qualification=='Doctor of Medicine' );
-      this.createPatientForm();
+         this.createPatientForm();
         })
 
 
@@ -116,7 +116,7 @@ export class PatientEditComponent implements OnInit {
   getValue(){
     // let val = event.
 
-     console.log(this.editPatientForm.get('organization')?.value.organizationId);
+     //console.log(this.editPatientForm.get('organization')?.value.organizationId);
 
      const orgId= this.editPatientForm.get('organization')?.value.organizationId;
 

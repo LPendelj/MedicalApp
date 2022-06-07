@@ -73,7 +73,10 @@ public class PatientServiceImpl implements PatientService {
 		if(!patEntity.isEmpty()) {
 			return patientDao.save(patient);
 		}
-		
+//		if(!patientDao.findByPatientCode(patient.getPatientCode()).isEmpty()) {
+//			throw new RuntimeException("Patient Code is not unique!");
+//		}
+//		
 		throw new RuntimeException("Medic does not exist:" + patient.getPatientCode());
 		
 		
@@ -83,6 +86,11 @@ public class PatientServiceImpl implements PatientService {
 
 	@Override
 	public PatientEntity save(PatientEntity patient) {
+		
+		if(!patientDao.findByPatientCode(patient.getPatientCode()).isEmpty()) {
+			throw new RuntimeException("Patient Code is not unique!");
+		}
+		
 		// TODO Auto-generated method stub
 		return patientDao.save(patient);
 	}

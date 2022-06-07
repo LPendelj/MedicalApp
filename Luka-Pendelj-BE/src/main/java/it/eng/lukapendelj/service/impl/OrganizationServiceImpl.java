@@ -88,6 +88,10 @@ public class OrganizationServiceImpl implements OrganizationService {
 			throw new RuntimeException("Organization does not exist:" + organization.getOrganizationCode());
 		}
 		
+//		if(!organizationDao.findByOrganizationCode(organization.getOrganizationCode()).isEmpty()) {
+//			throw new RuntimeException("Organization Code is not unique!");
+//		}
+		
 		OrganizationEntity organizationUpdated = organizationDao.save(organization);
 		
 		return organizationUpdated;
@@ -96,6 +100,14 @@ public class OrganizationServiceImpl implements OrganizationService {
 	@Override
 	public OrganizationEntity save(OrganizationEntity organization) {
 		System.out.println("Pozvan service orgSave ");
+		
+		if(!organizationDao.findByOrganizationCode(organization.getOrganizationCode()).isEmpty()) {
+			throw new RuntimeException("Organization Code is not unique!");
+		}
+		
+		
+		
+		
 		return organizationDao.save(organization);
 	}
 	
@@ -165,11 +177,6 @@ public class OrganizationServiceImpl implements OrganizationService {
 
 
 	
-//	Optional<CityEntity> entity = cityDao.findById(cityDto.getZipCode());
-//	if (!entity.isPresent()) {
-//		throw new RuntimeException("City does not exist:" + cityDto.getZipCode());
-//	}
-//	CityEntity c = cityDao.save(cityMapper.toEntity(cityDto));
-//	return cityMapper.toDto(c);
+
 
 }

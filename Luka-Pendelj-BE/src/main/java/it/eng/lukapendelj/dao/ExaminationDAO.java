@@ -1,6 +1,7 @@
 package it.eng.lukapendelj.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -20,6 +21,7 @@ public interface ExaminationDAO extends JpaRepository<ExaminationEntity, Long> {
 	List<ExaminationEntity> findExaminationByPatient(Long id);
 	
 	//CHECK method names!!!
+	Optional<ExaminationEntity> findByExaminationCode(String code);
 	
 	List<ExaminationEntity> findByOrganization(OrganizationEntity organizationEntity);
 	
@@ -27,7 +29,7 @@ public interface ExaminationDAO extends JpaRepository<ExaminationEntity, Long> {
 	
 	//List<ExaminationEntity> findByMedic(Long id);
 	
-	//--------------------------IF I HAVE TIME
+
 	
 	List<ExaminationEntity> findByDiagnosis(String diagnosis);
 	

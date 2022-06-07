@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Objects;
 //import java.util.UUID;
 
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,13 +17,17 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.lang.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 //Changed the name of this Entity from Practitioner to Medic for its clarity and length. UI Entity name will be as requested (Practitioner)
 
@@ -39,6 +43,9 @@ public class MedicEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long medicId;
+	
+	@Length(min = 5)
+	@Column(unique=true)
 	private String medicCode;
 	@NotNull
 	private Boolean active = true; //req
@@ -55,13 +62,16 @@ public class MedicEntity {
 	private Date birthDate; //req
 	private String address;
 	private String phone;
+	
+	@Email
 	private String email;
 	@NotNull
 	private String qualification; //req
 	
 	@JoinColumn(name="organizationId")
 	@ManyToOne
-	private OrganizationEntity organization;
+	@Nullable
+	private OrganizationEntity organization = null;
 	
 	
 	
@@ -85,11 +95,11 @@ public class MedicEntity {
 		
 	}
 	
-	public Nulls setNull() {
-		this.organization = null;
-		return null;
-	}
-	
+//	public Nulls setNull() {
+//		this.organization = null;
+//		return null;
+//	}
+//	
 	
 	public Long getMedicId() {
 		return medicId;
@@ -136,7 +146,7 @@ public class MedicEntity {
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
-	@JsonSetter(contentNulls = Nulls.AS_EMPTY )
+	
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
@@ -144,7 +154,7 @@ public class MedicEntity {
 		return lastname;
 	}
 	
-	@JsonSetter(contentNulls = Nulls.AS_EMPTY )
+	
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}

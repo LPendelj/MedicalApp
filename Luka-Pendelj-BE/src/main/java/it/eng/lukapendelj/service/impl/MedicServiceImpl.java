@@ -74,8 +74,11 @@ public class MedicServiceImpl implements MedicService {
 		
 		Optional<MedicEntity> medicEntity = medicDao.findById(medic.getMedicId());
 		if(!medicEntity.isPresent()) {
-			throw new RuntimeException("Medic does not exist:" + medic.getMedicCode());
-		}
+			throw new RuntimeException("Practitioner does not exist:" + medic.getMedicCode());
+		} 
+//		if(!medicDao.findByMedicCode(medic.getMedicCode()).isEmpty()) {
+//			throw new RuntimeException("Practitioner Code is not unique!");
+//		}
 		
 		MedicEntity medicUpdated = medicDao.save(medic);
 		
@@ -84,6 +87,11 @@ public class MedicServiceImpl implements MedicService {
 
 	@Override
 	public MedicEntity save(MedicEntity medic) {
+		
+		if(!medicDao.findByMedicCode(medic.getMedicCode()).isEmpty()) {
+			throw new RuntimeException("Medic Code is not unique!");
+		}
+		
 		// TODO Auto-generated method stub
 		return medicDao.save(medic);
 	}

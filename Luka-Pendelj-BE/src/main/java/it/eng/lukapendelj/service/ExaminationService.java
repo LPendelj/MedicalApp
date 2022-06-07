@@ -1,5 +1,6 @@
 package it.eng.lukapendelj.service;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,7 @@ public interface ExaminationService {
 	
 	ExaminationEntity update(ExaminationEntity examination) throws RuntimeException;
 
-	ExaminationEntity save(ExaminationEntity examination);
+	ExaminationEntity save(ExaminationEntity examination) throws RuntimeException;
 
 	void deleteById(Long id); // throws InvalidEntityException
 	
