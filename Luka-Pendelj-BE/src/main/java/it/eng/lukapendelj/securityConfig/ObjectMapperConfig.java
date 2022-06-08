@@ -13,7 +13,7 @@ public class ObjectMapperConfig {
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer() {
         return builder -> builder.postConfigurer(objectMapper -> {
-            objectMapper.coercionConfigFor(LogicalType.Enum)
+            objectMapper.coercionConfigFor(LogicalType.Array)
                     .setCoercion(CoercionInputShape.EmptyString, CoercionAction.AsNull);
         });
     }

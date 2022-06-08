@@ -74,13 +74,17 @@ public class MedicServiceImpl implements MedicService {
 		
 		Optional<MedicEntity> medicEntity = medicDao.findById(medic.getMedicId());
 		if(!medicEntity.isPresent()) {
+			
 			throw new RuntimeException("Practitioner does not exist:" + medic.getMedicCode());
 		} 
 //		if(!medicDao.findByMedicCode(medic.getMedicCode()).isEmpty()) {
 //			throw new RuntimeException("Practitioner Code is not unique!");
 //		}
+		System.out.println("updated");
 		
 		MedicEntity medicUpdated = medicDao.save(medic);
+		
+		System.out.println(medicUpdated);
 		
 		return medicUpdated;
 	}

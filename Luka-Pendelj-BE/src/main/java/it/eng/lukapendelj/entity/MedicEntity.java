@@ -72,8 +72,7 @@ public class MedicEntity {
 	
 	@JoinColumn(name="organizationId")
 	@ManyToOne
-	@JsonDeserialize(using = CustomDeserializer.class)
-	private OrganizationEntity organization = null;
+	private OrganizationEntity organization;
 	
 	
 	

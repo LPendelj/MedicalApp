@@ -31,7 +31,7 @@
           <th>Type</th>
           <th>Contact</th>
           <th>Address</th>
-          <th id="td_center">Actions</th>
+          <th id="th_center">Actions</th>
         </thead>
     <tbody>
         <tr div *ngFor="let org of organizationsList">
@@ -39,7 +39,7 @@
           <td>{{org.organizationType?.name}}</td>
           <td>{{org.email}}</td>
           <td>{{org.address}}</td>
-          <td>
+          <td id="td_center">
             <button class="btn btn-primary" (click)="organizationDetails(org)">Details</button>
             <button class="btn btn-secondary" (click)="editOrganization(org)" >Edit</button>
             <button class="btn btn-danger" (click)="deleteOrganization(org.organizationId)">Delete</button>

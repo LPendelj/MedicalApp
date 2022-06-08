@@ -70,7 +70,7 @@ export class MedicEditComponent implements OnInit {
       address: new FormControl(this.medic.address),
       email: new FormControl(this.medic.email, Validators.email),
       phone: new FormControl(this.medic.phone),
-      organization: new FormControl(this.organizations?.find(org=>org.organizationId==this.medic?.organization!.organizationId))
+      organization: new FormControl( (this.medic.organization) ? this.organizations?.find(org=>org.organizationId==this.medic?.organization!.organizationId) : '')
     });
     let pipe = new DatePipe('en_US');
     let changedFormat = pipe.transform(this.medic.birthDate, 'YYYY-MM-dd');

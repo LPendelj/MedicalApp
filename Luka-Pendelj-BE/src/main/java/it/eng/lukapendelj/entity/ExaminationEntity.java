@@ -39,12 +39,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import it.eng.lukapendelj.securityConfig.CustomDeserializer;
 
-//CHECK SQLDELETE!!!
 
 @Entity
 @Table(name="Examination")
 @Where(clause = "status!='entered-in-error'")
-@SQLDelete(sql = "UPDATE Examination SET status = 'entered-in-error' WHERE examination_id=?") //TO CHECK!!!
+@SQLDelete(sql = "UPDATE Examination SET status = 'entered-in-error' WHERE examination_id=?") 
 public class ExaminationEntity {
 	
 	@Id
@@ -71,8 +70,7 @@ public class ExaminationEntity {
 	@JoinTable(name = "EXAMINATION_MEDIC", joinColumns = { @JoinColumn(name = "examination_id") }, inverseJoinColumns = { @JoinColumn(name = "medic_id") },
 	uniqueConstraints =  @UniqueConstraint(columnNames = { "examination_id", "medic_id" }))
 	@JsonProperty("medicList")
-	@JsonDeserialize(using = CustomDeserializer.class)
-	private List<MedicEntity> medicList = null;
+	private List<MedicEntity> medicList;
 	
 	
 	@ManyToOne
@@ -80,8 +78,7 @@ public class ExaminationEntity {
 	private OrganizationEntity organization;
 	@ManyToOne
 	@JoinColumn(name = "patientId")
-	@JsonDeserialize(using = CustomDeserializer.class)
-	private PatientEntity patient = null;
+	private PatientEntity patient;
 	
 	
 	
@@ -89,8 +86,8 @@ public class ExaminationEntity {
 	
 	
 	public ExaminationEntity(Long examinationId, String examinationCode, @NotNull String status,
-			@NotNull ServiceTypeEntity serviceType, String priority, Date startDate, Date endDate, String diagnosis,
-			@NotNull List<MedicEntity> medicList, OrganizationEntity organization, @NotNull PatientEntity patient) {
+			 ServiceTypeEntity serviceType, String priority, Date startDate, Date endDate, String diagnosis,
+			 List<MedicEntity> medicList, OrganizationEntity organization, @NotNull PatientEntity patient) {
 		super();
 		this.examinationId = examinationId;
 		this.examinationCode = examinationCode;
