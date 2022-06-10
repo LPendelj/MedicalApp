@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Gender, Medic, Organization } from 'src/app/core/model/models';
+import { HttpGendersService } from 'src/app/core/services/http-genders.service';
 import { HttpMedicsService } from 'src/app/core/services/http-medics.service';
 import { HttpOrganizationsService } from 'src/app/core/services/http-organizations.service';
 
@@ -33,17 +34,13 @@ export class MedicEditComponent implements OnInit {
     'Emergency Medical Technician'
   ];
 
-  gender?: Gender[] = [
-        {genderCode: 'm', genderName: 'male'},
-        {genderCode: 'f', genderName: 'female'},
-        {genderCode: 'o', genderName: 'other'},
-        {genderCode: 'u', genderName: 'unknown'}
-         ];
+  gender?: Gender[] = [];
 
 
 
   constructor(private httpMedic: HttpMedicsService,
             private httpOrganization: HttpOrganizationsService,
+            private httpGenders: HttpGendersService,
             private router: Router,
             private activeRoute: ActivatedRoute) { }
 
@@ -51,12 +48,16 @@ export class MedicEditComponent implements OnInit {
   ngOnInit(): void {
       this.loadOrganizations();
       this.loadMedic();
-
+      this.loadGenderList();
 
       console.log(this.editMedicForm?.get('qualification'));
 
 
   }
+
+  loadGenderList(){
+    this.httpGenders.getAll().subscribe(genders => this.gender = genders);
+  };
 
 
   createFormGroup() {

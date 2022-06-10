@@ -7,6 +7,7 @@ import { HttpExaminationsService } from 'src/app/core/services/http-examinations
 import { HttpMedicsService } from 'src/app/core/services/http-medics.service';
 import { HttpOrganizationsService } from 'src/app/core/services/http-organizations.service';
 import { HttpPatientsService } from 'src/app/core/services/http-patients.service';
+import { HttpServiceTypeService } from 'src/app/core/services/http-service-type.service';
 
 @Component({
   selector: 'app-examination-edit',
@@ -28,26 +29,7 @@ export class ExaminationEditComponent implements OnInit {
 
   status?: string[] = ['planned', 'triaged', 'in-progress', 'suspended', 'finished', 'cancelled', 'entered-in-error'];
 
-  serviceTypes: ServiceType[] = [
-    {serviceId: 1, serviceName:'Aged Residential Care'},
-    {serviceId: 2, serviceName:'Acupuncture'},
-    {serviceId: 3, serviceName:'Bowen Therapy'},
-    {serviceId: 4, serviceName:'Blood Donation'},
-    {serviceId: 5, serviceName:'Immunization'},
-    {serviceId: 6, serviceName:'Physiotherapy'},
-    {serviceId: 7, serviceName:'Dental'},
-    {serviceId: 8, serviceName:'Emergency Medical'},
-    {serviceId: 9, serviceName:'Psychology'},
-    {serviceId: 10, serviceName:'Dermatology'},
-    {serviceId: 11, serviceName:'Home Care/Housekeeping Assistance'},
-    {serviceId: 12, serviceName:'Family Planning'},
-    {serviceId: 13, serviceName:'Optometry'},
-    {serviceId: 14, serviceName:'Osteopathy'},
-    {serviceId: 15, serviceName:'Podiatry'},
-    {serviceId: 16, serviceName:'Endodontic'},
-    {serviceId: 17, serviceName:'Oral Surgery'},
-    {serviceId: 18, serviceName:'Osteopathy'},
-    ];
+  serviceTypes: ServiceType[] = [];
 
 
 
@@ -58,6 +40,7 @@ export class ExaminationEditComponent implements OnInit {
     private httpMedic: HttpMedicsService,
     private httpOrganization: HttpOrganizationsService,
     private httpExamination: HttpExaminationsService,
+    private httpServiceTypeService: HttpServiceTypeService,
     private router: Router,
     private activeRoute: ActivatedRoute
   ) { }
@@ -68,22 +51,14 @@ export class ExaminationEditComponent implements OnInit {
   ngOnInit(): void {
     const examId=Number(this.activeRoute.snapshot.paramMap.get('examinationId'));
 
+
+
+
     this.loadOrganizations();
 
-
+    this.loadHttpTypeService();
 
     this.loadExamination(examId);
-
-
-
-
-  //   setTimeout(() =>
-  // {
-  //   console.log(this.examination!.organization);
-  // },
-  // 3000);
-
-
 
 
   }
@@ -102,10 +77,6 @@ export class ExaminationEditComponent implements OnInit {
       this.getInitialValues();
       }
     );
-
-    //console.log(this.examination);
-
-    //this.editExaminationForm?.get('patient')?.setValue(this.examination.patient);
 
   }
 
@@ -132,6 +103,11 @@ export class ExaminationEditComponent implements OnInit {
 
 
   }
+
+  loadHttpTypeService(){
+    return this.httpServiceTypeService.getAll().subscribe(serviceTypes => this.serviceTypes = serviceTypes);
+  }
+
 
   getInitialValues(){
     this.loadPatients();
@@ -169,8 +145,6 @@ export class ExaminationEditComponent implements OnInit {
 
   //Checking if end date is after the start date
   isValidDate() {
-
-
       return this.editExaminationForm?.get('endDate')?.value > this.editExaminationForm?.get('startDate')?.value;
     }
 

@@ -6,6 +6,7 @@ import { HttpMedicsService } from 'src/app/core/services/http-medics.service';
 import { HttpOrganizationsService } from 'src/app/core/services/http-organizations.service';
 import { HttpPatientsService } from 'src/app/core/services/http-patients.service';
 import { DatePipe } from '@angular/common';
+import { HttpGendersService } from 'src/app/core/services/http-genders.service';
 
 
 @Component({
@@ -25,12 +26,7 @@ export class PatientAddComponent implements OnInit, OnChanges {
 
   medics?: Medic[];
 
-  gender?: Gender[] = [
-    {genderCode: 'm', genderName: 'male'},
-    {genderCode: 'f', genderName: 'female'},
-    {genderCode: 'o', genderName: 'other'},
-    {genderCode: 'u', genderName: 'unknown'}
-     ];
+  gender?: Gender[] = [];
 
   maritalStatus?: string[] = [
     'Annulled',
@@ -45,6 +41,7 @@ export class PatientAddComponent implements OnInit, OnChanges {
   constructor(private httpPatient: HttpPatientsService,
               private httpMedic: HttpMedicsService,
               private httpOrganization: HttpOrganizationsService,
+              private httpGenders: HttpGendersService,
               private router: Router) { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -56,6 +53,8 @@ export class PatientAddComponent implements OnInit, OnChanges {
   // }
 
   ngOnInit(): void {
+    this.loadGenders();
+
     this.loadOrganizations();
 
     this.createPatientForm();
@@ -97,6 +96,10 @@ export class PatientAddComponent implements OnInit, OnChanges {
 
 
   // }
+
+  loadGenders(){
+    this.httpGenders.getAll().subscribe(genders => this.gender = genders);
+  }
 
   isInTheFuture(date: Date) {
     const today = new Date();

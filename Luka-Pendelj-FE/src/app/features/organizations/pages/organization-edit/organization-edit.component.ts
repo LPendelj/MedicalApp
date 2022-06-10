@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Organization, OrganizationType } from 'src/app/core/model/models';
+import { HttpOrganizationTypesService } from 'src/app/core/services/http-organization-types.service';
 import { HttpOrganizationsService } from 'src/app/core/services/http-organizations.service';
 
 @Component({
@@ -15,37 +16,19 @@ export class OrganizationEditComponent implements OnInit {
 
   organization!: Organization;
 
-  organizationType: OrganizationType[] = [
-    {
-      id: 1,
-      name: 'Hospital',
-    },
-    {
-      id: 2,
-      name: 'Insurance Company',
-    },
-    {
-      id: 3,
-      name: 'Educational Institute',
-    },
-    {
-      id: 4,
-      name: 'Clinical Research',
-    },
-    {
-      id: 5,
-      name: 'Other',
-    },
-  ];
+  organizationType: OrganizationType[] = [];
 
 
   constructor(
     private httpOrganization: HttpOrganizationsService,
+    private httpOrganizationsTypesService: HttpOrganizationTypesService,
     private router: Router,
     private activeRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+
+    this.loadOrganizationTypes();
 
     this.loadOrganization();
 
@@ -53,6 +36,10 @@ export class OrganizationEditComponent implements OnInit {
 
   }
 
+
+  loadOrganizationTypes(){
+    this.httpOrganizationsTypesService.getAll().subscribe(orgType => this.organizationType = orgType);
+  }
 
 
   loadOrganization(){

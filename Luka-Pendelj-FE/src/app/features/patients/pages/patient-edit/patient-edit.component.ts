@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Gender, Medic, Organization, Patient } from 'src/app/core/model/models';
+import { HttpGendersService } from 'src/app/core/services/http-genders.service';
 import { HttpMedicsService } from 'src/app/core/services/http-medics.service';
 import { HttpOrganizationsService } from 'src/app/core/services/http-organizations.service';
 import { HttpPatientsService } from 'src/app/core/services/http-patients.service';
@@ -24,12 +25,7 @@ export class PatientEditComponent implements OnInit {
 
   medics!: Medic[];
 
-  gender: Gender[] = [
-    {genderCode: 'm', genderName: 'male'},
-    {genderCode: 'f', genderName: 'female'},
-    {genderCode: 'o', genderName: 'other'},
-    {genderCode: 'u', genderName: 'unknown'}
-     ];
+  gender: Gender[] = [];
 
   maritalStatus?: string[] = [
     'Annulled',
@@ -44,10 +40,12 @@ export class PatientEditComponent implements OnInit {
   constructor(private httpPatient: HttpPatientsService,
               private httpMedic: HttpMedicsService,
               private httpOrganization: HttpOrganizationsService,
+              private httpGenders: HttpGendersService,
               private router: Router,
               private activeRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.loadGenders();
 
     this.loadOrganizations();
 
@@ -103,14 +101,12 @@ export class PatientEditComponent implements OnInit {
          this.createPatientForm();
         })
 
-
-      //console.log(this.medics?.find(med=>med.medicId==this.patient?.mainMedic!.medicId));
-
     }
 
 
-    //console.log(this.patient?.mainMedic!.qualification);
-
+    loadGenders(){
+      this.httpGenders.getAll().subscribe(genders => this.gender = genders);
+    }
 
 
   getValue(){

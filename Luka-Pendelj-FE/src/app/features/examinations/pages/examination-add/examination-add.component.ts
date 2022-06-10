@@ -10,6 +10,7 @@ import { HttpExaminationsService } from 'src/app/core/services/http-examinations
 import { HttpMedicsService } from 'src/app/core/services/http-medics.service';
 import { HttpOrganizationsService } from 'src/app/core/services/http-organizations.service';
 import { HttpPatientsService } from 'src/app/core/services/http-patients.service';
+import { HttpServiceTypeService } from 'src/app/core/services/http-service-type.service';
 
 @Component({
   selector: 'app-examination-add',
@@ -30,26 +31,7 @@ export class ExaminationAddComponent implements OnInit {
 
   status?: string[] = ['planned', 'triaged', 'in-progress', 'suspended', 'finished', 'cancelled', 'entered-in-error'];
 
-  serviceTypes?: ServiceType[] = [
-    {serviceId: 1, serviceName:'Aged Residential Care'},
-    {serviceId: 2, serviceName:'Acupuncture'},
-    {serviceId: 3, serviceName:'Bowen Therapy'},
-    {serviceId: 4, serviceName:'Blood Donation'},
-    {serviceId: 5, serviceName:'Immunization'},
-    {serviceId: 6, serviceName:'Physiotherapy'},
-    {serviceId: 7, serviceName:'Dental'},
-    {serviceId: 8, serviceName:'Emergency Medical'},
-    {serviceId: 9, serviceName:'Psychology'},
-    {serviceId: 10, serviceName:'Dermatology'},
-    {serviceId: 11, serviceName:'Home Care/Housekeeping Assistance'},
-    {serviceId: 12, serviceName:'Family Planning'},
-    {serviceId: 13, serviceName:'Optometry'},
-    {serviceId: 14, serviceName:'Osteopathy'},
-    {serviceId: 15, serviceName:'Podiatry'},
-    {serviceId: 16, serviceName:'Endodontic'},
-    {serviceId: 17, serviceName:'Oral Surgery'},
-    {serviceId: 18, serviceName:'Osteopathy'},
-    ];
+  serviceTypes?: ServiceType[] = [];
 
 
 
@@ -60,6 +42,7 @@ export class ExaminationAddComponent implements OnInit {
     private httpMedic: HttpMedicsService,
     private httpOrganization: HttpOrganizationsService,
     private httpExamination: HttpExaminationsService,
+    private httpServiceTypeService: HttpServiceTypeService,
     private router: Router
   ) { }
 
@@ -67,6 +50,7 @@ export class ExaminationAddComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.loadHttpTypeService();
 
     //this.loadMedics();
     this.loadOrganizations();
@@ -76,6 +60,8 @@ export class ExaminationAddComponent implements OnInit {
 
 
   }
+
+
 
   createFormGroup() {
     this.addExaminationForm = new FormGroup({
@@ -90,6 +76,11 @@ export class ExaminationAddComponent implements OnInit {
       patient: new FormControl(''),
       medicList: new FormControl('')
     });
+  }
+
+
+ loadHttpTypeService(){
+    return this.httpServiceTypeService.getAll().subscribe(serviceTypes => this.serviceTypes = serviceTypes);
   }
 
   getValue(){
@@ -127,7 +118,7 @@ export class ExaminationAddComponent implements OnInit {
       console.log(this.examination.patient);
 
       this.httpExamination.createExamination(this.examination).subscribe({
-      
+
       });
 
 
