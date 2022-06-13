@@ -65,7 +65,11 @@ export class PatientsComponent implements OnInit {
     this.router.navigate(['patients/patient-edit', pat.patientId]);
   }
 
+  pageSizeChange(event: any){
+      this.pageSize = event.target.value;
 
+      console.log(this.pageSize);
+  }
 
   onPageChange(page: number){
       this.loadPatients();

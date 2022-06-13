@@ -11,7 +11,7 @@ import { HttpExaminationsService } from 'src/app/core/services/http-examinations
 })
 export class ExaminationsComponent implements OnInit {
 
-  examinationsList?: Examination[];
+  examinationsList!: Examination[];
 
   filterExaminations?: FormGroup;
 
@@ -45,7 +45,11 @@ export class ExaminationsComponent implements OnInit {
     });
   }
 
+  pageSizeChange(event: any){
+    this.pageSize = event.target.value;
 
+    console.log(this.pageSize);
+}
 
   loadExaminations(){
     //this.httpExamination.getAll().subscribe(examinations => this.examinationsList = examinations);

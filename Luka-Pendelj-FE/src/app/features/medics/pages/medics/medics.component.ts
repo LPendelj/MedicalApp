@@ -44,6 +44,12 @@ export class MedicsComponent implements OnInit {
     });
   }
 
+  pageSizeChange(event: any){
+      this.pageSize = event.target.value;
+
+      console.log(this.pageSize);
+  }
+
   //httpS | method: list | subscribe()  (arrowF with userDefined varname for return value of getAll method)
   loadMedics(){
     //this.httpMedic.getAll().subscribe(medics =>this.medicsList = medics);

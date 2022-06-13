@@ -4,6 +4,14 @@
   <!-- routerLink="add" -->
   <button class="btn btn-primary btn-sm" routerLink="./../practitioner-add">Add new</button>
 </div>
+<div>
+  <label for="pageSize">Select page size:&nbsp;</label>
+  <select name="pageSize" (change)="pageSizeChange($event)" class="form-select-sm" id="">
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+  </select>
+</div>
 <br>
 <div *ngIf="filterMedics">
 <form action="" [formGroup]="filterMedics">

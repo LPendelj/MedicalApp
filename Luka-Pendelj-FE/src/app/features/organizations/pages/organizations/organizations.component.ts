@@ -60,6 +60,14 @@ export class OrganizationsComponent implements OnInit {
   }
 
 
+  pageSizeChange(event: any){
+    this.pageSize = event.target.value;
+
+    console.log(this.pageSize);
+
+    this.loadOrganizations();
+}
+
   filterOrganizationsByFilter(term: string){
     const filter = this.filterOrganizations?.get('filterText')?.value;
 

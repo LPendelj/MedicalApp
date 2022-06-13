@@ -3,6 +3,14 @@
   <div>
   <!-- routerLink="add" -->
    <button class="btn btn-primary btn-sm" routerLink="./../patient-add">Add new</button>
+   <div>
+    <label for="pageSize">Select page size:&nbsp;</label>
+    <select name="pageSize" (change)="pageSizeChange($event)" class="form-select-sm" id="">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+    </select>
+  </div>
   </div>
   <br>
   <div *ngIf="filterPatients">
@@ -21,7 +29,9 @@
       <button class="btn btn-secondary btn-sm" (click)="clearFilter()" >Reset</button>
     </form>
 </div>
+<div>
 
+</div>
 </aside>
 
 

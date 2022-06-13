@@ -4,6 +4,14 @@
     <div>
     <!-- routerLink="add" -->
     <button class="btn btn-primary btn-sm" routerLink="./../examination-add">Add new</button>
+    <div>
+      <label for="pageSize">Select page size:&nbsp;</label>
+      <select name="pageSize" (change)="pageSizeChange($event)" class="form-select-sm" id="">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+      </select>
+    </div>
     </div>
     <br>
     <div *ngIf="filterExaminations">
@@ -24,6 +32,7 @@
         <button class="btn btn-secondary btn-sm" (click)="loadTable()">Reset</button>
       </form>
       </div>
+
   </div>
 </aside>
 <main class="main">
@@ -53,13 +62,13 @@
     </tbody>
   </table>
 
-  <!-- NOT YET INCLUDED IN SEARCH RESULTS <ngb-pagination
+ <ngb-pagination *ngIf="examinationsList.length>0"
   [(page)]="pageNo"
   [pageSize]="pageSize"
   [boundaryLinks]="true"
   [collectionSize]="totalItems"
   (pageChange)="onPageChange(pageNo)"
   >
-  </ngb-pagination> -->
+  </ngb-pagination>
 
 </main>
