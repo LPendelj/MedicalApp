@@ -1,0 +1,27 @@
+h4{
+  background-color: rgb(34, 136, 34);
+}
+
+
+
+label span{
+  color: red;
+}
+
+.container{
+  display: flex;
+
+  justify-content: center;
+}
+
+
+body{
+  background-color: rgb(248,249,250);
+}
+
+@media only screen and (max-width: 600px){
+  #mainForm{
+    width: 100vw;
+  }
+}
+

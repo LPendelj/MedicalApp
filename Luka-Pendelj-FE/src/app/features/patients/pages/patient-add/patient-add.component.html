@@ -1,0 +1,116 @@
+<h4>Add Patient</h4>
+<body>
+<main class="container">
+  <div id="mainForm" *ngIf="addPatientForm">
+    <!-- [formGroup]="form"] -->
+    <form class="form-group" [formGroup]="addPatientForm">
+        <div class="form-group row" >
+          <label for="firstname">First name: <span>*</span></label>
+          <input class="form-control" type="text" name="firstname" formControlName="firstname"  required/>
+        <div class="validation">
+          <p class="alert alert-danger" *ngIf="firstName?.hasError('required') && firstName?.touched">First name is required</p>
+          <p class="alert alert-danger" *ngIf="firstName?.hasError('minlength')">Please enter valid first name</p>
+       </div>
+        </div>
+
+        <div class="form-group row" >
+          <label for="lastname">Last name: <span>*</span></label>
+          <input class="form-control" type="text" name="lastname" formControlName="lastname" required/>
+          <p class="alert alert-danger" *ngIf="lastName?.hasError('required') && lastName?.touched">Last name is required</p>
+        <p class="alert alert-danger" *ngIf="lastName?.hasError('minlength')">Please enter valid last name</p>
+        </div>
+        <div class="form-group row">
+          <label for="code">Code:</label>
+          <!-- VALIDATION(min5) -->
+          <input class="form-control" type="text" name="code" formControlName="patientCode"/>
+          <p class="alert alert-danger" *ngIf="patientCode?.hasError('minlength') || patientCode?.hasError('maxlength')
+          && patientCode?.touched">Please enter between 3 and 12 characters.</p>
+
+        </div>
+        <div class="form-group row">
+          <label for="gender">Gender:</label>
+          <select class="form-select" name="gender" id="gender" formControlName="gender" >
+            <!-- *ngFor list of Specs -->
+            <option  *ngFor="let item of gender" [ngValue]="item">{{item.genderName}}</option>
+
+          </select>
+        </div>
+        <div class="form-group row">
+          <label for="birthDate">Select date of birth: <span>*</span></label>
+          <input class="form-control" type="date" name="birthDate" formControlName="birthDate" >
+          <p class="alert alert-danger" *ngIf="birthDate?.hasError('required') && birthDate?.touched">Birth date is required</p>
+          <p class="alert alert-danger" *ngIf="isInTheFuture(birthDate?.value)  && birthDate?.touched">Please enter valid birth date</p>
+        </div>
+
+        <!-- ‘Doctor’, ‘’, ‘’, ‘’,  -->
+        <!-- <div class="form-group row">
+          <label for="qualification">Select Spec: <span>*</span></label>
+          <select name="qualification" id="qualification" formControlName="qualification" >
+            *ngFor list of Specs
+            <option  *ngFor="let item of maritalStatus" [ngValue]="item">{{item}}</option>
+
+          </select>
+        </div> -->
+
+        <div class="form-group row">
+          <label for="address">Address:</label>
+          <input class="form-control" type="text" name="address" formControlName="address"/>
+        </div>
+        <div class="form-group row">
+          <label for="email">E-mail:</label>
+          <input class="form-control" type="text" formControlName="email"  />
+          <p class="alert alert-danger" *ngIf="email?.hasError('email') && email?.touched">E-mail is invalid</p>
+        </div>
+        <div class="form-group row">
+          <label for="phone">Phone:</label>
+          <input class="form-control" type="text" name="phone" formControlName="phone"/>
+        </div>
+        <div class="form-group row">
+          <label for="deceased">Deceased?</label>
+
+          <select class="form-select" name="deceased" formControlName="deceased" >
+            <!-- *ngFor list of Specs -->
+            <option  value="true">Yes</option>
+            <option  value="false">No</option>
+
+          </select>
+
+        </div>
+
+        <div class="form-group row">
+          <label for="maritalStatus">Marital status:</label>
+          <select class="form-select" name="maritalStatus" formControlName="maritalStatus" >
+            <!-- *ngFor list of Specs -->
+            <option  *ngFor="let item of maritalStatus" [ngValue]="item">{{item}}</option>
+
+          </select>
+        </div>
+
+        <div class="form-group row">
+          <label for="organization">Organization:</label>
+          <select class="form-select" name="organization" #org formControlName="organization"  (change)="getValue()">
+            <!-- *ngFor list of Specs -->
+            <option  *ngFor="let item of organizations"  [ngValue]="item" >{{item.name}}</option>
+
+          </select>
+        </div>
+
+        <div class="form-group row">
+          <label for="mainMedic">Main practitioner:</label>
+          <select class="form-select" name="mainMedic" formControlName="mainMedic" >
+            <!-- *ngFor list of Specs -->
+            <option  *ngFor="let item of medics" [ngValue]="item">{{item.firstname}} {{item.lastname}}</option>
+
+          </select>
+        </div>
+        <br/>
+        <button class="btn btn-success btn-sm" [disabled]="!addPatientForm.valid"  type="submit" (click)="createPatient()" (click)="resetForm()">Save</button>
+
+         <!-- <div class="form-group row">
+          <submit Spec="save" ngForm="MedicAdd">Submit</submit>
+        </div> -->
+
+    </form>
+  </div>
+</main>
+</body>

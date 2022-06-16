@@ -1,0 +1,66 @@
+<h4>Add Organization</h4>
+<body>
+
+
+<main class="container">
+  <div id="mainForm" *ngIf="addOrganizationForm">
+    <!-- [formGroup]="form"] -->
+    <form  [formGroup]="addOrganizationForm">
+        <div class="form-group row" >
+          <label for="name">Name: <span>*</span></label>
+          <input class="form-control" type="text" name="name" formControlName="name"/>
+          <p class="alert alert-danger" *ngIf="addOrganizationForm.get('name')?.hasError('required') && addOrganizationForm.get('name')?.hasError('minlength')
+         && addOrganizationForm.get('name')?.touched">Name is required</p>
+        </div>
+        <div class="form-group row">
+          <label for="code">Code:</label>
+          <!-- VALIDATION(min5) -->
+          <input class="form-control" type="text" name="code" formControlName="organizationCode"/>
+          <p class="alert alert-danger" *ngIf="addOrganizationForm.get('organizationCode')?.hasError('minlength') && addOrganizationForm.get('organizationCode')?.touched">Please enter between 3 and 12 characters after the code.</p>
+        </div>
+
+        <!-- ‘Hospital’, ‘’, ‘’, ‘’,  -->
+        <div class="form-group row">
+          <label for="selectType">Select type: <span>*</span></label>
+          <select class="form-select" name="organizationType" id="organizationType" formControlName="organizationType" >
+            <!-- *ngFor list of types -->
+            <option  *ngFor="let item of organizationType" [ngValue]="item">{{item.name}}</option>
+
+          </select>
+          <p class="alert alert-danger" *ngIf="addOrganizationForm.get('organizationType')?.hasError('required') && addOrganizationForm.get('organizationType')?.touched">Type is required</p>
+        </div>
+
+        <div class="form-group row">
+          <label for="address">Address:</label>
+          <input class="form-control" type="text" name="address" formControlName="address"/>
+        </div>
+        <div class="form-group row">
+          <label for="email">E-mail:</label>
+          <input class="form-control" type="text" formControlName="email" />
+          <p class="alert alert-danger" *ngIf="addOrganizationForm.get('email')?.hasError('email') && addOrganizationForm.get('email')?.touched">Please enter valid e-mail.</p>
+        </div>
+        <div class="form-group row">
+          <label for="phone">Phone:</label>
+          <input class="form-control" type="text" name="phone" formControlName="phone"/>
+        </div>
+        <br/>
+        <div>
+        <button class="btn btn-success btn-sm" type="submit" [disabled]="!addOrganizationForm.valid"
+         (click)="createOrganization()" (click)="this.addOrganizationForm.reset()" >Save</button>
+        </div>
+         <!-- <div class="form-group row">
+          <submit type="save" ngForm="OrganizationAdd">Submit</submit>
+        </div> -->
+
+    </form>
+  </div>
+</main>
+
+</body>
+<!-- organizationCode?: string;
+  active: boolean;
+  organizationType: OrganizationType;
+  name: string;
+  address?: string;
+  phone?: string;
+  email?: string; -->

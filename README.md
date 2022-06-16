@@ -1,10 +1,23 @@
 **Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
 
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
-
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
-
 ---
+## Medical Engineering App
+
+Application name: Medical Engineering
+Author: Luka Pendelj
+
+Video presentation location: Video presentation/LukaPendelj-video presentation
+(Sorry for the bad sound)
+
+Description: Modern Single Page Application for Medical Professionals. It is possible to manage large amount of data about companies,
+practitioners, patients and examinations. Users are able to manipulate data and check info aboout all the entities.
+
+Tech stack: Java, Spring Boot, MySQL, Angular
+
+Missing functionalities:
+ 1. multiple filters,
+ 2. sorting,
+ 3. change no. of results per page.
 
 ## Edit a file
 
@@ -43,3 +56,7 @@ Use these steps to clone from SourceTree, our client for using the repository co
 4. Open the directory you just created to see your repository’s files.
 
 Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+
+
+
+

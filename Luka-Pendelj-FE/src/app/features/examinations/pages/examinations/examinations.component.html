@@ -1,0 +1,74 @@
+<div class="headline"><h4>EXAMINATIONS</h4></div>
+<aside class="sidenav">
+  <div>
+    <div>
+    <!-- routerLink="add" -->
+    <button class="btn btn-primary btn-sm" routerLink="./../examination-add">Add new</button>
+    <div>
+      <label for="pageSize">Select page size:&nbsp;</label>
+      <select name="pageSize" (change)="pageSizeChange($event)" class="form-select-sm" id="">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+      </select>
+    </div>
+    </div>
+    <br>
+    <div *ngIf="filterExaminations">
+      <form action="" [formGroup]="filterExaminations">
+        <label for="filter">Filter by: </label>
+        <br>
+        <select class="form-select" name="filterSelect" id="filterSelect" formControlName="filterSelect" >
+          <option value="organization">Organization</option>
+          <option value="code">Examination code</option>
+          <option value="status">Status</option>
+          <option value="priority">Priority</option>
+          <option value="serviceType" [disabled]="true">Service type</option>
+        </select>
+        <br>
+        <input class="form-control" type="text" id="filter" name="filter" formControlName="filterText">
+        <br>
+        <button class="btn btn-primary btn-sm" (click)="filterExaminationsByFilter(filterExaminations.get('filterSelect')?.value)" >Search</button>
+        <button class="btn btn-secondary btn-sm" (click)="loadTable()">Reset</button>
+      </form>
+      </div>
+
+  </div>
+</aside>
+<main class="main">
+
+  <table class="table">
+        <thead class="thead-dark">
+          <th>Code</th>
+          <th>Status</th>
+          <th>Service type</th>
+          <th>Priority</th>
+          <th>Organization</th>
+          <th id="th_center">Actions</th>
+        </thead>
+    <tbody>
+        <tr div *ngFor="let exam of examinationsList">
+          <td>{{exam.examinationCode}}</td>
+          <td>{{exam.status}}</td>
+          <td>{{exam.serviceType?.serviceName}}</td>
+          <td>{{exam.priority}}</td>
+          <td>{{exam.organization?.name}}</td>
+          <td id="td_center">
+            <button class="btn btn-primary" (click)="examDetails(exam)">Details</button>
+            <button class="btn btn-secondary" (click)="editExamination(exam)">Edit</button>
+            <button class="btn btn-danger" (click)="deleteExamination(exam.examinationId)">Delete</button>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+ <ngb-pagination *ngIf="examinationsList.length>0"
+  [(page)]="pageNo"
+  [pageSize]="pageSize"
+  [boundaryLinks]="true"
+  [collectionSize]="totalItems"
+  (pageChange)="onPageChange(pageNo)"
+  >
+  </ngb-pagination>
+
+</main>

@@ -1,0 +1,69 @@
+<div class="headline"><h4>ORGANIZATIONS</h4></div>
+
+<aside class="sidenav">
+  <div>
+    <!-- routerLink="add" -->
+    <button class="btn btn-primary btn-sm" routerLink="./../organization-add">Add new</button>
+  </div>
+  <div>
+    <label for="pageSize">Select page size:&nbsp;</label>
+    <select name="pageSize" (change)="pageSizeChange($event)" class="form-select-sm" id="">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+    </select>
+  </div>
+  <br>
+  <div *ngIf="filterOrganizations">
+    <form action="" [formGroup]="filterOrganizations">
+      <label for="filter">Filter by: </label>
+      <br>
+      <select name="filterSelect" class="form-select" id="filterSelect" formControlName="filterSelect" >
+        <option value="name">Name</option>
+        <option value="code">Organization code</option>
+        <option value="address">Address</option>
+      </select>
+      <br>
+      <input class="form-control" type="text" id="filter" name="filter" formControlName="filterText">
+      <br>
+      <button class="btn btn-primary btn-sm" (click)="filterOrganizationsByFilter(filterOrganizations.get('filterSelect')?.value)" >Search</button>
+      <button class="btn btn-secondary btn-sm" (click)="clearFilter()" >Reset</button>
+    </form>
+</div>
+
+</aside>
+<main>
+
+  <table class="table">
+        <thead class="thead-dark">
+          <th>Name</th>
+          <th>Type</th>
+          <th>Contact</th>
+          <th>Address</th>
+          <th id="th_center">Actions</th>
+        </thead>
+    <tbody>
+        <tr div *ngFor="let org of organizationsList">
+          <td>{{org.name}}</td>
+          <td>{{org.organizationType?.name}}</td>
+          <td>{{org.email}}</td>
+          <td>{{org.address}}</td>
+          <td id="td_center">
+            <button class="btn btn-primary" (click)="organizationDetails(org)">Details</button>
+            <button class="btn btn-secondary" (click)="editOrganization(org)" >Edit</button>
+            <button class="btn btn-danger" (click)="deleteOrganization(org.organizationId)">Delete</button>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <ngb-pagination
+  [(page)]="pageNo"
+  [pageSize]="pageSize"
+  [boundaryLinks]="true"
+  [collectionSize]="totalItems"
+  (pageChange)="onPageChange(pageNo)"
+  >
+  </ngb-pagination>
+
+</main>
